@@ -1,0 +1,46 @@
+#login-page {
+  html, body {width:100%; height:100%; padding:0; margin:0;}
+  html {overflow:hidden;}
+
+  body {
+    background-color: #DADADA;
+    background: image-url('login-background.jpg') fixed;
+    background-repeat:no-repeat;
+    background-position:center center;
+    background-attachment:fixed;
+    -o-background-size: 100% 100%, auto;
+    -moz-background-size: 100% 100%, auto;
+    -webkit-background-size: 100% 100%, auto;
+    background-size: 100% 100%, auto;
+  }
+
+  .grid {
+    height: 100%;
+  }
+
+  .column {
+    max-width: 450px;
+  }
+
+
+  .form-holder {
+    background: rgba(255,255,255,0.2);
+    margin-top: 10%;
+    border-radius: 3px;
+  }
+
+  .form-head {
+      font-size: 30px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff !important;
+      text-shadow: 0 0 30px #000;
+      margin: 15px auto 30px auto;
+    }
+
+  .login-links {
+    label, a {
+      color: #ddd;
+    }
+  }
+}
