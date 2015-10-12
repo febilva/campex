@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :course_types
   resources :departments
   
   devise_for :users, path: ""
