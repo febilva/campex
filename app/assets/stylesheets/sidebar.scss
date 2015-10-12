@@ -1,0 +1,67 @@
+body
+{
+    font-family: 'Raleway', sans-serif;
+}
+
+.page-content
+{
+    padding: 50px 50px;
+}
+
+.container
+{
+    padding:0px 50px;
+}
+header
+{
+    border-bottom:1px solid #999999;
+}
+.logo img
+{
+    width:35%;
+}
+.logo i
+{
+    font-size:20px;
+    background:#1B1C1D;
+    color:#fff;
+    padding:5px;
+    width: 2em !important;
+    height: 2em !important;
+    margin: 15px 20px 0px -52px !important;
+  position:fixed;
+}
+.ui.search .prompt {
+    border-radius: 0rem;
+    width:75%;
+    margin-top:10px;
+}
+.ui.icon.input>.icon
+{
+    width: 12.85em;
+}
+
+.campex-body
+{
+    background:rgba(169, 166, 166, 0.36);
+    height:auto   ; 
+}
+.ui.inverted.menu .item>a:not(.ui) {
+    font-family: 'Raleway', sans-serif;
+    font-size:12px;
+}
+.ui.inverted.menu .item>a:hover {
+    color:#99cc33;
+}
+.ui.inverted.menu .item .item>a:not(.ui) {
+    color: #CCCCCC;
+    width:100%;
+}
+.ui.inverted.menu .item .item
+{
+    background:#333333;
+}
+.ui.inverted.menu .item i
+{
+    float:right;
+}
