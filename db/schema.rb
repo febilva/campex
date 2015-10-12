@@ -11,10 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012052745) do
+ActiveRecord::Schema.define(version: 20151012063206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "batches", force: :cascade do |t|
+    t.integer  "course_id"
+    t.string   "name"
+    t.string   "code"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "batches", ["course_id"], name: "index_batches_on_course_id", using: :btree
 
   create_table "course_types", force: :cascade do |t|
     t.integer  "department_id"
@@ -79,6 +91,7 @@ ActiveRecord::Schema.define(version: 20151012052745) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "batches", "courses"
   add_foreign_key "course_types", "departments"
   add_foreign_key "courses", "course_types"
   add_foreign_key "courses", "term_structures"

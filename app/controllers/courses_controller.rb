@@ -5,8 +5,8 @@ class CoursesController < ApplicationController
   # GET /courses
   # GET /courses.json
   def index
-    @courses = Course.all
-    @course = Course.new(department: @department)
+    @courses = @department.courses
+    @course = Course.new
   end
 
   # GET /courses/1
