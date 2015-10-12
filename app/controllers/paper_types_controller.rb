@@ -15,6 +15,10 @@ class PaperTypesController < ApplicationController
   # GET /paper_types/new
   def new
     @paper_type = PaperType.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /paper_types/1/edit
@@ -29,6 +33,7 @@ class PaperTypesController < ApplicationController
     respond_to do |format|
       if @paper_type.save
         format.html { redirect_to @paper_type, notice: 'Paper type was successfully created.' }
+        format.js
         format.json { render :show, status: :created, location: @paper_type }
       else
         format.html { render :new }
