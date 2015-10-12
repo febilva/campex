@@ -1,4 +1,4 @@
-<%= form_for(@course_type) do |f| %>
+<%= form_for @course_type, remote: params[:popup_form].present? do |f| %>
   <% if @course_type.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@course_type.errors.count, "error") %> prohibited this course_type from being saved:</h2>
@@ -12,10 +12,6 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :department_id %><br>
-    <%= f.text_field :department_id %>
-  </div>
-  <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
@@ -23,6 +19,14 @@
     <%= f.label :code %><br>
     <%= f.text_field :code %>
   </div>
+  <% if params[:prerequisite].empty? %>
+    <div class="field">
+      <%= f.label :department_id %><br>
+      <%= f.text_field :department_id %>
+    </div>
+  <% else %>
+    <%= f.hidden_field :department_id, value: params[:prerequisite] %>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>

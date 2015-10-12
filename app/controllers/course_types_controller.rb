@@ -15,6 +15,10 @@ class CourseTypesController < ApplicationController
   # GET /course_types/new
   def new
     @course_type = CourseType.new
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /course_types/1/edit
@@ -29,6 +33,7 @@ class CourseTypesController < ApplicationController
     respond_to do |format|
       if @course_type.save
         format.html { redirect_to @course_type, notice: 'Course type was successfully created.' }
+        format.js
         format.json { render :show, status: :created, location: @course_type }
       else
         format.html { render :new }
@@ -69,6 +74,6 @@ class CourseTypesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_type_params
-      params.require(:course_type).permit(:department_id, :name, :code)
+      params.require(:course_type).permit(:name, :code, :department_id)
     end
 end
