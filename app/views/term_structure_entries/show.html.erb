@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Term structure:</strong>
+  <%= @term_structure_entry.term_structure %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @term_structure_entry.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @term_structure_entry.code %>
+</p>
+
+<%= link_to 'Edit', edit_term_structure_entry_path(@term_structure_entry) %> |
+<%= link_to 'Back', term_structure_entries_path %>
