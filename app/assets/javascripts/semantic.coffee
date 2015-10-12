@@ -6,3 +6,4 @@ $(document).on "ready page:load", ->
     $('.ui.sidebar').sidebar 'toggle'
 
   $('.ui.checkbox').checkbox()
+  $('.ui.accordion').accordion()
