@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1><%= "#{@department.name} Dept. ( #{@department.code} )" %></h1>
+
+<%= form_for [@department, @course], remote: true do |f| %>
+  <%= hidden_field_tag :department, @department.id %>
+  <div class="ui input">
+    <%= f.text_field :name, placeholder: "Course Name" %>
+  </div>
+  <div class="ui input">
+    <%= f.text_field :code, placeholder: "Course Code" %>
+  </div>
+  <%= f.select :course_type_id, options_for_select_with_add_new(:course_type, :department, {field: 'department', value: @department.id}), {}, { class: "ui dropdown" } %>
+  <%= f.submit "Add Course", class: "ui submit button" %>
+<% end %>
+
+<h3>Courses Offered</h3>
+
+<table id="courses_table" class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Course Name</th>
+      <th>Course Code</th>
+      <th class="center aligned">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= "#{course.course_type} #{course.name}" %></td>
+        <td><%= course.code %></td>
+        <td class="center aligned">
+          <%= link_to 'Edit', edit_course_path(course) %> | 
+          <%= link_to 'Remove', course, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

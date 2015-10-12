@@ -1,0 +1,10 @@
+var new_course_row = '<tr>' +
+  '<td><%= "#{@course.course_type} #{@course.name}"  %></td>' +
+  '<%= "<td> #{@course.code} </td>".html_safe %>' +
+  '<td class="center aligned">' +
+  '<%= link_to 'Edit', edit_course_path(@course) %> | ' +
+  '<%= link_to 'Destroy', @course, method: :delete, data: { confirm: 'Are you sure?' } %>' +
+  '</td>' +
+  '</tr>';
+
+$('#courses_table').find('tbody').append(new_course_row);
