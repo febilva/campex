@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @paper_type.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @paper_type.code %>
+</p>
+
+<%= link_to 'Edit', edit_paper_type_path(@paper_type) %> |
+<%= link_to 'Back', paper_types_path %>
