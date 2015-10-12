@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :course_types
   resources :departments, shallow: true do
     resources :courses do
+      resources :syllabuses
       resources :batches
     end
   end

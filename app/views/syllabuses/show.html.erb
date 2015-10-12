@@ -1,0 +1,27 @@
+<h1>
+  <%= "#{@syllabus.name} Syllabus" %>
+</h1>
+<h3>Terms of <i><%= "#{@course.course_type} #{@course.name} ( #{@course} )" %></i></h3>
+
+<p id="notice"><%= notice %></p>
+
+<table class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @course.term_structure_entries.each do |term| %>
+      <tr>
+        <td><%= term.name  %></td>
+        <td><%= term.code %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Edit', edit_syllabus_path(@syllabus) %> |
+<%= link_to 'Back', course_syllabuses_path(@syllabus.course) %>

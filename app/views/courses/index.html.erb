@@ -34,6 +34,7 @@
         <td><%= course.code %></td>
         <td><%= course.term_structure %></td>
         <td class="center aligned">
+          <%= link_to 'Syllabus', course_syllabuses_path(course) %> | 
           <%= link_to 'Edit', edit_course_path(course) %> | 
           <%= link_to 'Remove', course, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>
