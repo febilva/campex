@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :term_structures
   resources :course_types
   resources :departments, shallow: true do
     resources :courses
