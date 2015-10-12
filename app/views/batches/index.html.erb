@@ -1,0 +1,36 @@
+<h1><%= "Course - #{@course.course_type} #{@course.name} ( #{@course} )" %></h1>
+
+<p id="notice"><%= notice %></p>
+
+<h3>Batches</h3>
+
+<table class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th class="center aligned">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @batches.each do |batch| %>
+      <tr>
+        <td><%= batch.name %></td>
+        <td><%= batch.code %></td>
+        <td><%= batch.start_date %></td>
+        <td><%= batch.end_date %></td>
+        <td class="center aligned">
+          <%= link_to 'Edit', edit_batch_path(batch) %> | 
+          <%= link_to 'Remove', batch, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Batch', new_course_batch_path %>

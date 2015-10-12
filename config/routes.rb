@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :course_types
   resources :departments, shallow: true do
-    resources :courses
+    resources :courses do
+      resources :batches
+    end
   end
   
   devise_for :users, path: ""

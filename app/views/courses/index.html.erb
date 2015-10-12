@@ -28,7 +28,7 @@
   <tbody>
     <% @courses.each do |course| %>
       <tr>
-        <td><%= "#{course.course_type} #{course.name}" %></td>
+        <td><%= link_to "#{course.course_type} #{course.name}", course_batches_path(course) %></td>
         <td><%= course.code %></td>
         <td class="center aligned">
           <%= link_to 'Edit', edit_course_path(course) %> | 
