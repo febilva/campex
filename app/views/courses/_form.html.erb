@@ -12,16 +12,20 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :course_type_id %><br>
-    <%= f.text_field :course_type_id %>
-  </div>
-  <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
   <div class="field">
     <%= f.label :code %><br>
     <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :course_type_id %><br>
+    <%= f.select :course_type_id, options_from_collection_for_select(CourseType.all, :id, :name), {}, { class: "ui dropdown" } %>
+  </div>
+  <div class="field">
+    <%= f.label :term_structure_id %><br>
+    <%= f.select :term_structure_id, options_from_collection_for_select(TermStructure.all, :id, :name), {}, { class: "ui dropdown" } %>
   </div>
   <div class="actions">
     <%= f.submit %>

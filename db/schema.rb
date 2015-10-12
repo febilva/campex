@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012052048) do
+ActiveRecord::Schema.define(version: 20151012052745) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,11 +30,13 @@ ActiveRecord::Schema.define(version: 20151012052048) do
     t.integer  "course_type_id"
     t.string   "name"
     t.string   "code"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.integer  "term_structure_id"
   end
 
   add_index "courses", ["course_type_id"], name: "index_courses_on_course_type_id", using: :btree
+  add_index "courses", ["term_structure_id"], name: "index_courses_on_term_structure_id", using: :btree
 
   create_table "departments", force: :cascade do |t|
     t.string   "name"
@@ -79,5 +81,6 @@ ActiveRecord::Schema.define(version: 20151012052048) do
 
   add_foreign_key "course_types", "departments"
   add_foreign_key "courses", "course_types"
+  add_foreign_key "courses", "term_structures"
   add_foreign_key "term_structure_entries", "term_structures"
 end

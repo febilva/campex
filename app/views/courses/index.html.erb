@@ -11,6 +11,7 @@
     <%= f.text_field :code, placeholder: "Course Code" %>
   </div>
   <%= f.select :course_type_id, options_for_select_with_add_new(:course_type, :department, {field: 'department', value: @department.id}), {}, { class: "ui dropdown" } %>
+  <%= f.select :term_structure_id, options_from_collection_for_select(TermStructure.all, :id, :name), {}, { class: "ui dropdown" } %>
   <%= f.submit "Add Course", class: "ui submit button" %>
 <% end %>
 
@@ -21,6 +22,7 @@
     <tr>
       <th>Course Name</th>
       <th>Course Code</th>
+      <th>Term Structure</th>
       <th class="center aligned">Actions</th>
     </tr>
   </thead>
@@ -30,6 +32,7 @@
       <tr>
         <td><%= "#{course.course_type} #{course.name}" %></td>
         <td><%= course.code %></td>
+        <td><%= course.term_structure %></td>
         <td class="center aligned">
           <%= link_to 'Edit', edit_course_path(course) %> | 
           <%= link_to 'Remove', course, method: :delete, data: { confirm: 'Are you sure?' } %>
