@@ -1,0 +1,42 @@
+<%= form_for [@syllabus, @paper] do |f| %>
+  <%= f.hidden_field :term_structure_entry_id, value: params[:term_id] || @paper.syllabus, term_id: @paper.term_structure_entry.id %>
+  <% if @paper.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@paper.errors.count, "error") %> prohibited this paper from being saved:</h2>
+
+      <ul>
+      <% @paper.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :study_mode %><br>
+    <%= f.select :study_mode, ['Theory', 'Practical', 'Project', 'Viva'] %>
+  </div>
+  <div class="field">
+    <%= f.label :paper_type_id %><br>
+    <%= f.select :paper_type_id, options_for_select_with_add_new(:paper_type), {}, { class: "ui dropdown" } %>
+  </div>
+  <div class="field">
+    <%= f.label :optional %><br>
+    <%= f.select :optional, options_for_select([['No', false], ['Yes', true]]), {}, { class: "ui dropdown" } %>
+  </div>
+  <div class="field">
+    <%= f.label :exam_required %><br>
+    <%= f.check_box :exam_required, {checked: true} %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

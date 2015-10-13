@@ -1,6 +1,4 @@
-<h1>
-  <%= "#{@syllabus.name} Syllabus" %>
-</h1>
+<h1> <%= "#{@syllabus.name} Syllabus" %> </h1>
 <h3>Terms of <i><%= "#{@course.course_type} #{@course.name} ( #{@course} )" %></i></h3>
 
 <p id="notice"><%= notice %></p>
@@ -16,7 +14,7 @@
   <tbody>
     <% @course.term_structure_entries.each do |term| %>
       <tr>
-        <td><%= term.name  %></td>
+        <td><%= link_to term.name, syllabus_papers_path(@syllabus, term_id: term.id)  %></td>
         <td><%= term.code %></td>
       </tr>
     <% end %>

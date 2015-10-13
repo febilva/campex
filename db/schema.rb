@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012115634) do
+ActiveRecord::Schema.define(version: 20151012120810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,23 @@ ActiveRecord::Schema.define(version: 20151012115634) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "papers", force: :cascade do |t|
+    t.integer  "syllabus_id"
+    t.integer  "term_structure_entry_id"
+    t.integer  "paper_type_id"
+    t.string   "name"
+    t.string   "code"
+    t.string   "study_mode"
+    t.boolean  "exam_required"
+    t.boolean  "optional"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "papers", ["paper_type_id"], name: "index_papers_on_paper_type_id", using: :btree
+  add_index "papers", ["syllabus_id"], name: "index_papers_on_syllabus_id", using: :btree
+  add_index "papers", ["term_structure_entry_id"], name: "index_papers_on_term_structure_entry_id", using: :btree
+
   create_table "syllabuses", force: :cascade do |t|
     t.integer  "course_id"
     t.string   "name"
@@ -111,6 +128,9 @@ ActiveRecord::Schema.define(version: 20151012115634) do
   add_foreign_key "course_types", "departments"
   add_foreign_key "courses", "course_types"
   add_foreign_key "courses", "term_structures"
+  add_foreign_key "papers", "paper_types"
+  add_foreign_key "papers", "syllabuses"
+  add_foreign_key "papers", "term_structure_entries"
   add_foreign_key "syllabuses", "courses"
   add_foreign_key "term_structure_entries", "term_structures"
 end

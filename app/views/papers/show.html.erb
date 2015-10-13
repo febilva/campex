@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Syllabus:</strong>
+  <%= @paper.syllabus %>
+</p>
+
+<p>
+  <strong>Term structure entry:</strong>
+  <%= @paper.term_structure_entry %>
+</p>
+
+<p>
+  <strong>Paper type:</strong>
+  <%= @paper.paper_type %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @paper.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @paper.code %>
+</p>
+
+<p>
+  <strong>Study mode:</strong>
+  <%= @paper.study_mode %>
+</p>
+
+<%= link_to 'Edit', edit_paper_path(@paper, term_id: @paper.term_structure_entry.id) %> |
+<%= link_to 'Back', syllabus_papers_path(@paper.syllabus, term_id: @paper.term_structure_entry.id) %>

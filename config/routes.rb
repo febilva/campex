@@ -6,9 +6,7 @@ Rails.application.routes.draw do
   resources :departments, shallow: true do
     resources :courses do
       resources :syllabuses do
-        member do
-          get 'papers'
-        end
+        resources :papers
       end
       resources :batches
     end

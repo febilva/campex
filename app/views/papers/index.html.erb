@@ -1,0 +1,43 @@
+<h1> <%= "#{@syllabus.name} Syllabus" %> </h1>
+
+<p id="notice"><%= notice %></p>
+
+<h2>
+  <i>
+    <%= "Papers for #{@term_structure_entry.name} of #{@syllabus.course.course_type} #{@syllabus.course.name} ( #{@syllabus.course} )" %>
+  </i>
+</h3>
+
+<table class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Study mode</th>
+      <th>Optional</th>
+      <th>Examination Required</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @papers.each do |paper| %>
+      <tr>
+        <td><%= paper.name %></td>
+        <td><%= paper.code %></td>
+        <td><%= paper.study_mode %></td>
+        <td><%= paper.optional? %></td>
+        <td><%= paper.exam_required? %></td>
+        <td class="center aligned">
+          <%= link_to 'Show', paper %> | 
+          <%= link_to 'Edit', edit_paper_path(paper) %> | 
+          <%= link_to 'Destroy', paper, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Paper', new_syllabus_paper_path(@syllabus, term_id: params[:term_id]) %>
