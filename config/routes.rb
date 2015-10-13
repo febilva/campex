@@ -8,7 +8,9 @@ Rails.application.routes.draw do
       resources :syllabuses do
         resources :papers
       end
-      resources :batches
+      resources :batches do
+        resources :term_dates
+      end
     end
   end
   

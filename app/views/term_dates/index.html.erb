@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Term Dates</h1>
+
+<table class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Term</th>
+      <th>Code</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @term_structure_entries.each do |term_structure_entry| %>
+      <% @term_date = @term_dates.where(term_structure_entry: term_structure_entry).last %>
+      <tr>
+        <td>
+          <% @term_date_path = @term_date.nil? ? new_batch_term_date_path(term_id: term_structure_entry.id) : edit_term_date_path(@term_date) %>
+          <%= link_to(term_structure_entry.name, @term_date_path) %>
+        </td>
+        <td><%= term_structure_entry.code %></td>
+        <td><%= @term_date.try(:start_date) || "Not Specified" %></td>
+        <td><%= @term_date.try(:end_date) || "Not Specified" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<!-- <table>
+  <thead>
+    <tr>
+      <th>Batch</th>
+      <th>Term structure entry</th>
+      <th>Start date</th>
+      <th>End date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <%# @term_dates.each do |term_date| %>
+      <tr>
+        <td><%#= term_date.batch %></td>
+        <td><%#= term_date.term_structure_entry %></td>
+        <td><%#= term_date.start_date %></td>
+        <td><%#= term_date.end_date %></td>
+        <td><%#= link_to 'Show', term_date %></td>
+        <td><%#= link_to 'Edit', edit_term_date_path(term_date) %></td>
+        <td><%#= link_to 'Destroy', term_date, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <%# end %>
+  </tbody>
+</table>
+ -->

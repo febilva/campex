@@ -1,0 +1,28 @@
+<%= form_for [@batch, @term_date] do |f| %>
+  <%= f.hidden_field :batch_id, value: @batch.try(:id) || @term_date.batch.id %>
+  <%= f.hidden_field :term_structure_entry_id, value: params[:term_id] || @term_date.term_structure_entry.id %>
+
+  <% if @term_date.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@term_date.errors.count, "error") %> prohibited this term_date from being saved:</h2>
+
+      <ul>
+      <% @term_date.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

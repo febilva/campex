@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  batch_id: 
+  term_structure_entry_id: 
+  start_date: 2015-10-13
+  end_date: 2015-10-13
+
+two:
+  batch_id: 
+  term_structure_entry_id: 
+  start_date: 2015-10-13
+  end_date: 2015-10-13

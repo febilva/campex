@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Batch:</strong>
+  <%= @term_date.batch %>
+</p>
+
+<p>
+  <strong>Term structure entry:</strong>
+  <%= @term_date.term_structure_entry %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @term_date.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @term_date.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_term_date_path(@term_date) %> |
+<%= link_to 'Back', batch_term_dates_path(@term_date.batch) %>

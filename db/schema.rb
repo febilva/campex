@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012120810) do
+ActiveRecord::Schema.define(version: 20151013051553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -90,6 +90,18 @@ ActiveRecord::Schema.define(version: 20151012120810) do
 
   add_index "syllabuses", ["course_id"], name: "index_syllabuses_on_course_id", using: :btree
 
+  create_table "term_dates", force: :cascade do |t|
+    t.integer  "batch_id"
+    t.integer  "term_structure_entry_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "term_dates", ["batch_id"], name: "index_term_dates_on_batch_id", using: :btree
+  add_index "term_dates", ["term_structure_entry_id"], name: "index_term_dates_on_term_structure_entry_id", using: :btree
+
   create_table "term_structure_entries", force: :cascade do |t|
     t.integer  "term_structure_id"
     t.string   "name"
@@ -132,5 +144,7 @@ ActiveRecord::Schema.define(version: 20151012120810) do
   add_foreign_key "papers", "syllabuses"
   add_foreign_key "papers", "term_structure_entries"
   add_foreign_key "syllabuses", "courses"
+  add_foreign_key "term_dates", "batches"
+  add_foreign_key "term_dates", "term_structure_entries"
   add_foreign_key "term_structure_entries", "term_structures"
 end
