@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015024552) do
+ActiveRecord::Schema.define(version: 20151015025004) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,14 @@ ActiveRecord::Schema.define(version: 20151015024552) do
     t.datetime "updated_at",              null: false
   end
 
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
+
+  add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id", using: :btree
+  add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
+
   create_table "syllabuses", force: :cascade do |t|
     t.integer  "course_id"
     t.string   "name"
@@ -181,6 +189,8 @@ ActiveRecord::Schema.define(version: 20151015024552) do
   add_foreign_key "papers", "paper_types"
   add_foreign_key "papers", "syllabuses"
   add_foreign_key "papers", "term_structure_entries"
+  add_foreign_key "roles_users", "roles"
+  add_foreign_key "roles_users", "users"
   add_foreign_key "syllabuses", "courses"
   add_foreign_key "term_dates", "batches"
   add_foreign_key "term_dates", "term_structure_entries"
