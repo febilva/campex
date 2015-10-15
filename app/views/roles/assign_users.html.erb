@@ -1,0 +1,4 @@
+<%= form_for(@role) do |f| %>
+  <%= f.collection_check_boxes(:user_ids, User.all, :id, :name) %>
+  <%= f.submit "Assign" %>
+<% end %>

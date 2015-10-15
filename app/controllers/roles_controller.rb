@@ -1,5 +1,6 @@
 class RolesController < ApplicationController
-  before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_action :set_role, only: [:show, :edit, :update, :destroy, :assign_permission, 
+    :assign_users]
 
   # GET /roles
   # GET /roles.json
@@ -10,6 +11,9 @@ class RolesController < ApplicationController
   # GET /roles/1
   # GET /roles/1.json
   def show
+    Rails.application.eager_load! if Rails.env == "development"
+    @controllers = ApplicationController.descendants - [DeviseController]
+    @controllers.sort! { |a,b| a.name <=> b.name }
   end
 
   # GET /roles/new
@@ -61,6 +65,20 @@ class RolesController < ApplicationController
     end
   end
 
+  def assign_permission
+    render nothing: true
+
+    if params[:status]
+      @role.activities << params[:permission] unless @role.activities.include? params[:permission]
+    else
+      @role.activities.delete(params[:permission])
+    end
+    @role.save
+  end
+
+  def assign_users
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_role
@@ -69,6 +87,6 @@ class RolesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def role_params
-      params.require(:role).permit(:name, :activities)
+      params.require(:role).permit(:name, :activities, :user_ids => [])
     end
 end

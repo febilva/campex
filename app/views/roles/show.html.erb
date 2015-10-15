@@ -1,14 +1,26 @@
-<p id="notice"><%= notice %></p>
+<h2>Permissions for <%= @role.name %></h2>
 
-<p>
-  <strong>Name:</strong>
-  <%= @role.name %>
-</p>
+<%= form_for @role, html:{class: "ui fluid form"} do |f| %>
+  <%= f.hidden_field :role_id, value: @role.id %>
+  <div class="ui padded grid stackable">
+    <% @controllers.each do |controller| %>
+      <% @activities = controller.action_methods - ['pundit_policy_authorized?', 'pundit_policy_scoped?'] %>
+      <% controller = controller.to_s.sub('Controller','') %>
+      <div class="four wide column">
+        <div class="ui inverted red segment">
+          <h4 class="ui header"><%= controller %></h4>
+          <div class="ui list">
+            <% @activities.each do |action| %>
+              <div class="ui checkbox permissions item">
+                <%= check_box_tag "role[action_ids][]", "#{controller.underscore}:#{action}", @role.activities.include?("#{controller.underscore}:#{action}") %>
+                <label><%= action %></label>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <% end %>
 
-<p>
-  <strong>Activities:</strong>
-  <%= @role.activities %>
-</p>
-
-<%= link_to 'Edit', edit_role_path(@role) %> |
 <%= link_to 'Back', roles_path %>

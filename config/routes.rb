@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :roles
+  resources :roles do
+    member do
+      get 'assign_permission'
+      get 'assign_users'
+    end
+  end
   resources :examinations
   resources :paper_types
   resources :term_structure_entries
