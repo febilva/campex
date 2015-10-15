@@ -1,5 +1,5 @@
 <%= form_for [@syllabus, @paper] do |f| %>
-  <%= f.hidden_field :term_structure_entry_id, value: params[:term_id] || @paper.syllabus, term_id: @paper.term_structure_entry.id %>
+  <%= f.hidden_field :term_structure_entry_id, value: params[:term_id] || @paper.syllabus, term_id: @paper.term_structure_entry.try(:id) %>
   <% if @paper.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@paper.errors.count, "error") %> prohibited this paper from being saved:</h2>
