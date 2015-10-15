@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151013073824) do
+ActiveRecord::Schema.define(version: 20151015024552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,13 @@ ActiveRecord::Schema.define(version: 20151013073824) do
   add_index "papers", ["paper_type_id"], name: "index_papers_on_paper_type_id", using: :btree
   add_index "papers", ["syllabus_id"], name: "index_papers_on_syllabus_id", using: :btree
   add_index "papers", ["term_structure_entry_id"], name: "index_papers_on_term_structure_entry_id", using: :btree
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "activities", default: [],              array: true
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
 
   create_table "syllabuses", force: :cascade do |t|
     t.integer  "course_id"

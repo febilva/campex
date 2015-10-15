@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :roles
   resources :examinations
   resources :paper_types
   resources :term_structure_entries
