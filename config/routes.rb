@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :students
   resources :roles do
     member do
       get 'assign_permission'

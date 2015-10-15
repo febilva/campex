@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015031312) do
+ActiveRecord::Schema.define(version: 20151015033527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -122,6 +122,16 @@ ActiveRecord::Schema.define(version: 20151015031312) do
   add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id", using: :btree
   add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
 
+  create_table "students", force: :cascade do |t|
+    t.integer  "batch_id"
+    t.string   "admission_no"
+    t.string   "roll_no"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "students", ["batch_id"], name: "index_students_on_batch_id", using: :btree
+
   create_table "syllabuses", force: :cascade do |t|
     t.integer  "course_id"
     t.string   "name"
@@ -197,6 +207,7 @@ ActiveRecord::Schema.define(version: 20151015031312) do
   add_foreign_key "papers", "term_structure_entries"
   add_foreign_key "roles_users", "roles"
   add_foreign_key "roles_users", "users"
+  add_foreign_key "students", "batches"
   add_foreign_key "syllabuses", "courses"
   add_foreign_key "term_dates", "batches"
   add_foreign_key "term_dates", "term_structure_entries"

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  batch_id: 
+  admission_no: MyString
+  roll_no: MyString
+
+two:
+  batch_id: 
+  admission_no: MyString
+  roll_no: MyString
