@@ -1,6 +1,8 @@
 class CoursesController < ApplicationController
-  before_action :set_department, except: [:show, :edit, :update, :destroy]
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_department, except: [:show, :edit, :update, :destroy, :terms, :syllabuses,
+   :batches]
+  before_action :set_course, only: [:show, :edit, :update, :destroy, :terms, :syllabuses,
+   :batches]
 
   # GET /courses
   # GET /courses.json
@@ -61,6 +63,27 @@ class CoursesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to department_courses_url(@course.department), notice: 'Course was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def terms
+    @term_structure_entries = @course.term_structure_entries
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def syllabuses
+    @syllabuses = @course.syllabuses
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def batches
+    @batches = @course.batches
+    respond_to do |format|
+      format.js
     end
   end
 

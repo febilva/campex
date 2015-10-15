@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  course_id: 
+  syllabus_id: 
+  term_structure_entry_id: 
+  name: MyString
+  code: MyString
+  registration_open_date: 2015-10-13
+  registration_close_date: 2015-10-13
+  start_date: 2015-10-13
+  end_date: 2015-10-13
+
+two:
+  course_id: 
+  syllabus_id: 
+  term_structure_entry_id: 
+  name: MyString
+  code: MyString
+  registration_open_date: 2015-10-13
+  registration_close_date: 2015-10-13
+  start_date: 2015-10-13
+  end_date: 2015-10-13

@@ -1,0 +1,57 @@
+<%= form_for(@examination) do |f| %>
+  <% if @examination.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@examination.errors.count, "error") %> prohibited this examination from being saved:</h2>
+
+      <ul>
+      <% @examination.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :course_id %><br>
+    <%= f.select :course_id, options_from_collection_for_select(Course.all, :id, :name), { include_blank: true }, "data-fetch-course-terms" => "examination_term_structure_entry_id", "data-fetch-course-syllabuses" => "examination_syllabus_id", "data-fetch-course-batches" => "examination_batch_ids" %>
+  </div>
+  <div class="field">
+    <%= f.label :syllabus_id %><br>
+    <%= f.select :syllabus_id, "" %>
+  </div>
+  <div class="field">
+    <%= f.label :term_structure_entry_id %><br>
+    <%= f.select :term_structure_entry_id, "" %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :registration_open_date %><br>
+    <%= f.date_select :registration_open_date %>
+  </div>
+  <div class="field">
+    <%= f.label :registration_close_date %><br>
+    <%= f.date_select :registration_close_date %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br>
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="field">
+    <%= f.label :end_date %><br>
+    <%= f.date_select :end_date %>
+  </div>
+  <div class="field">
+    <%= f.label :applicable_batches %><br>
+    <%= f.select :batch_ids, "", {}, multiple: true %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

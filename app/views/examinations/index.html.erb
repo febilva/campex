@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Examinations</h1>
+
+<table class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Course</th>
+      <th>Term</th>
+      <th>Syllabus</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @examinations.each do |examination| %>
+      <tr>
+        <td><%= examination.name %></td>
+        <td><%= examination.code %></td>
+        <td><%= examination.course.name %></td>
+        <td><%= examination.term_structure_entry %></td>
+        <td><%= examination.syllabus %></td>
+        <td class="center aligned">
+          <%= link_to 'Show', examination %> | 
+          <%= link_to 'Edit', edit_examination_path(examination) %> | 
+          <%= link_to 'Destroy', examination, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Examination', new_examination_path %>

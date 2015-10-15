@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Course:</strong>
+  <%= @examination.course %>
+</p>
+
+<p>
+  <strong>Syllabus:</strong>
+  <%= @examination.syllabus %>
+</p>
+
+<p>
+  <strong>Term structure entry:</strong>
+  <%= @examination.term_structure_entry %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @examination.name %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @examination.code %>
+</p>
+
+<p>
+  <strong>Registration open date:</strong>
+  <%= @examination.registration_open_date %>
+</p>
+
+<p>
+  <strong>Registration close date:</strong>
+  <%= @examination.registration_close_date %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @examination.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @examination.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_examination_path(@examination) %> |
+<%= link_to 'Back', examinations_path %>
