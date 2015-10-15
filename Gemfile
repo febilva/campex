@@ -36,6 +36,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 # Semantic UI, converted to Sass and ready to drop into Rails & Compass.
 gem 'semantic-ui-sass'
+# Object oriented authorization for Rails applications
+gem "pundit"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
