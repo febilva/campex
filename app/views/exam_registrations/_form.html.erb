@@ -1,0 +1,46 @@
+<%= form_for(@exam_registration) do |f| %>
+  <%= f.hidden_field :examination_id, value: params[:exam_id] %>
+  <%= f.hidden_field :student_id, value: current_user.profile.id %>
+  <% if @exam_registration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@exam_registration.errors.count, "error") %> prohibited this exam_registration from being saved:</h2>
+
+      <ul>
+      <% @exam_registration.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table class="ui celled striped secondary grey inverted table">
+    <thead>
+      <tr>
+        <th>Paper Name</th>
+        <th>Paper Code</th>
+        <th>Select</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @papers.each do |paper| %>
+        <tr>
+          <td><%= paper.name %></td>
+          <td><%= paper.code %></td>
+          <td><%= f.check_box :paper_ids, {:multiple => true}, paper.id, nil %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="field">
+    <%= f.label :paper_count %><br>
+    <%= f.number_field :paper_count, min: 0, max: @papers.count %>
+  </div>
+  <div class="field">
+    <%= f.label :fees_paid %><br>
+    <%= f.text_field :fees_paid %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Register" %>
+  </div>
+<% end %>

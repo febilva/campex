@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :exam_registrations
   resources :students
   resources :roles do
     member do

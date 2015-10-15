@@ -12,7 +12,11 @@ class ApplicationPolicy
 
   def method_missing(name,*args)
     if name.to_s.last == '?'
-      @user.profile_type == "Admin" or user_activities.include?(name.to_s.gsub('?',''))
+      activity_allowed = user_activities.include?(name.to_s.gsub('?',''))
+      activity_allowed = true if @user.profile_type == "Admin" and 
+        name.to_s.split("_").last != "menu?"
+
+      return activity_allowed
     else
       super
     end

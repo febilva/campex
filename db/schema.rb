@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151015033527) do
+ActiveRecord::Schema.define(version: 20151015085116) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,6 +65,18 @@ ActiveRecord::Schema.define(version: 20151015033527) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "exam_registrations", force: :cascade do |t|
+    t.integer  "examination_id"
+    t.integer  "student_id"
+    t.integer  "paper_count"
+    t.float    "fees_paid"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "exam_registrations", ["examination_id"], name: "index_exam_registrations_on_examination_id", using: :btree
+  add_index "exam_registrations", ["student_id"], name: "index_exam_registrations_on_student_id", using: :btree
+
   create_table "examinations", force: :cascade do |t|
     t.integer  "course_id"
     t.integer  "syllabus_id"
@@ -106,6 +118,16 @@ ActiveRecord::Schema.define(version: 20151015033527) do
   add_index "papers", ["paper_type_id"], name: "index_papers_on_paper_type_id", using: :btree
   add_index "papers", ["syllabus_id"], name: "index_papers_on_syllabus_id", using: :btree
   add_index "papers", ["term_structure_entry_id"], name: "index_papers_on_term_structure_entry_id", using: :btree
+
+  create_table "registered_exam_papers", force: :cascade do |t|
+    t.integer  "exam_registration_id"
+    t.integer  "paper_id"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "registered_exam_papers", ["exam_registration_id"], name: "index_registered_exam_papers_on_exam_registration_id", using: :btree
+  add_index "registered_exam_papers", ["paper_id"], name: "index_registered_exam_papers_on_paper_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -199,12 +221,16 @@ ActiveRecord::Schema.define(version: 20151015033527) do
   add_foreign_key "course_types", "departments"
   add_foreign_key "courses", "course_types"
   add_foreign_key "courses", "term_structures"
+  add_foreign_key "exam_registrations", "examinations"
+  add_foreign_key "exam_registrations", "students"
   add_foreign_key "examinations", "courses"
   add_foreign_key "examinations", "syllabuses"
   add_foreign_key "examinations", "term_structure_entries"
   add_foreign_key "papers", "paper_types"
   add_foreign_key "papers", "syllabuses"
   add_foreign_key "papers", "term_structure_entries"
+  add_foreign_key "registered_exam_papers", "exam_registrations"
+  add_foreign_key "registered_exam_papers", "papers"
   add_foreign_key "roles_users", "roles"
   add_foreign_key "roles_users", "users"
   add_foreign_key "students", "batches"

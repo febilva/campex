@@ -7,30 +7,60 @@
           <i class="dashboard icon"></i>
         </div>
 
-        <div class="item">
-            <%= link_to "Students", students_path, class: "title" %>
-            <i class="student icon"></i>
-        </div>
+        <% if policy(:user).examinations_menu? %>
+          <div class="item">
+            <a class="title">
+                Examinations
+                <i class="settings icon"></i>
+            </a>
+            <div class="content">
+              <div class="ui form">
+                <% if policy(:user).send("exam_registrations:index?") %>
+                  <div class="item">
+                    <%= link_to "Registrations", exam_registrations_path, class: "title" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
 
-        <div class="item">
+        <% if policy(:user).students_menu? %>
+          <% if policy(:user).send("students:index?") %>
+            <div class="item">
+              <%= link_to "Students", students_path, class: "title" %>
+              <i class="student icon"></i>
+            </div>
+          <% end %>
+        <% end %>
+
+        <% if policy(:user).settings_menu? %>
+          <div class="item">
             <a class="title">
                 Settings
                 <i class="settings icon"></i>
             </a>
             <div class="content">
               <div class="ui form">
-                <div class="item">
-                    <%= link_to "Examinations", examinations_path, class: "title" %>
-                </div>
-                <div class="item">
-                  <%= link_to "Departments", departments_path, class: "title" %>
-                </div>
-                <div class="item">
-                    <%= link_to "Permissions", roles_path, class: "title" %>
-                </div>
+                <% if policy(:user).send("examinations:index?") %>
+                  <div class="item">
+                      <%= link_to "Examinations", examinations_path, class: "title" %>
+                  </div>
+                <% end %>
+                <% if policy(:user).send("departments:index?") %>
+                  <div class="item">
+                    <%= link_to "Departments", departments_path, class: "title" %>
+                  </div>
+                <% end %>
+                <% if policy(:user).send("roles:index?") %>
+                  <div class="item">
+                      <%= link_to "Permissions", roles_path, class: "title" %>
+                  </div>
+                <% end %>
               </div>
             </div>
-        </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

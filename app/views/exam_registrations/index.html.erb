@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Exam Registrations</h1>
+
+<table class="ui celled striped blue table">
+  <thead>
+    <tr>
+      <th>Examination</th>
+      <th>Term</th>
+      <th class="center aligned">Status</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @open_examinations.each do |exam| %>
+      <% registered = ExamRegistration.where(examination: exam, student: current_user.profile).first %>
+      <% relevant_path = registered ? registered : new_exam_registration_path(exam_id: exam.id) %>
+      <tr class="<%= registered ? 'positive' : 'negative' %>">
+        <td><b><em><%= link_to exam.name, relevant_path %></em></b></td>
+        <td><%= exam.term_structure_entry %></td>
+        <td class="center aligned">
+          <% if registered %>
+            Registered
+            <i class="large green checkmark icon"></i>
+          <% else %>
+            Not Registered
+            <i class="large red close icon"></i>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

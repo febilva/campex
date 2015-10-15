@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  examination_id: 
+  student_id: 
+  paper_count: 1
+  fees_paid: 1.5
+
+two:
+  examination_id: 
+  student_id: 
+  paper_count: 1
+  fees_paid: 1.5
