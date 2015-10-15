@@ -1,8 +1,8 @@
 class CoursesController < ApplicationController
-  before_action :set_department, except: [:show, :edit, :update, :destroy, :terms, :syllabuses,
-   :batches]
-  before_action :set_course, only: [:show, :edit, :update, :destroy, :terms, :syllabuses,
-   :batches]
+  before_action :set_department, except: [:show, :edit, :update, :destroy,
+   :term_list, :syllabus_list, :batch_list]
+  before_action :set_course, only: [:show, :edit, :update, :destroy,
+   :term_list, :syllabus_list, :batch_list]
 
   # GET /courses
   # GET /courses.json
@@ -66,21 +66,21 @@ class CoursesController < ApplicationController
     end
   end
 
-  def terms
+  def term_list
     @term_structure_entries = @course.term_structure_entries
     respond_to do |format|
       format.js
     end
   end
 
-  def syllabuses
+  def syllabus_list
     @syllabuses = @course.syllabuses
     respond_to do |format|
       format.js
     end
   end
 
-  def batches
+  def batch_list
     @batches = @course.batches
     respond_to do |format|
       format.js

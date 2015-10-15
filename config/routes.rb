@@ -14,9 +14,9 @@ Rails.application.routes.draw do
   resources :departments, shallow: true do
     resources :courses do
       member do
-        get 'syllabuses'
-        get 'terms'
-        get 'batches'
+        get 'syllabus_list'
+        get 'term_list'
+        get 'batch_list'
       end
 
       resources :syllabuses do

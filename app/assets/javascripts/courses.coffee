@@ -4,7 +4,7 @@ $(document).on "ready page:load", ->
       course_id = $(this).find(':selected').val()
       target_element = '#' + $(this).data('fetch-course-syllabuses')
       if course_id
-        $.ajax '/courses/' + course_id + '/syllabuses',
+        $.ajax '/courses/' + course_id + '/syllabus_list',
         type: 'GET',
         dataType: 'script',
         data: {
@@ -17,7 +17,7 @@ $(document).on "ready page:load", ->
       course_id = $(this).find(':selected').val()
       target_element = '#' + $(this).data('fetch-course-terms')
       if course_id
-        $.ajax '/courses/' + course_id + '/terms',
+        $.ajax '/courses/' + course_id + '/term_list',
         type: 'GET',
         dataType: 'script',
         data: {
@@ -30,7 +30,7 @@ $(document).on "ready page:load", ->
       course_id = $(this).find(':selected').val()
       target_element = '#' + $(this).data('fetch-course-batches')
       if course_id
-        $.ajax '/courses/' + course_id + '/batches',
+        $.ajax '/courses/' + course_id + '/batch_list',
         type: 'GET',
         dataType: 'script',
         data: {
