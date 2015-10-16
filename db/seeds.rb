@@ -9,7 +9,7 @@ unless User.where(profile_type: "Admin").count > 0
   @admin_role = Role.create(name: 'Admin', activities: ["students_menu", "settings_menu"])
 
   #Admin user
-  @admin_user = User.new(first_name: 'mentor', last_name: 'performance', 
+  @admin_user = User.new(username: 'admin', first_name: 'mentor', last_name: 'performance', 
     email: 'info@mentorperformance.in', password: 'mentor123', profile_type: 'Admin')
   @admin_user.roles << @admin_role
   @admin_user.save
