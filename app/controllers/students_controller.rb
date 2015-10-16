@@ -25,8 +25,9 @@ class StudentsController < ApplicationController
   # POST /students.json
   def create
     @student = Student.new(student_params.except(:first_name, :middle_name, :last_name, :email))
+    @role = Role.where(name: 'Student').first
     @user = User.new(student_params.except(:batch_id, :admission_no, :roll_no))
-
+    @user.roles << @role
 
     respond_to do |format|
       if @student.save
