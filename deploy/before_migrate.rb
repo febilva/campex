@@ -1,3 +1,1 @@
-package 'nodejs'
-package 'postgresql-client'
-package 'libpq-dev'
+run 'apt-get install nodejs postgresql-client libpq-dev'
