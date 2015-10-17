@@ -21,6 +21,10 @@
     <%= f.text_field :code %>
   </div>
   <div class="field">
+    <%= f.label :offered_by_id %><br>
+    <%= f.select :offered_by_id, options_from_collection_for_select(Department.all, :id, :name) %>
+  </div>
+  <div class="field">
     <%= f.label :study_mode %><br>
     <%= f.select :study_mode, ['Theory', 'Practical', 'Project', 'Viva'] %>
   </div>
