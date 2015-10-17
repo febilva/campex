@@ -1,5 +1,5 @@
 <%= form_for [@syllabus, @paper] do |f| %>
-  <%= f.hidden_field :term_structure_entry_id, value: params[:term_id] || @paper.syllabus, term_id: @paper.term_structure_entry.try(:id) %>
+  <%= f.hidden_field :term_structure_entry_id, value: params[:term_id] || @paper.term_structure_entry.try(:id) %>
   <% if @paper.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@paper.errors.count, "error") %> prohibited this paper from being saved:</h2>
@@ -22,7 +22,7 @@
   </div>
   <div class="field">
     <%= f.label :offered_by_id %><br>
-    <%= f.select :offered_by_id, options_from_collection_for_select(Department.all, :id, :code, @syllabus.try(:course).try(:department).try(:id) || @paper.try(:offered_by).try(:id)) %>
+    <%= f.select :offered_by_id, options_from_collection_for_select(Department.all, :id, :code, @paper.try(:offered_by).try(:id) || @syllabus.try(:course).try(:department).try(:id)) %>
   </div>
   <div class="field">
     <%= f.label :study_mode %><br>
