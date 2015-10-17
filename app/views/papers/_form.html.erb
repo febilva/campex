@@ -22,7 +22,7 @@
   </div>
   <div class="field">
     <%= f.label :offered_by_id %><br>
-    <%= f.select :offered_by_id, options_from_collection_for_select(Department.all, :id, :name) %>
+    <%= f.select :offered_by_id, options_from_collection_for_select(Department.all, :id, :code, @syllabus.try(:course).try(:department).try(:id) || @paper.offered_by.id) %>
   </div>
   <div class="field">
     <%= f.label :study_mode %><br>
