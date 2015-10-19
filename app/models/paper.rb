@@ -1,8 +1,7 @@
 class Paper < ActiveRecord::Base
-  belongs_to :syllabus
-  belongs_to :term_structure_entry
   belongs_to :paper_type
-  belongs_to :offered_by, foreign_key: "offered_by_id", class_name: "Department"
+  has_many :programme_offerings
+  has_many :syllabuses, through: :programme_offerings
 
   def exam_required?
     self.exam_required ? "Yes" : "No"

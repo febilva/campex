@@ -5,8 +5,10 @@ class PapersController < ApplicationController
   # GET /papers
   # GET /papers.json
   def index
-    @term_structure_entry = TermStructureEntry.find(params[:term_id])
-    @papers = Paper.where(syllabus: @syllabus, term_structure_entry: @term_structure_entry)
+    @programme_offerings = ProgrammeOffering.where(syllabus: @syllabus,
+     term_structure_entry_id: TermStructureEntry.find(params[:term_id]))
+    @papers = []
+    @programme_offerings.each { |programme_offering| @papers << programme_offering.paper }
   end
 
   # GET /papers/1
@@ -26,8 +28,10 @@ class PapersController < ApplicationController
   # POST /papers
   # POST /papers.json
   def create
-    @paper = Paper.new(paper_params)
-    @paper.syllabus = @syllabus
+    @paper = Paper.new(paper_params.except(:term_structure_entry_id))
+    @programme_offering = ProgrammeOffering.new(syllabus: @syllabus, paper: @paper, 
+      term_structure_entry_id: paper_params[:term_structure_entry_id])
+    @paper.programme_offerings << @programme_offering
 
     respond_to do |format|
       if @paper.save

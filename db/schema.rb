@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151017072253) do
+ActiveRecord::Schema.define(version: 20151019013500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -103,22 +103,29 @@ ActiveRecord::Schema.define(version: 20151017072253) do
   end
 
   create_table "papers", force: :cascade do |t|
-    t.integer  "syllabus_id"
-    t.integer  "term_structure_entry_id"
     t.integer  "paper_type_id"
     t.string   "name"
     t.string   "code"
     t.string   "study_mode"
     t.boolean  "exam_required"
     t.boolean  "optional"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.integer  "offered_by_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   add_index "papers", ["paper_type_id"], name: "index_papers_on_paper_type_id", using: :btree
-  add_index "papers", ["syllabus_id"], name: "index_papers_on_syllabus_id", using: :btree
-  add_index "papers", ["term_structure_entry_id"], name: "index_papers_on_term_structure_entry_id", using: :btree
+
+  create_table "programme_offerings", force: :cascade do |t|
+    t.integer  "syllabus_id"
+    t.integer  "paper_id"
+    t.integer  "term_structure_entry_id"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "programme_offerings", ["paper_id"], name: "index_programme_offerings_on_paper_id", using: :btree
+  add_index "programme_offerings", ["syllabus_id"], name: "index_programme_offerings_on_syllabus_id", using: :btree
+  add_index "programme_offerings", ["term_structure_entry_id"], name: "index_programme_offerings_on_term_structure_entry_id", using: :btree
 
   create_table "registered_exam_papers", force: :cascade do |t|
     t.integer  "exam_registration_id"
@@ -230,8 +237,9 @@ ActiveRecord::Schema.define(version: 20151017072253) do
   add_foreign_key "examinations", "syllabuses"
   add_foreign_key "examinations", "term_structure_entries"
   add_foreign_key "papers", "paper_types"
-  add_foreign_key "papers", "syllabuses"
-  add_foreign_key "papers", "term_structure_entries"
+  add_foreign_key "programme_offerings", "papers"
+  add_foreign_key "programme_offerings", "syllabuses"
+  add_foreign_key "programme_offerings", "term_structure_entries"
   add_foreign_key "registered_exam_papers", "exam_registrations"
   add_foreign_key "registered_exam_papers", "papers"
   add_foreign_key "roles_users", "roles"

@@ -2,12 +2,12 @@
 
 <p>
   <strong>Syllabus:</strong>
-  <%= @paper.syllabus %>
+  <%#= @paper.syllabus %>
 </p>
 
 <p>
   <strong>Term structure entry:</strong>
-  <%= @paper.term_structure_entry %>
+  <%#= @paper.term_structure_entry %>
 </p>
 
 <p>
@@ -26,14 +26,9 @@
 </p>
 
 <p>
-  <strong>Offered By:</strong>
-  <%= @paper.offered_by.name %>
-</p>
-
-<p>
   <strong>Study mode:</strong>
   <%= @paper.study_mode %>
 </p>
 
-<%= link_to 'Edit', edit_paper_path(@paper, term_id: @paper.term_structure_entry.id) %> |
-<%= link_to 'Back', syllabus_papers_path(@paper.syllabus, term_id: @paper.term_structure_entry.id) %>
+<%#= link_to 'Edit', edit_paper_path(@paper, term_id: @paper.term_structure_entry.id) %> |
+<%#= link_to 'Back', syllabus_papers_path(@paper.syllabus, term_id: @paper.term_structure_entry.id) %>
