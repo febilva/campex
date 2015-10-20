@@ -1,5 +1,6 @@
 class Paper < ActiveRecord::Base
   belongs_to :paper_type
+  belongs_to :offered_by, foreign_key: "offered_by_id", class_name: "Department"
   has_many :programme_offerings
   has_many :syllabuses, through: :programme_offerings
 

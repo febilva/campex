@@ -111,6 +111,7 @@ ActiveRecord::Schema.define(version: 20151019013500) do
     t.boolean  "optional"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "offered_by_id"
   end
 
   add_index "papers", ["paper_type_id"], name: "index_papers_on_paper_type_id", using: :btree
