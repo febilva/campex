@@ -15,7 +15,8 @@ class ExamRegistrationsController < ApplicationController
   # GET /exam_registrations/new
   def new
     @exam_registration = ExamRegistration.new
-    @papers = Examination.find(params[:exam_id]).papers
+    @papers = Examination.find(params[:exam_id]).papers.select{ |paper| paper.exam_required == true}
+    .map{ |paper| paper }
   end
 
   # GET /exam_registrations/1/edit
@@ -25,7 +26,6 @@ class ExamRegistrationsController < ApplicationController
   # POST /exam_registrations
   # POST /exam_registrations.json
   def create
-    byebug
     @exam_registration = ExamRegistration.new(exam_registration_params)
 
     respond_to do |format|

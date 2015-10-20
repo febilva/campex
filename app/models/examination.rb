@@ -5,7 +5,11 @@ class Examination < ActiveRecord::Base
   has_and_belongs_to_many :batches
 
   def papers
-    Paper.where(syllabus: self.syllabus, term_structure_entry: self.term_structure_entry, exam_required: true)
+    @programme_offerings = ProgrammeOffering.where(syllabus: self.syllabus,
+     term_structure_entry: self.term_structure_entry)
+    @papers = []
+    @programme_offerings.each { |programme_offering| @papers << programme_offering.paper }
+    @papers
   end
 
   def to_s
