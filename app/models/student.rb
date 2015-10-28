@@ -7,6 +7,6 @@ class Student < ActiveRecord::Base
   end
 
   def method_missing(method)
-    self.user.try(method) or super
+    self.user.try(method)
   end
 end
