@@ -22,5 +22,8 @@ module Campex
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
+
+    # Adds vendor/assets/javascripts to assets pipeline
+    config.assets.paths << Rails.root.join("vendor", "assets", "javascripts")
   end
 end
