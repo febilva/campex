@@ -1,5 +1,6 @@
 class ExamRegistrationsController < ApplicationController
   before_action :set_exam_registration, only: [:show, :edit, :update, :destroy]
+  layout false, only: [:show]
 
   # GET /exam_registrations
   # GET /exam_registrations.json

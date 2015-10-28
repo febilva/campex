@@ -1,0 +1,25 @@
+#heading h2
+{
+text-align:center;
+color:#960909;
+}
+#heading p
+{
+text-align:center;
+color:#960909;
+}
+.underline
+{
+height:2px;
+background:#960909;
+margin-top:15px;
+}
+.details span
+{
+font-weight:900;
+letter-spacing:2px;
+}
+.details
+{
+padding: 20px 50px;
+}

@@ -1,0 +1,47 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Registered Papers</h1>
+
+<table class="ui celled striped secondary green inverted table">
+  <thead>
+    <tr>
+      <th>Paper Name</th>
+      <th>Paper Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @exam_registration.papers.each do |paper| %>
+      <tr>
+        <td><%= paper.name %></td>
+        <td><%= paper.code %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <strong>Candidate Code:</strong>
+  <%= "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}" %>
+</p>
+
+<p>
+  <strong>Examination:</strong>
+  <%= @exam_registration.examination %>
+</p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @exam_registration.student %>
+</p>
+
+<p>
+  <strong>Paper count:</strong>
+  <%= @exam_registration.paper_count %>
+</p>
+
+<p>
+  <strong>Fees paid:</strong>
+  <%= @exam_registration.fees_paid %>
+</p>
+
+<%= link_to 'Back', exam_registrations_path %>
