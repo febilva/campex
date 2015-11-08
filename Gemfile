@@ -38,6 +38,12 @@ gem 'devise'
 gem 'semantic-ui-sass'
 # Object oriented authorization for Rails applications
 gem "pundit"
+# Upload files in your Ruby applications
+gem 'carrierwave'
+# Manipulate images with minimal use of memory
+gem "mini_magick"
+# The Ruby cloud services library.
+gem "fog"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

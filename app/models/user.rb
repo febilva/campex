@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable,
          :authentication_keys => [:login]
 
+  mount_uploader :dp, ImageUploader
+
   belongs_to :profile, polymorphic: true
   has_and_belongs_to_many :roles
 

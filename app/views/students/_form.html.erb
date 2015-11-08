@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= label_tag :course_id %><br>
-    <%= select_tag :course_id, options_from_collection_for_select(Course.all, :id, :name),  include_blank: true, "data-fetch-course-batches" => "student_batch_id" %>
+    <%= select_tag :course_id, options_from_collection_for_select(Course.all, :id, :name, @student.batch.try(:course).try(:id)),  include_blank: true, "data-fetch-course-batches" => "student_batch_id" %>
   </div>
   <div class="field">
     <%= f.label :batch_id %><br>
-    <%=  f.select :batch_id, "" %>
+    <%=  f.select :batch_id, options_from_collection_for_select(Batch.where(course: @student.batch.try(:course)), :id, :name, @student.batch.try(:course).try(:id)) %>
   </div>
   <div class="field">
     <%= f.label :admission_no %><br>
@@ -27,22 +27,29 @@
     <%= f.label :roll_no %><br>
     <%= f.text_field :roll_no %>
   </div>
-  <div class="field">
-    <%= label_tag :first_name %><br>
-    <%= text_field_tag "student[first_name]" %>
-  </div>
-  <div class="field">
-    <%= label_tag :middle_name %><br>
-    <%= text_field_tag "student[middle_name]" %>
-  </div>
-  <div class="field">
-    <%= label_tag :last_name %><br>
-    <%= text_field_tag "student[last_name]" %>
-  </div>
-  <div class="field">
-    <%= label_tag :email %><br>
-    <%= email_field_tag "student[email]" %>
-  </div>
+  <%= f.fields_for :user do |u| %>
+    <%= u.hidden_field "id", value: @student.profile.id %>
+    <div class="field">
+      <%= label_tag :first_name %><br>
+      <%= u.text_field "first_name" %>
+    </div>
+    <div class="field">
+      <%= label_tag :middle_name %><br>
+      <%= u.text_field "middle_name" %>
+    </div>
+    <div class="field">
+      <%= label_tag :last_name %><br>
+      <%= u.text_field "last_name" %>
+    </div>
+    <div class="field">
+      <%= label_tag :email %><br>
+      <%= u.email_field "email" %>
+    </div>
+    <div class="field">
+      <%= label_tag :dp %><br>
+      <%= u.file_field :dp %>
+    </div>
+  <% end %>
   <div class="actions">
     <%= f.submit %>
   </div>
