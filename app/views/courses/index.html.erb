@@ -30,7 +30,7 @@
   <tbody>
     <% @courses.each do |course| %>
       <tr>
-        <td><%= link_to "#{course.course_type} #{course.name}", course_batches_path(course) %></td>
+        <td><%= link_to course.full_name, course_batches_path(course) %></td>
         <td><%= course.code %></td>
         <td><%= course.term_structure %></td>
         <td class="center aligned">

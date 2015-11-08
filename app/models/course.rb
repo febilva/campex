@@ -6,6 +6,10 @@ class Course < ActiveRecord::Base
   has_many :batches
   has_many :term_structure_entries, through: :term_structure
 
+  def full_name
+    "#{self.course_type} #{self.name.capitalize}"
+  end
+
   def papers
     Syllabus.where(course: self).last.papers
   end

@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :course_id %><br>
-    <%= f.select :course_id, options_from_collection_for_select(Course.all, :id, :name), { include_blank: true }, "data-fetch-course-terms" => "examination_term_structure_entry_id", "data-fetch-course-syllabuses" => "examination_syllabus_id", "data-fetch-course-batches" => "examination_batch_ids" %>
+    <%= f.select :course_id, options_from_collection_for_select(Course.all, :id, :full_name), { include_blank: true }, "data-fetch-course-terms" => "examination_term_structure_entry_id", "data-fetch-course-syllabuses" => "examination_syllabus_id", "data-fetch-course-batches" => "examination_batch_ids" %>
   </div>
   <div class="field">
     <%= f.label :syllabus_id %><br>
