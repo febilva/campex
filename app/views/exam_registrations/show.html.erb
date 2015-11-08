@@ -1,47 +1,77 @@
-<p id="notice"><%= notice %></p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Exam Registration Details</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  </head>
+  
+  <body>
+      <div id="heading">
+          <h2>Successfully Registered</h2>
+          <p>MES MAMPAD COLLEGE</p>
+      </div>
+      <div class="underline"></div>
+      <div class="details">
+      <div class="ui stackable two column grid">
+  <div class="column">
+      <div class="ui grid container">
+          <div class="five wide column">
+              <label>Candidate Code</label>
+          </div>
+          <div class="eleven wide column">
+              <span>
+                <%= "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}" %>
+              </span>
+          </div>
+          <div class="five wide column">
+              <label>Exam Code</label>
+          </div>
+          <div class="eleven wide column">
+              <span>:<%= @exam_registration.examination.code %></span>
+          </div>
+      </div>
+  </div>
+  <div class="column">
+      <div class="ui grid container">
+          <div class="five wide column">
+              <label>Course</label>
+          </div>
+          <div class="eleven wide column">
+              <span>:<%= @exam_registration.student.batch.course.name %></span>
+          </div>
+           <div class="five wide column">
+              <label>Date Of Registration</label>
+          </div>
+          <div class="eleven wide column">
+              <span>:<%= @exam_registration.created_at %></span>
+          </div>
+      </div>
+  </div>
+</div>
+      </div>
+            <div class="underline"></div>
 
-<h1>Registered Papers</h1>
-
-<table class="ui celled striped secondary green inverted table">
-  <thead>
-    <tr>
-      <th>Paper Name</th>
-      <th>Paper Code</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @exam_registration.papers.each do |paper| %>
-      <tr>
-        <td><%= paper.name %></td>
-        <td><%= paper.code %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<p>
-  <strong>Candidate Code:</strong>
-  <%= "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}" %>
-</p>
-
-<p>
-  <strong>Examination:</strong>
-  <%= @exam_registration.examination %>
-</p>
-
-<p>
-  <strong>Student:</strong>
-  <%= @exam_registration.student %>
-</p>
-
-<p>
-  <strong>Paper count:</strong>
-  <%= @exam_registration.paper_count %>
-</p>
-
-<p>
-  <strong>Fees paid:</strong>
-  <%= @exam_registration.fees_paid %>
-</p>
-
-<%= link_to 'Back', exam_registrations_path %>
+            <table class="ui celled striped table">
+              <thead>
+                <tr>
+                  <th>Paper Name</th>
+                  <th>Paper Code</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @exam_registration.papers.each do |paper| %>
+                  <tr>
+                    <td><%= paper.name %></td>
+                    <td><%= paper.code %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+      </body>
+</html>
