@@ -6,6 +6,13 @@ class ExamRegistrationsController < ApplicationController
   # GET /exam_registrations.json
   def index
     @open_examinations = current_user.batch.examinations
+    .where('registration_close_date >= ?', Date.today)
+
+    @registered_examinations = ExamRegistration.where(student: current_user.profile)
+    .select{ |registration| registration.examination.end_date > Date.today }
+    .map{ |registration| registration.examination }
+    
+    @examinations = @open_examinations | @registered_examinations
   end
 
   # GET /exam_registrations/1
