@@ -26,14 +26,14 @@
           </div>
           <div class="eleven wide column">
               <span>
-                <%= "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}" %>
+                : <%= "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}" %>
               </span>
           </div>
           <div class="five wide column">
               <label>Exam Code</label>
           </div>
           <div class="eleven wide column">
-              <span>:<%= @exam_registration.examination.code %></span>
+              <span>: <%= @exam_registration.examination.code %></span>
           </div>
       </div>
   </div>
@@ -43,13 +43,13 @@
               <label>Course</label>
           </div>
           <div class="eleven wide column">
-              <span>:<%= @exam_registration.student.batch.course.name %></span>
+              <span>: <%= @exam_registration.student.batch.course.full_name %></span>
           </div>
            <div class="five wide column">
               <label>Date Of Registration</label>
           </div>
           <div class="eleven wide column">
-              <span>:<%= @exam_registration.created_at %></span>
+              <span>: <%= @exam_registration.created_at.to_date %></span>
           </div>
       </div>
   </div>
