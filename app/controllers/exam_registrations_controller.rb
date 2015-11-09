@@ -1,5 +1,5 @@
 class ExamRegistrationsController < ApplicationController
-  before_action :set_exam_registration, only: [:show, :edit, :update, :destroy]
+  before_action :set_exam_registration, only: [:show, :edit, :update, :destroy, :download_hallticket]
   layout false, only: [:show]
 
   # GET /exam_registrations
@@ -69,6 +69,9 @@ class ExamRegistrationsController < ApplicationController
       format.html { redirect_to exam_registrations_url, notice: 'Exam registration was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def download_hallticket
   end
 
   private

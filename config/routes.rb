@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  resources :exam_registrations
+  resources :exam_registrations do
+    member do
+      get 'download_hallticket'
+    end
+  end
   resources :students
   resources :roles do
     member do

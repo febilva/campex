@@ -1,0 +1,171 @@
+var doc = new jsPDF();
+
+doc.setProperties({
+    title: 'MAMPAD COLLEGE PROVISIONAL HALLTICKET',
+    subject: 'Online Hallticket',     
+    author: 'Mentor Performance Rating',
+    keywords: 'mes, mampad, college, examination, hallticket, mentor, campex',
+    creator: 'Campex'
+});
+
+doc.setFont("times");
+doc.setFontType("bold");
+
+doc.setFontSize(10);
+centeredText('MAMPAD COLLEGE', 15);
+
+doc.setFontSize(15);
+centeredText('PROVISIONAL HALL TICKET', 22);
+
+doc.setFontSize(13);
+var examination_name = '<%= @exam_registration.examination.name %>';
+centeredText(examination_name, 28);
+
+/* -------------------------- Candidate Info Table Begins --------------------------------- */
+
+var table_base_x = 20;
+var table_base_y = 30;
+var table_width = 170;
+var table_height = 20;
+var table_max_x = table_base_x + table_width;
+var table_max_y = table_base_y + table_height;
+
+doc.setLineWidth(0.1);
+doc.rect(table_base_x, table_base_y, table_width, table_height); // rectangle enclosing table
+doc.line(table_base_x + 30, table_base_y, table_base_x + 30, table_max_y); // vertical line
+
+doc.setFontSize(8);
+
+doc.setFontType("normal");
+doc.line(table_base_x, table_base_y + 5, table_max_x, table_base_y + 5); // horizontal line
+doc.text(table_base_x + 2, table_base_y + 4, 'Name of candidate');
+doc.setFontType("bold");
+doc.text(table_base_x + 35, table_base_y + 4, '<%= @exam_registration.student.name %>');
+
+doc.setFontType("normal");
+doc.line(table_base_x, table_base_y + 10, table_max_x, table_base_y + 10); // horizontal line
+doc.text(table_base_x + 2, table_base_y + 9, 'Candidate code');
+doc.setFontType("bold");
+doc.text(table_base_x + 35, table_base_y + 9, 
+  '<%= "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}" %>');
+
+doc.setFontType("normal");
+doc.line(table_base_x, table_base_y + 15, table_max_x, table_base_y + 15); // horizontal line
+doc.text(table_base_x + 2, table_base_y + 14, 'Date of birth');
+doc.text(table_base_x + 35, table_base_y + 14, '<%= "YYYY/MM/DD" %>');
+
+doc.line(table_base_x, table_base_y + 20, table_max_x, table_base_y + 20); // horizontal line
+doc.text(table_base_x + 2, table_base_y + 19, 'Center of Examination');
+doc.text(table_base_x + 35, table_base_y + 19, 'M.E.S. COLLEGE, MAMPAD');
+
+/* -------------------------- Candidate Info Table Ends --------------------------------- */
+
+doc.setFontSize(10);
+centeredText('Details of Papers for which the Candidate is appearing', 58);
+
+/* -------------------------- Paper Info Table Begins --------------------------------- */
+<% @papers = @exam_registration.papers %>
+
+var table_base_x = 20;
+var table_base_y = 60;
+var table_width = 170;
+var table_height = <%= @papers.count %> * 5;
+var table_max_x = table_base_x + table_width;
+var table_max_y = table_base_y + table_height;
+
+doc.setLineWidth(0.1);
+doc.rect(table_base_x, table_base_y, table_width, table_height); // rectangle enclosing table
+doc.line(table_base_x + 30, table_base_y, table_base_x + 30, table_max_y); // vertical line
+
+doc.setFontSize(8);
+
+<% @papers.each_with_index do |paper, i| %>
+  doc.line(table_base_x, table_base_y + ((<%= i %> + 1) * 5), table_max_x, 
+    table_base_y + ((<%= i %> + 1) * 5)); // horizontal line
+  // Paper Details
+  doc.text(table_base_x + 2, table_base_y + ((<%= i %> + 1) * 5) - 1, '<%= paper.code %>');
+  doc.text(table_base_x + 35, table_base_y + ((<%= i %> + 1) * 5) - 1, '<%= paper.name %>');
+<% end %>
+
+/* -------------------------- Paper Info Table Ends --------------------------------- */
+
+/* -------------------------- Identification Block Begins --------------------------------- */
+
+var block_base_x = 20;
+var block_base_y = table_max_y + 10;
+
+doc.rect(table_base_x, block_base_y, 28, 34); // rectangle enclosing photo
+
+var getImageFromUrl = function(url, callback) {
+  var img = new Image;
+
+  img.crossOrigin = "Anonymous";
+
+  img.onload = function() {
+    callback(img);
+  }
+  img.src = url;
+  // make sure the load event fires for cached images too
+  if ( img.complete || img.complete === undefined ) {
+      img.src = "data:image/jpeg;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+      img.src = url;
+  }
+}
+
+getImageFromUrl('<%= @exam_registration.student.dp.large.url %>', createPDF);
+
+var createPDF = function(imgData) {
+  doc.addImage(imgData, block_base_x, block_base_y, 28, 34);
+
+  doc.setFontSize(8);
+  doc.text(block_base_x + 40, block_base_y + 5, "Identifying Officer's");
+  for(var i = block_base_x + 70; i < table_max_x; ++i)
+    doc.text(i, block_base_y + 5, ".");
+  doc.text(block_base_x + 40, block_base_y + 9, "Name, Designation and");
+  for(var i = block_base_x + 70; i < table_max_x; ++i)
+    doc.text(i, block_base_y + 9, ".");
+  doc.text(block_base_x + 40, block_base_y + 13, "Address");
+  for(var i = block_base_x + 70; i < table_max_x / 2 + 35; ++i)
+    doc.text(i, block_base_y + 13, ".");
+  doc.setFontSize(7);
+  doc.text(block_base_x + 40, block_base_y + 20, "(To be attested by a Member of Teaching staff of the College/Dept./Center not below the rank of a lecturer)");
+
+  doc.setFontSize(8);
+  doc.text(block_base_x, block_base_y + 38, "Signature of Identifying Officer with Seal");
+  doc.text(block_base_x + 70, block_base_y + 38, "Signature of the Candidate");
+  for(var i = 0, base_val = block_base_x + 102; i < 50; ++i)
+    doc.text(base_val + i, block_base_y + 38, ".");
+
+  doc.text(block_base_x, block_base_y + 42, "(To be signed on the Photograph)");
+  doc.text(block_base_x + 70, block_base_y + 42, "(To be signed in the presence of Identifying Officer)");
+
+  doc.text(block_base_x, block_base_y + 50, "(College/Dept./Center Seal)");
+
+  doc.text(block_base_x, block_base_y + 60, "Pareeksha Bhavan");
+  doc.text(block_base_x, block_base_y + 64, "MES, MAMPAD");
+  doc.text(block_base_x, block_base_y + 68, "676 542");
+
+  doc.setFontSize(10);
+  doc.setFontType("bold");
+  doc.text(block_base_x + 125, block_base_y + 64, "Controller of Examinations");
+  doc.setFontSize(8);
+  doc.setFontType("normal");
+  doc.text(block_base_x + 135, block_base_y + 68, "MES College, Mampad");
+
+  doc.setFontType("bold");
+  centeredText("*** COMMUNICATION DEVICES ARE STRICTLY PROHIBITED INSIDE EXAMINATION HALL ***",
+    block_base_y + 75);
+
+  doc.save("hallticket.pdf");
+  doc.output('dataurlnewwindow');     //opens the data uri in new window
+}
+
+
+/* -------------------------- Identification Block Ends ----------------------------------- */
+
+var centeredText = function(text, y) {
+  var textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
+  var textOffset = (doc.internal.pageSize.width - textWidth) / 2;
+
+  doc.text(textOffset, y, text);
+}
