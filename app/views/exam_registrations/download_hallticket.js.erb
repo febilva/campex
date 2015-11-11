@@ -52,7 +52,7 @@ doc.text(table_base_x + 35, table_base_y + 9,
 doc.setFontType("normal");
 doc.line(table_base_x, table_base_y + 15, table_max_x, table_base_y + 15); // horizontal line
 doc.text(table_base_x + 2, table_base_y + 14, 'Date of birth');
-doc.text(table_base_x + 35, table_base_y + 14, '<%= "YYYY/MM/DD" %>');
+doc.text(table_base_x + 35, table_base_y + 14, '<%= @exam_registration.student.dob %>');
 
 doc.line(table_base_x, table_base_y + 20, table_max_x, table_base_y + 20); // horizontal line
 doc.text(table_base_x + 2, table_base_y + 19, 'Center of Examination');
