@@ -46,6 +46,10 @@
       <%= u.email_field "email" %>
     </div>
     <div class="field">
+      <%= u.label :date_of_birth %><br>
+      <%= u.date_select :dob %>
+    </div>
+    <div class="field">
       <%= label_tag :dp %><br>
       <%= u.file_field :dp %>
     </div>
