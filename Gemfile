@@ -44,6 +44,8 @@ gem 'carrierwave'
 gem "mini_magick"
 # The Ruby cloud services library.
 gem "fog"
+# Adds file validators to ActiveModel
+gem 'file_validators'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
