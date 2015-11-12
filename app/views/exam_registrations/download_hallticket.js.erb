@@ -12,14 +12,14 @@ doc.setFont("times");
 doc.setFontType("bold");
 
 doc.setFontSize(10);
-centeredText('MAMPAD COLLEGE', 15);
+doc.text(84, 15, 'MAMPAD COLLEGE');
 
 doc.setFontSize(15);
-centeredText('PROVISIONAL HALL TICKET', 22);
+doc.text(65, 22, 'PROVISIONAL HALL TICKET');
 
 doc.setFontSize(13);
 var examination_name = '<%= @exam_registration.examination.name %>';
-centeredText(examination_name, 28);
+doc.text(50, 28, examination_name);
 
 /* -------------------------- Candidate Info Table Begins --------------------------------- */
 
@@ -44,7 +44,7 @@ doc.text(table_base_x + 35, table_base_y + 4, '<%= @exam_registration.student.na
 
 doc.setFontType("normal");
 doc.line(table_base_x, table_base_y + 10, table_max_x, table_base_y + 10); // horizontal line
-doc.text(table_base_x + 2, table_base_y + 9, 'Candidate code');
+doc.text(table_base_x + 2, table_base_y + 9, 'Register No');
 doc.setFontType("bold");
 doc.text(table_base_x + 35, table_base_y + 9, 
   '<%= "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}" %>');
@@ -61,7 +61,7 @@ doc.text(table_base_x + 35, table_base_y + 19, 'M.E.S. COLLEGE, MAMPAD');
 /* -------------------------- Candidate Info Table Ends --------------------------------- */
 
 doc.setFontSize(10);
-centeredText('Details of Papers for which the Candidate is appearing', 58);
+doc.text(table_base_x + 50, 58, 'Details of Papers for which the Candidate is appearing');
 
 /* -------------------------- Paper Info Table Begins --------------------------------- */
 <% @papers = @exam_registration.papers %>
@@ -97,22 +97,20 @@ var block_base_y = table_max_y + 10;
 doc.rect(table_base_x, block_base_y, 28, 34); // rectangle enclosing photo
 
 var getImageFromUrl = function(url, callback) {
-  var img = new Image;
+  var img = new Image();
 
   img.crossOrigin = "Anonymous";
 
+  img.onError = function() {
+    alert('Cannot load image.');
+  };
+
   img.onload = function() {
     callback(img);
-  }
-  img.src = url;
-  // make sure the load event fires for cached images too
-  if ( img.complete || img.complete === undefined ) {
-      img.src = "data:image/jpeg;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
-      img.src = url;
-  }
-}
+  };
 
-getImageFromUrl('<%= @exam_registration.student.dp.large.url %>', createPDF);
+  img.src = url;
+}
 
 var createPDF = function(imgData) {
   doc.addImage(imgData, block_base_x, block_base_y, 28, 34);
@@ -153,19 +151,13 @@ var createPDF = function(imgData) {
   doc.text(block_base_x + 135, block_base_y + 68, "MES College, Mampad");
 
   doc.setFontType("bold");
-  centeredText("*** COMMUNICATION DEVICES ARE STRICTLY PROHIBITED INSIDE EXAMINATION HALL ***",
-    block_base_y + 75);
+  doc.text(block_base_x + 20, block_base_y + 78, 
+    "*** COMMUNICATION DEVICES ARE STRICTLY PROHIBITED INSIDE EXAMINATION HALL ***");
 
   doc.save("hallticket.pdf");
   doc.output('dataurlnewwindow');     //opens the data uri in new window
 }
 
+getImageFromUrl('<%= @exam_registration.student.dp.passport.url %>', createPDF);
 
 /* -------------------------- Identification Block Ends ----------------------------------- */
-
-var centeredText = function(text, y) {
-  var textWidth = doc.getStringUnitWidth(text) * doc.internal.getFontSize() / doc.internal.scaleFactor;
-  var textOffset = (doc.internal.pageSize.width - textWidth) / 2;
-
-  doc.text(textOffset, y, text);
-}
