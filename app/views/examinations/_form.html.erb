@@ -13,15 +13,15 @@
 
   <div class="field">
     <%= f.label :course_id %><br>
-    <%= f.select :course_id, options_from_collection_for_select(Course.all, :id, :full_name), { include_blank: true }, "data-fetch-course-terms" => "examination_term_structure_entry_id", "data-fetch-course-syllabuses" => "examination_syllabus_id", "data-fetch-course-batches" => "examination_batch_ids" %>
+    <%= f.select :course_id, options_from_collection_for_select(Course.all, :id, :full_name, @examination.course_id), { include_blank: true }, "data-fetch-course-terms" => "examination_term_structure_entry_id", "data-fetch-course-syllabuses" => "examination_syllabus_id", "data-fetch-course-batches" => "examination_batch_ids" %>
   </div>
   <div class="field">
     <%= f.label :syllabus_id %><br>
-    <%= f.select :syllabus_id, "" %>
+    <%= f.select :syllabus_id, @examination.course ? options_from_collection_for_select(@examination.course.syllabuses, :id, :name, @examination.syllabus_id) : "", { include_blank: true } %>
   </div>
   <div class="field">
     <%= f.label :term_structure_entry_id %><br>
-    <%= f.select :term_structure_entry_id, "" %>
+    <%= f.select :term_structure_entry_id, @examination.course ? options_from_collection_for_select(@examination.course.term_structure_entries, :id, :name, @examination.term_structure_entry_id) : "", { include_blank: true } %>
   </div>
   <div class="field">
     <%= f.label :name %><br>
@@ -49,7 +49,7 @@
   </div>
   <div class="field">
     <%= f.label :applicable_batches %><br>
-    <%= f.select :batch_ids, "", {}, multiple: true %>
+    <%= f.select :batch_ids, @examination.course ? options_from_collection_for_select(@examination.course.batches, :id, :name, @examination.batch_ids) : "", {}, multiple: true %>
   </div>
   <div class="actions">
     <%= f.submit %>
