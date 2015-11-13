@@ -64,7 +64,7 @@ doc.setFontSize(10);
 doc.text(table_base_x + 50, 58, 'Details of Papers for which the Candidate is appearing');
 
 /* -------------------------- Paper Info Table Begins --------------------------------- */
-<% @papers = @exam_registration.papers %>
+<% @papers = @exam_registration.reverse.papers %>
 
 var table_base_x = 20;
 var table_base_y = 60;
@@ -139,16 +139,12 @@ var createPDF = function(imgData) {
 
   doc.text(block_base_x, block_base_y + 50, "(College/Dept./Centre Seal)");
 
-  doc.text(block_base_x, block_base_y + 60, "Controller of Examinations");
   doc.text(block_base_x, block_base_y + 64, "MES MAMPAD COLLEGE");
   doc.text(block_base_x, block_base_y + 68, "676 542");
 
   doc.setFontSize(10);
   doc.setFontType("bold");
   doc.text(block_base_x + 125, block_base_y + 64, "Controller of Examinations");
-  doc.setFontSize(8);
-  doc.setFontType("normal");
-  doc.text(block_base_x + 130, block_base_y + 68, "MES MAMPAD COLLEGE");
 
   doc.setFontType("bold");
   doc.text(block_base_x + 20, block_base_y + 78, 
