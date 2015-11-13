@@ -64,7 +64,7 @@ doc.setFontSize(10);
 doc.text(table_base_x + 50, 58, 'Details of Papers for which the Candidate is appearing');
 
 /* -------------------------- Paper Info Table Begins --------------------------------- */
-<% @papers = @exam_registration.reverse.papers %>
+<% @papers = @exam_registration.papers.reverse %>
 
 var table_base_x = 20;
 var table_base_y = 60;
