@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
       :case_sensitive => false
     } # etc.
 
-  validates :dp, file_size: { less_than: 150.kilobytes }
+  # validates :dp, file_size: { less_than: 150.kilobytes }
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
