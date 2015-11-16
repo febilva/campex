@@ -28,7 +28,7 @@
     <%= f.text_field :roll_no %>
   </div>
   <%= f.fields_for :user do |u| %>
-    <%= u.hidden_field "id", value: @student.profile.id %>
+    <%= u.hidden_field "id", value: @student.profile.try(:id) %>
     <div class="field">
       <%= label_tag :first_name %><br>
       <%= u.text_field "first_name" %>

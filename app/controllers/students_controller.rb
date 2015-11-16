@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
 
   # GET /students/new
   def new
-    @student = Student.new
+    @student = Student.new(user: User.new)
   end
 
   # GET /students/1/edit
