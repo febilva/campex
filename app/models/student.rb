@@ -1,5 +1,6 @@
 class Student < ActiveRecord::Base
   belongs_to :batch
+  has_one :course, through: :batch
   has_one :user, as: :profile
 
   accepts_nested_attributes_for :user
