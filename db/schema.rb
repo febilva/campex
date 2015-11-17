@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117035947) do
+ActiveRecord::Schema.define(version: 20151117040059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,15 @@ ActiveRecord::Schema.define(version: 20151117035947) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "districts", force: :cascade do |t|
+    t.integer  "state_id"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "districts", ["state_id"], name: "index_districts_on_state_id", using: :btree
 
   create_table "exam_registrations", force: :cascade do |t|
     t.integer  "examination_id"
@@ -263,6 +272,7 @@ ActiveRecord::Schema.define(version: 20151117035947) do
   add_foreign_key "course_types", "departments"
   add_foreign_key "courses", "course_types"
   add_foreign_key "courses", "term_structures"
+  add_foreign_key "districts", "states"
   add_foreign_key "exam_registrations", "examinations"
   add_foreign_key "exam_registrations", "students"
   add_foreign_key "examinations", "courses"
