@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117040059) do
+ActiveRecord::Schema.define(version: 20151117052743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,23 +247,27 @@ ActiveRecord::Schema.define(version: 20151117040059) do
     t.string   "address_line2"
     t.string   "post_office"
     t.string   "taluk"
-    t.string   "district"
-    t.string   "state"
     t.string   "pincode"
     t.string   "country_id"
     t.string   "comm_address_line1"
     t.string   "comm_address_line2"
     t.string   "comm_post_office"
     t.string   "comm_taluk"
-    t.string   "comm_district"
-    t.string   "comm_state"
     t.string   "comm_pincode"
     t.string   "comm_country_id"
+    t.integer  "district_id"
+    t.integer  "state_id"
+    t.integer  "comm_district_id"
+    t.integer  "comm_state_id"
   end
 
+  add_index "users", ["comm_district_id"], name: "index_users_on_comm_district_id", using: :btree
+  add_index "users", ["comm_state_id"], name: "index_users_on_comm_state_id", using: :btree
+  add_index "users", ["district_id"], name: "index_users_on_district_id", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["profile_type", "profile_id"], name: "index_users_on_profile_type_and_profile_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["state_id"], name: "index_users_on_state_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
   add_foreign_key "batches", "courses"
