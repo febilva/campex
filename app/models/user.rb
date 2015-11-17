@@ -8,6 +8,10 @@ class User < ActiveRecord::Base
   mount_uploader :dp, ImageUploader
 
   belongs_to :profile, polymorphic: true
+  belongs_to :district
+  belongs_to :state
+  belongs_to :comm_district, class_name: "District"
+  belongs_to :comm_state, class_name: "State"
   has_and_belongs_to_many :roles
 
   validates :username,
@@ -41,6 +45,21 @@ class User < ActiveRecord::Base
 
   def name
     "#{self.first_name} #{self.middle_name} #{self.last_name}"
+  end
+
+  def nationality
+    country = ISO3166::Country[self.nationality_id]
+    country.translations[I18n.locale.to_s] || country.name
+  end
+
+  def country
+    country = ISO3166::Country[self.country_id]
+    country.translations[I18n.locale.to_s] || country.name
+  end
+
+  def comm_country
+    country = ISO3166::Country[self.comm_country_id]
+    country.translations[I18n.locale.to_s] || country.name
   end
 
   def method_missing(method)

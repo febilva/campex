@@ -45,14 +45,107 @@
       <%= label_tag :email %><br>
       <%= u.email_field "email" %>
     </div>
+
     <div class="field">
       <%= u.label :date_of_birth %><br>
       <%= u.date_select :dob %>
     </div>
     <div class="field">
+      <%= label_tag :nationality_id %><br>
+      <%= country_select("student[user_attributes]", "nationality_id",{selected: @student.nationality_id, priority_countries: ["IN", "AF", "KE"]}, {class: 'ui search dropdown'}) %>
+    </div>
+    <div class="field">
+      <%= u.label :gender %><br>
+      <%= u.select :gender, %w(Male Female Neutral) %>
+    </div>
+    <div class="field">
+      <%= u.label :blood_group %><br>
+      <%= u.select :blood_group, %w(A+ A- B+ B- O+ O- AB+ AB-) %>
+    </div>
+    <div class="field">
+      <%= u.label :religion %><br>
+      <%= u.select :religion, %w(Hindu Islam Christian No\ Religion) %>
+    </div>
+
+    <div class="field">
+      <%= u.label :mobile_no %><br>
+      <%= u.text_field :mobile_no %>
+    </div>
+    <div class="field">
+      <%= u.label :phone_no %><br>
+      <%= u.text_field :phone_no %>
+    </div>
+
+    <div class="field">
+      <%= label_tag :address_line1 %><br>
+      <%= u.text_field :address_line1 %>
+    </div>
+    <div class="field">
+      <%= label_tag :address_line2 %><br>
+      <%= u.text_field :address_line2 %>
+    </div>
+    <div class="field">
+      <%= label_tag :country_id %><br>
+      <%= country_select("student[user_attributes]", "country_id",{selected: @student.country_id, priority_countries: ["IN", "AF", "KE"]}, {class: 'ui search dropdown'}) %>
+    </div>
+    <div class="field">
+      <%= label_tag :state_id %><br>
+      <%= u.collection_select :state, State.all, :id, :name, {}, {class: "ui search dropdown", placeholder: "State"} %>
+    </div>
+    <div class="field">
+      <%= label_tag :district_id %><br>
+      <%= u.collection_select :district, District.all, :id, :name, {}, {id: 'districs_select', class: "ui search dropdown", placeholder: "District"} %>
+    </div>
+    <div class="field">
+      <%= label_tag :taluk %><br>
+      <%= u.text_field :taluk, placeholder: "Taluk" %>
+    </div>
+    <div class="field">
+      <%= label_tag :post_office %><br>
+      <%= u.text_field :post_office, placeholder: "Post Office" %>
+    </div>
+    <div class="field">
+      <%= label_tag :pincode %><br>
+      <%= u.text_field :pincode, placeholder: "Post Office" %>
+    </div>
+
+    <div class="field">
+      <%= label_tag :comm_address_line1 %><br>
+      <%= u.text_field :comm_address_line1 %>
+    </div>
+    <div class="field">
+      <%= label_tag :comm_address_line2 %><br>
+      <%= u.text_field :comm_address_line2 %>
+    </div>
+    <div class="field">
+      <%= label_tag :comm_country_id %><br>
+      <%= country_select("student[user_attributes]", "comm_country_id",{selected: @student.country_id, priority_countries: ["IN", "AF", "KE"]}, {class: 'ui search dropdown'}) %>
+    </div>
+    <div class="field">
+      <%= label_tag :comm_state_id %><br>
+      <%= u.collection_select :comm_state, State.all, :id, :name, {}, {class: "ui search dropdown", placeholder: "State"} %>
+    </div>
+    <div class="field">
+      <%= label_tag :comm_district_id %><br>
+      <%= u.collection_select :comm_district, District.all, :id, :name, {}, {id: 'districs_select', class: "ui search dropdown", placeholder: "District"} %>
+    </div>
+    <div class="field">
+      <%= label_tag :comm_taluk %><br>
+      <%= u.text_field :comm_taluk, placeholder: "Taluk" %>
+    </div>
+    <div class="field">
+      <%= label_tag :comm_post_office %><br>
+      <%= u.text_field :comm_post_office, placeholder: "Post Office" %>
+    </div>
+    <div class="field">
+      <%= label_tag :comm_pincode %><br>
+      <%= u.text_field :comm_pincode, placeholder: "Post Office" %>
+    </div>
+
+    <div class="field">
       <%= label_tag :dp %><br>
       <%= u.file_field :dp %>
-    </div>
+    </div>           
   <% end %>
   <div class="actions">
     <%= f.submit %>

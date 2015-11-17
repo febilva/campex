@@ -3,6 +3,21 @@
 <%= image_tag @student.dp.passport %>
 
 <p>
+  <strong>Name:</strong>
+  <%= @student.name %>
+</p>
+
+<p>
+  <strong>Dob:</strong>
+  <%= @student.dob %>
+</p>
+
+<p>
+  <strong>Batch:</strong>
+  <%= @student.name %>
+</p>
+
+<p>
   <strong>Batch:</strong>
   <%= @student.batch %>
 </p>
@@ -15,6 +30,123 @@
 <p>
   <strong>Roll no:</strong>
   <%= @student.roll_no %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @student.email %>
+</p>
+
+<p>
+  <strong>Gender:</strong>
+  <%= @student.gender %>
+</p>
+
+<p>
+  <strong>Blood Group:</strong>
+  <%= @student.blood_group %>
+</p>
+
+<p>
+  <strong>Nationality:</strong>
+  <%= @student.nationality %>
+</p>
+
+<p>
+  <strong>Religion:</strong>
+  <%= @student.religion %>
+</p>
+
+<p>
+  <strong>Mobile No:</strong>
+  <%= @student.mobile_no %>
+</p>
+
+<p>
+  <strong>Phone No:</strong>
+  <%= @student.phone_no %>
+</p>
+
+<p>
+  <strong>Address Line 1:</strong>
+  <%= @student.address_line1 %>
+</p>
+
+<p>
+  <strong>Address Line 2:</strong>
+  <%= @student.address_line2 %>
+</p>
+
+<p>
+  <strong>Taluk:</strong>
+  <%= @student.taluk %>
+</p>
+
+<p>
+  <strong>District:</strong>
+  <%= @student.district %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @student.state %>
+</p>
+
+<p>
+  <strong>Country:</strong>
+  <%= @student.country %>
+</p>
+
+<p>
+  <strong>Post Office:</strong>
+  <%= @student.post_office %>
+</p>
+
+<p>
+  <strong>Pin Code:</strong>
+  <%= @student.pincode %>
+</p>
+
+<hr>
+
+<p>
+  <strong>Comm Address Line 1:</strong>
+  <%= @student.comm_address_line1 %>
+</p>
+
+<p>
+  <strong>Comm Address Line 2:</strong>
+  <%= @student.comm_address_line2 %>
+</p>
+
+<p>
+  <strong>Comm Taluk:</strong>
+  <%= @student.comm_taluk %>
+</p>
+
+<p>
+  <strong>Comm District:</strong>
+  <%= @student.comm_district %>
+</p>
+
+<p>
+  <strong>Comm State:</strong>
+  <%= @student.comm_state %>
+</p>
+
+<p>
+  <strong>Comm Country:</strong>
+  <%= @student.comm_country %>
+</p>
+
+<p>
+  <strong>Comm Post Office:</strong>
+  <%= @student.comm_post_office %>
+</p>
+
+<p>
+  <strong>Comm Pin Code:</strong>
+  <%= @student.comm_pincode %>
 </p>
 
 <%= link_to 'Edit', edit_student_path(@student) %> |
