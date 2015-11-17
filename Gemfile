@@ -22,8 +22,6 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
-# Net::SSH: a pure-Ruby implementation of the SSH2 client protocol
-gem 'net-ssh'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -48,6 +46,8 @@ gem "mini_magick"
 gem "fog"
 # Adds file validators to ActiveModel
 # gem 'file_validators'
+# Provides a list of countries
+gem 'country_select', github: 'stefanpenner/country_select'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
