@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :states
   resources :exam_registrations do
     member do
       get 'download_hallticket'
