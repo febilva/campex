@@ -49,17 +49,17 @@ class User < ActiveRecord::Base
 
   def nationality
     country = ISO3166::Country[self.nationality_id]
-    country.translations[I18n.locale.to_s] || country.name
+    country.translations[I18n.locale.to_s] || country.name if country
   end
 
   def country
     country = ISO3166::Country[self.country_id]
-    country.translations[I18n.locale.to_s] || country.name
+    country.translations[I18n.locale.to_s] || country.name if country
   end
 
   def comm_country
     country = ISO3166::Country[self.comm_country_id]
-    country.translations[I18n.locale.to_s] || country.name
+    country.translations[I18n.locale.to_s] || country.name if country
   end
 
   def method_missing(method)
