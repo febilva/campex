@@ -48,7 +48,7 @@
 
     <div class="field">
       <%= u.label :date_of_birth %><br>
-      <%= u.date_select :dob %>
+      <%= u.date_select :dob, :start_year => Date.today.year - 30 %>
     </div>
     <div class="field">
       <%= label_tag :nationality_id %><br>
