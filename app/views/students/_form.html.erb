@@ -90,11 +90,11 @@
     </div>
     <div class="field">
       <%= label_tag :state_id %><br>
-      <%= u.collection_select :state, State.all, :id, :name, {}, {class: "ui search dropdown", placeholder: "State"} %>
+      <%= u.collection_select :state_id, State.all, :id, :name, {}, {class: "ui search dropdown", placeholder: "State"} %>
     </div>
     <div class="field">
       <%= label_tag :district_id %><br>
-      <%= u.collection_select :district, District.all, :id, :name, {}, {id: 'districs_select', class: "ui search dropdown", placeholder: "District"} %>
+      <%= u.collection_select :district_id, District.all, :id, :name, {}, {id: 'districs_select', class: "ui search dropdown", placeholder: "District"} %>
     </div>
     <div class="field">
       <%= label_tag :taluk %><br>
@@ -123,11 +123,11 @@
     </div>
     <div class="field">
       <%= label_tag :comm_state_id %><br>
-      <%= u.collection_select :comm_state, State.all, :id, :name, {}, {class: "ui search dropdown", placeholder: "State"} %>
+      <%= u.collection_select :comm_state_id, State.all, :id, :name, {}, {class: "ui search dropdown", placeholder: "State"} %>
     </div>
     <div class="field">
       <%= label_tag :comm_district_id %><br>
-      <%= u.collection_select :comm_district, District.all, :id, :name, {}, {id: 'districs_select', class: "ui search dropdown", placeholder: "District"} %>
+      <%= u.collection_select :comm_district_id, District.all, :id, :name, {}, {id: 'districs_select', class: "ui search dropdown", placeholder: "District"} %>
     </div>
     <div class="field">
       <%= label_tag :comm_taluk %><br>

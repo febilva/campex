@@ -24,17 +24,13 @@ class StudentsController < ApplicationController
   # POST /students
   # POST /students.json
   def create
-    @student = Student.new(student_params.except(:first_name, :middle_name, :last_name, :email))
-    @role = Role.where(name: 'Student').first
-    @user = User.new(student_params.except(:batch_id, :admission_no, :roll_no))
-    @user.roles << @role
+    @student = Student.new(student_params)
+    @student.user.username = @student.admission_no
+    @student.user.password = "password123"
+    @student.user.roles << Role.where(name: 'Student').first
 
     respond_to do |format|
       if @student.save
-        @user.profile = @student
-        @user.password = "studentpassword123"
-        @user.save
-
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else
