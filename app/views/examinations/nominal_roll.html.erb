@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Nominal Roll</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  </head>
+
+    <body class="examination-report">
+        <div class="container">
+            <div class="university">
+                <h1>MES MAMPAD COLLEGE</h1>
+                <h3>Nominal Roll</h3>
+                <p><%= @examination.name %></p>
+            </div>
+            <div class="Program">
+                <h3>Program:<span><%= @examination.course.full_name %></span></h3>
+                <p>Centre: MES COLLEGE, MAMPAD<p>
+            </div>
+            <div class="table-team">
+                <table class="ui celled striped table">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Name of Course</th>
+                            <th>Batch</th>
+                            <th>Total Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      <% papers = [] %>
+                      <% @examination.papers.each do |paper| %>
+                        <% papers << {id: paper.id, code: paper.code} %>
+                        <% @examination.batches.each do |batch| %>
+                          <tr>
+                            <td class="collapsing"><%= paper.code %></td>
+                            <td><%= paper.name %></td>
+                            <td class="right aligned collapsing"><%= batch %></td>
+                            <td class="total">
+                              <%= @examination.registrations.where("student_id IN (?)", Student.where(batch_id: batch.id).select(:id)).where(papers: {id: [paper.id]}).includes(:papers).count %>
+                            </td>
+                          </tr>
+                        <% end %>
+                      <% end %>
+                    </tbody>
+                </table>
+            </div>
+             </div>
+            <div class="table18">
+            <table class="ui celled striped table">
+                <thead>
+                    <tr>
+                        <th>SL.No</th>
+                        <th>Regno</th>
+                        <th>Name</th>
+                        <th>DOB</th>
+                        <% papers.each do |paper| %>
+                          <th><%= paper[:code] %></th>
+                        <% end %>
+                        <th>Exam Type</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <% @registrations = @examination.registrations.select("exam_registrations.student_id, array_agg(registered_exam_papers.paper_id) as registered_papers").joins(:registered_exam_papers).group(:student_id).each_with_index do |registration, i| %>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td>MPALAEG009</td>
+                        <td><%= registration.student %></td>
+                        <td><%= registration.student.dob %></td>
+                        <% papers.each do |paper| %>
+                          <td><%= "X" if registration.registered_papers.include? paper[:id] %></td>
+                        <% end %>
+                        <td>R</td>
+                        <td></td>
+                    </tr>
+                <% end %>
+                </tbody>
+            </table>
+            </div>
+    </body>
+</html>

@@ -1,3 +1,70 @@
-// Place all the styles related to the Examinations controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.examination-report
+{
+  .container
+  {
+  padding:20px 100px;
+  }
+  @media screen and (max-width:500px)
+  {
+  .container
+  {
+  padding:0 20px;
+  }
+  }
+  .university h1
+  {
+  text-align:center;
+  }
+  .university h3
+  {
+  text-align:center;
+  margin-top:-5px;
+  }
+  .university p
+  {
+  text-align:center;
+  font-size: 20px;
+  }
+  .Program h3 span
+  {
+  text-transform:uppercase;
+  }
+  .Program p
+  {
+  margin-top:-15px;
+  }
+  .Program h3
+  {
+  margin-top:30px;
+  }
+  .total
+  {
+  width:110px;
+  }
+  .table-team
+  {
+  margin-top:50px;
+  }
+  .container-srink
+  {
+  padding:50px 150px;
+  }
+  .table18
+  {
+  font-size:12px;
+  padding:50px;
+  }
+  .table9 thead
+  {
+  text-align:center;
+  }
+  .consol h2
+  {
+  text-align:center;
+  }
+  .coution P
+  {
+  text-align:center;
+  margin-bottom:20px;
+  }
+}

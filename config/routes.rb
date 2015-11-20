@@ -13,7 +13,11 @@ Rails.application.routes.draw do
       get 'assign_users'
     end
   end
-  resources :examinations
+  resources :examinations do
+    member do
+      get 'nominal_roll'
+    end
+  end
   resources :paper_types
   resources :term_structure_entries
   resources :term_structures

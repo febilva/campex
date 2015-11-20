@@ -1,5 +1,6 @@
 class ExaminationsController < ApplicationController
-  before_action :set_examination, only: [:show, :edit, :update, :destroy]
+  before_action :set_examination, only: [:show, :edit, :update, :destroy, :nominal_roll]
+  layout false, only: [:nominal_roll]
 
   # GET /examinations
   # GET /examinations.json
@@ -59,6 +60,9 @@ class ExaminationsController < ApplicationController
       format.html { redirect_to examinations_url, notice: 'Examination was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def nominal_roll
   end
 
   private
