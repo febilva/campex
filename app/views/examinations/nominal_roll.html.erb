@@ -67,10 +67,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                  <% @registrations = @examination.registrations.select("exam_registrations.student_id, array_agg(registered_exam_papers.paper_id) as registered_papers").joins(:registered_exam_papers).group(:student_id).each_with_index do |registration, i| %>
+                  <% @registrations = @examination.registrations.select("exam_registrations.student_id, exam_registrations.register_no, array_agg(registered_exam_papers.paper_id) as registered_papers").joins(:registered_exam_papers).group(:student_id, :register_no).order(:register_no).each_with_index do |registration, i| %>
                     <tr>
                         <td><%= i + 1 %></td>
-                        <td><%= "M#{registration.student.batch}#{registration.student.roll_no}" %></td>
+                        <td><%= registration.register_no %></td>
                         <td><%= registration.student %></td>
                         <td><%= registration.student.dob %></td>
                         <% papers.each do |paper| %>
