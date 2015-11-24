@@ -35,6 +35,7 @@ class ExamRegistrationsController < ApplicationController
   # POST /exam_registrations.json
   def create
     @exam_registration = ExamRegistration.new(exam_registration_params)
+    @exam_registration.register_no = "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}"
 
     respond_to do |format|
       if @exam_registration.save
