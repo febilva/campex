@@ -3,4 +3,4 @@
 <%= render 'form' %>
 
 <%= link_to 'Show', @period %> |
-<%= link_to 'Back', periods_path %>
+<%= link_to 'Back', class_timing_periods_path(@period.class_timing) %>

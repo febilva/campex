@@ -1,10 +1,11 @@
 class PeriodsController < ApplicationController
+  before_action :set_class_timing, except: [:show, :edit, :update, :destroy]
   before_action :set_period, only: [:show, :edit, :update, :destroy]
 
   # GET /periods
   # GET /periods.json
   def index
-    @periods = Period.all
+    @periods = Period.where(class_timing: @class_timing.id)
   end
 
   # GET /periods/1
@@ -25,6 +26,7 @@ class PeriodsController < ApplicationController
   # POST /periods.json
   def create
     @period = Period.new(period_params)
+    @period.class_timing = @class_timing
 
     respond_to do |format|
       if @period.save
@@ -56,13 +58,17 @@ class PeriodsController < ApplicationController
   def destroy
     @period.destroy
     respond_to do |format|
-      format.html { redirect_to periods_url, notice: 'Period was successfully destroyed.' }
+      format.html { redirect_to class_timing_periods_url(@period.class_timing), notice: 'Period was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_class_timing
+      @class_timing = ClassTiming.find(params[:class_timing_id])
+    end
+
     def set_period
       @period = Period.find(params[:id])
     end

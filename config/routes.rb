@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :periods
-  resources :class_timings
+  resources :class_timings, shallow: true do
+    resources :periods
+  end
   resources :districts
   resources :states
   resources :exam_registrations do
