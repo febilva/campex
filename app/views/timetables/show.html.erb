@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Class timing:</strong>
+  <%= @timetable.class_timing %>
+</p>
+
+<p>
+  <strong>Batch:</strong>
+  <%= @timetable.batch %>
+</p>
+
+<p>
+  <strong>Term structure entry:</strong>
+  <%= @timetable.term_structure_entry %>
+</p>
+
+<p>
+  <strong>Start date:</strong>
+  <%= @timetable.start_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @timetable.end_date %>
+</p>
+
+<%= link_to 'Edit', edit_timetable_path(@timetable) %> |
+<%= link_to 'Back', timetables_path %>

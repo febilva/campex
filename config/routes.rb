@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :timetables
   resources :class_timings, shallow: true do
     resources :periods
   end

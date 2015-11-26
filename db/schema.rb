@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126074608) do
+ActiveRecord::Schema.define(version: 20151126122819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -235,6 +235,20 @@ ActiveRecord::Schema.define(version: 20151126074608) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "timetables", force: :cascade do |t|
+    t.integer  "class_timing_id"
+    t.integer  "batch_id"
+    t.integer  "term_structure_entry_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+  end
+
+  add_index "timetables", ["batch_id"], name: "index_timetables_on_batch_id", using: :btree
+  add_index "timetables", ["class_timing_id"], name: "index_timetables_on_class_timing_id", using: :btree
+  add_index "timetables", ["term_structure_entry_id"], name: "index_timetables_on_term_structure_entry_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -315,4 +329,7 @@ ActiveRecord::Schema.define(version: 20151126074608) do
   add_foreign_key "term_dates", "batches"
   add_foreign_key "term_dates", "term_structure_entries"
   add_foreign_key "term_structure_entries", "term_structures"
+  add_foreign_key "timetables", "batches"
+  add_foreign_key "timetables", "class_timings"
+  add_foreign_key "timetables", "term_structure_entries"
 end

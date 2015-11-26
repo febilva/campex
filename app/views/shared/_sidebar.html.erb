@@ -52,6 +52,11 @@
                     <%= link_to "Departments", departments_path, class: "title" %>
                   </div>
                 <% end %>
+                <% if policy(:user).send("timetables:index?") %>
+                  <div class="item">
+                    <%= link_to "Timetables", timetables_path, class: "title" %>
+                  </div>
+                <% end %>
                 <% if policy(:user).send("class_timings:index?") %>
                   <div class="item">
                     <%= link_to "Class Timings", class_timings_path, class: "title" %>
