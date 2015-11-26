@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126045538) do
+ActiveRecord::Schema.define(version: 20151126074608) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,18 @@ ActiveRecord::Schema.define(version: 20151126045538) do
   end
 
   add_index "papers", ["paper_type_id"], name: "index_papers_on_paper_type_id", using: :btree
+
+  create_table "periods", force: :cascade do |t|
+    t.integer  "class_timing_id"
+    t.string   "name"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.boolean  "is_break"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "periods", ["class_timing_id"], name: "index_periods_on_class_timing_id", using: :btree
 
   create_table "programme_offerings", force: :cascade do |t|
     t.integer  "syllabus_id"
@@ -290,6 +302,7 @@ ActiveRecord::Schema.define(version: 20151126045538) do
   add_foreign_key "examinations", "syllabuses"
   add_foreign_key "examinations", "term_structure_entries"
   add_foreign_key "papers", "paper_types"
+  add_foreign_key "periods", "class_timings"
   add_foreign_key "programme_offerings", "papers"
   add_foreign_key "programme_offerings", "syllabuses"
   add_foreign_key "programme_offerings", "term_structure_entries"

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :periods
   resources :class_timings
   resources :districts
   resources :states

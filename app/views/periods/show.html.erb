@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Class timing:</strong>
+  <%= @period.class_timing %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @period.name %>
+</p>
+
+<p>
+  <strong>Start time:</strong>
+  <%= @period.start_time %>
+</p>
+
+<p>
+  <strong>End time:</strong>
+  <%= @period.end_time %>
+</p>
+
+<p>
+  <strong>Is break:</strong>
+  <%= @period.is_break %>
+</p>
+
+<%= link_to 'Edit', edit_period_path(@period) %> |
+<%= link_to 'Back', periods_path %>
