@@ -1,30 +1,30 @@
-<p id="notice"><%= notice %></p>
-
 <h1>Listing Timetables</h1>
 
-<table>
+<table class="ui single line celled striped blue table">
   <thead>
     <tr>
-      <th>Class timing</th>
+      <th>Course</th>
       <th>Batch</th>
-      <th>Term structure entry</th>
+      <th>Class timing</th>
       <th>Start date</th>
       <th>End date</th>
-      <th colspan="3"></th>
+      <th>Actions</th>
     </tr>
   </thead>
 
   <tbody>
     <% @timetables.each do |timetable| %>
       <tr>
-        <td><%= timetable.class_timing %></td>
+        <td><%= timetable.batch.course.full_name %></td>
         <td><%= timetable.batch %></td>
-        <td><%= timetable.term_structure_entry %></td>
+        <td><%= timetable.class_timing %></td>
         <td><%= timetable.start_date %></td>
         <td><%= timetable.end_date %></td>
-        <td><%= link_to 'Show', timetable %></td>
-        <td><%= link_to 'Edit', edit_timetable_path(timetable) %></td>
-        <td><%= link_to 'Destroy', timetable, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="center aligned">
+          <%= link_to 'Show', timetable_path(timetable) %> | 
+          <%= link_to 'Edit', edit_timetable_path(timetable) %> | 
+          <%= link_to 'Destroy', timetable, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
       </tr>
     <% end %>
   </tbody>

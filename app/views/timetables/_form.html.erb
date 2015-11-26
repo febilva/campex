@@ -13,15 +13,11 @@
 
   <div class="field">
     <%= f.label :class_timing_id %><br>
-    <%= f.text_field :class_timing_id %>
+    <%=  f.select :class_timing_id, options_from_collection_for_select(ClassTiming.all, :id, :name) %>
   </div>
   <div class="field">
     <%= f.label :batch_id %><br>
-    <%= f.text_field :batch_id %>
-  </div>
-  <div class="field">
-    <%= f.label :term_structure_entry_id %><br>
-    <%= f.text_field :term_structure_entry_id %>
+    <%=  f.select :batch_id, options_from_collection_for_select(Batch.all, :id, :code) %>
   </div>
   <div class="field">
     <%= f.label :start_date %><br>

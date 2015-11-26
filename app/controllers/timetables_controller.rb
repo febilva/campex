@@ -25,6 +25,7 @@ class TimetablesController < ApplicationController
   # POST /timetables.json
   def create
     @timetable = Timetable.new(timetable_params)
+    @timetable.term_structure_entry = @timetable.batch.current_term
 
     respond_to do |format|
       if @timetable.save
@@ -41,6 +42,7 @@ class TimetablesController < ApplicationController
   # PATCH/PUT /timetables/1.json
   def update
     respond_to do |format|
+      @timetable.term_structure_entry = @timetable.batch.current_term
       if @timetable.update(timetable_params)
         format.html { redirect_to @timetable, notice: 'Timetable was successfully updated.' }
         format.json { render :show, status: :ok, location: @timetable }
