@@ -6,7 +6,7 @@ unless User.where(profile_type: "Admin").count > 0
     "exam_registrations:new", "exam_registrations:create", "exam_registrations:show"])
 
   #Admin Role
-  @admin_role = Role.create(name: 'Admin', activities: ["students_menu", "settings_menu"])
+  @admin_role = Role.create(name: 'Admin', activities: ["teachers_menu", "students_menu", "settings_menu"])
 
   #Admin user
   @admin_user = User.new(username: 'admin', first_name: 'mentor', last_name: 'performance', 

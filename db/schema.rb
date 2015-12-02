@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202142143) do
+ActiveRecord::Schema.define(version: 20151202145846) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,17 @@ ActiveRecord::Schema.define(version: 20151202142143) do
 
   add_index "syllabuses", ["course_id"], name: "index_syllabuses_on_course_id", using: :btree
 
+  create_table "teachers", force: :cascade do |t|
+    t.integer  "department_id"
+    t.integer  "designation_id"
+    t.string   "employee_no"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "teachers", ["department_id"], name: "index_teachers_on_department_id", using: :btree
+  add_index "teachers", ["designation_id"], name: "index_teachers_on_designation_id", using: :btree
+
   create_table "term_dates", force: :cascade do |t|
     t.integer  "batch_id"
     t.integer  "term_structure_entry_id"
@@ -333,6 +344,8 @@ ActiveRecord::Schema.define(version: 20151202142143) do
   add_foreign_key "roles_users", "users"
   add_foreign_key "students", "batches"
   add_foreign_key "syllabuses", "courses"
+  add_foreign_key "teachers", "departments"
+  add_foreign_key "teachers", "designations"
   add_foreign_key "term_dates", "batches"
   add_foreign_key "term_dates", "term_structure_entries"
   add_foreign_key "term_structure_entries", "term_structures"

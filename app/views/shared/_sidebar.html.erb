@@ -34,6 +34,15 @@
           <% end %>
         <% end %>
 
+        <% if policy(:user).teachers_menu? %>
+          <% if policy(:user).send("teachers:index?") %>
+            <div class="item">
+              <%= link_to "Teachers", teachers_path, class: "title" %>
+              <i class="users icon"></i>
+            </div>
+          <% end %>
+        <% end %>
+
         <% if policy(:user).settings_menu? %>
           <div class="item">
             <a class="title">

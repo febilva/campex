@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Teachers</h1>
+
+<table class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Employee no</th>
+      <th>Department</th>
+      <th>Designation</th>
+      <th class="center aligned">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @teachers.each do |teacher| %>
+      <tr>
+        <td><%= teacher.name %></td>
+        <td><%= teacher.employee_no %></td>
+        <td><%= teacher.department.name %></td>
+        <td><%= teacher.designation.name %></td>
+        <td class="center aligned">
+          <%= link_to 'Show', teacher %> |
+          <%= link_to 'Edit', edit_teacher_path(teacher) %> |
+          <%= link_to 'Destroy', teacher, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Teacher', new_teacher_path %>
