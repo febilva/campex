@@ -1,0 +1,10 @@
+content = '<%= j render partial: "shared/modal", locals: {target_id: params[:target_id]} %>';
+
+$('body').append(content);
+$('.ui.modal').modal({
+       onHide: function(){
+           $('.ui.modal').remove();
+       }
+   })
+   .modal('setting', 'transition', 'vertical flip')
+   .modal('show');
