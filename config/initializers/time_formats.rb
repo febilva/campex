@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:default] = ->(time) { time.strftime("%I:%M %p") }
