@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @paper_assignment.teacher %>
+</p>
+
+<p>
+  <strong>Paper:</strong>
+  <%= @paper_assignment.paper %>
+</p>
+
+<p>
+  <strong>Batch:</strong>
+  <%= @paper_assignment.batch %>
+</p>
+
+<%= link_to 'Edit', edit_paper_assignment_path(@paper_assignment) %> |
+<%= link_to 'Back', paper_assignments_path %>
