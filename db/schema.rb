@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203015636) do
+ActiveRecord::Schema.define(version: 20151203064119) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -265,6 +265,23 @@ ActiveRecord::Schema.define(version: 20151203015636) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "timetable_entries", force: :cascade do |t|
+    t.integer  "timetable_id"
+    t.integer  "period_id"
+    t.integer  "teacher_id"
+    t.integer  "paper_id"
+    t.integer  "wday"
+    t.boolean  "default"
+    t.integer  "created_by_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "timetable_entries", ["paper_id"], name: "index_timetable_entries_on_paper_id", using: :btree
+  add_index "timetable_entries", ["period_id"], name: "index_timetable_entries_on_period_id", using: :btree
+  add_index "timetable_entries", ["teacher_id"], name: "index_timetable_entries_on_teacher_id", using: :btree
+  add_index "timetable_entries", ["timetable_id"], name: "index_timetable_entries_on_timetable_id", using: :btree
+
   create_table "timetables", force: :cascade do |t|
     t.integer  "class_timing_id"
     t.integer  "batch_id"
@@ -364,6 +381,10 @@ ActiveRecord::Schema.define(version: 20151203015636) do
   add_foreign_key "term_dates", "batches"
   add_foreign_key "term_dates", "term_structure_entries"
   add_foreign_key "term_structure_entries", "term_structures"
+  add_foreign_key "timetable_entries", "papers"
+  add_foreign_key "timetable_entries", "periods"
+  add_foreign_key "timetable_entries", "teachers"
+  add_foreign_key "timetable_entries", "timetables"
   add_foreign_key "timetables", "batches"
   add_foreign_key "timetables", "class_timings"
   add_foreign_key "timetables", "term_structure_entries"

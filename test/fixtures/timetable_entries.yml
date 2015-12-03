@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  timetable_id: 
+  period_id: 
+  teacher_id: 
+  paper_id: 
+  wday: 1
+  default: false
+  created_by_id: 1
+
+two:
+  timetable_id: 
+  period_id: 
+  teacher_id: 
+  paper_id: 
+  wday: 1
+  default: false
+  created_by_id: 1

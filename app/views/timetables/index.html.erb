@@ -21,6 +21,7 @@
         <td><%= timetable.start_date %></td>
         <td><%= timetable.end_date %></td>
         <td class="center aligned">
+          <%= link_to 'Associate Subjects', allot_periods_timetable_path(timetable) %> | 
           <%= link_to 'Show', timetable_path(timetable) %> | 
           <%= link_to 'Edit', edit_timetable_path(timetable) %> | 
           <%= link_to 'Destroy', timetable, method: :delete, data: { confirm: 'Are you sure?' } %>

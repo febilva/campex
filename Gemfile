@@ -48,6 +48,8 @@ gem "fog"
 # gem 'file_validators'
 # Provides a list of countries
 gem 'country_select', github: 'stefanpenner/country_select'
+# Convert numbers to words using I18N.
+gem 'numbers_and_words', '~> 0.10.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

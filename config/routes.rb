@@ -6,7 +6,11 @@ Rails.application.routes.draw do
     end
   end
   resources :designations
-  resources :timetables
+  resources :timetables do
+    member do
+      match 'allot_periods', via: [:get, :post]
+    end
+  end
   resources :class_timings, shallow: true do
     resources :periods
   end
@@ -42,7 +46,11 @@ Rails.application.routes.draw do
       end
 
       resources :syllabuses do
-        resources :papers
+        resources :papers do
+          member do
+            get 'teacher_list'
+          end
+        end
       end
       resources :batches do
         member do

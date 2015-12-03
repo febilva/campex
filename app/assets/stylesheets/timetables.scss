@@ -1,3 +1,43 @@
-// Place all the styles related to the Timetables controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+#timetable .ui.checkbox label {
+    font-size: 12px;
+}
+.time
+{
+padding:10px !important;
+}
+.time .subject
+{
+font-weight:900;
+padding-top:10px;
+}
+.time .teacher
+{
+font-weight:700;
+padding-top:5px;
+font-family: 'Lato', sans-serif;
+color:#05406b; 
+}
+.time .timing
+{
+font-weight:700;
+font-family: 'Lato', sans-serif;
+}
+#timetable .column .day {
+    background: #666666;
+    width: 40%;
+    height: 108px;
+    color: #fff;
+    padding: 5px;
+}
+#timetable .column .day a {
+    color: #fff;
+    transform: rotate(270deg);
+    margin-top: 30px;
+    font-size: 14px;
+    float: left;
+    margin-left: 7px;
+}
+#timetable .first-sub
+{
+margin-right:-180px;
+}

@@ -1,5 +1,5 @@
 class TimetablesController < ApplicationController
-  before_action :set_timetable, only: [:show, :edit, :update, :destroy]
+  before_action :set_timetable, only: [:show, :edit, :update, :destroy, :allot_periods]
 
   # GET /timetables
   # GET /timetables.json
@@ -60,6 +60,25 @@ class TimetablesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to timetables_url, notice: 'Timetable was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def allot_periods
+    respond_to do |format|
+      format.html do
+        @timetable_entries = TimetableEntry.where(timetable: @timetable)
+      #end
+
+      #format.js do
+        if(params[:timetable_entries])
+          for timetable_entry in params[:timetable_entries]
+            entry_det = timetable_entry.split("_")
+            wday = entry_det[0]
+            period_id = entry_det[1]
+            TimetableEntry.new(timetable_id: params[:id], period_id: period_id, wday: wday, teacher_id: params[:teacher_id], paper_id: params[:paper_id], default: true, created_by: current_user).save
+          end
+        end
+      end
     end
   end
 

@@ -1,6 +1,6 @@
 class PapersController < ApplicationController
-  before_action :set_syllabus, except: [:show, :edit, :update, :destroy]
-  before_action :set_paper, only: [:show, :edit, :update, :destroy]
+  before_action :set_syllabus, except: [:show, :edit, :update, :destroy, :teacher_list]
+  before_action :set_paper, only: [:show, :edit, :update, :destroy, :teacher_list]
 
   # GET /papers
   # GET /papers.json
@@ -66,6 +66,10 @@ class PapersController < ApplicationController
       format.html { redirect_to syllabus_papers_url(@paper.syllabus, term_id: @paper.term_structure_entry.id), notice: 'Paper was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def teacher_list
+    @teachers = @paper.teachers
   end
 
   private

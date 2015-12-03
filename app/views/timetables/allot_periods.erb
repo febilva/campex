@@ -1,0 +1,61 @@
+<%= form_tag allot_periods_timetable_path do %>
+  <section id="timetable">
+    <div class="container">
+      <% 6.times do |wday| %>
+        <div class="ui stackable <%= (@timetable.periods.count + 1).to_words %> column grid">
+          <div class="column first-sub">
+            <div class="day"><a><%= "#{Date::DAYNAMES[-6 + wday][0..2]}" %></a></div> 
+          </div>
+
+          <% @timetable.periods.each_with_index do |period, count| %>
+            <% if period.is_break %>
+              <div class="column">
+                <div class="ui inverted green secondary centre aligned segment time">
+                  <div class="column">&nbsp;</div>
+                  <div class="subject"><%= period %></div>
+                  <div class="timing"><%= "#{period.duration}" %></div>
+                  <div class="teacher">&nbsp;</div>
+                </div>
+              </div>
+            <% else %>
+              <% @timetable_entry = @timetable_entries.where(wday: wday, period: period).first %>
+              <div class="column">
+                <div class="ui inverted teal secondary segment time">
+                  <div class="ui <%= 'read-only' if @timetable_entry %> checkbox">
+                    <input type="checkbox" name="timetable_entries[]" value="<%= "#{wday}_#{period.id}" %>">
+                    <label><%= "Period #{count + 1}" %></label>
+                  </div>
+                  <div class="subject">
+                    <%= @timetable_entry ? @timetable_entry.paper.name : "Not Assigned" %>
+                  </div>
+                  <div class="teacher">
+                    <%= @timetable_entry ? @timetable_entry.teacher.first_name : "Not Assigned" %>
+                  </div>
+                  <div class="timing"><%= "#{period.duration}" %></div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+      <br><hr>
+      <div class="select-drop">
+        <div class="ui stackable three column grid">
+          <div class="column">
+            <label>Select the subject</label>
+            <%= select_tag :paper_id, options_from_collection_for_select(@timetable.batch.course.papers, :id, :name), include_blank: true, class: "ui selection dropdown", "data-fetch-paper-teachers" => "teacher_id" %>
+          </div>
+
+          <div class="column">
+            <label>Select the teacher</label>
+            <%= select_tag :teacher_id, {}, class: "ui selection dropdown" %>
+          </div>
+
+          <div class="column">
+            <%= submit_tag "Submit", class: "ui button" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
