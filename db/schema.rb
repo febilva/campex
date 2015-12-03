@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202145846) do
+ActiveRecord::Schema.define(version: 20151203015636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -117,6 +117,18 @@ ActiveRecord::Schema.define(version: 20151202145846) do
   add_index "examinations", ["course_id"], name: "index_examinations_on_course_id", using: :btree
   add_index "examinations", ["syllabus_id"], name: "index_examinations_on_syllabus_id", using: :btree
   add_index "examinations", ["term_structure_entry_id"], name: "index_examinations_on_term_structure_entry_id", using: :btree
+
+  create_table "paper_assignments", force: :cascade do |t|
+    t.integer  "teacher_id"
+    t.integer  "paper_id"
+    t.integer  "batch_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "paper_assignments", ["batch_id"], name: "index_paper_assignments_on_batch_id", using: :btree
+  add_index "paper_assignments", ["paper_id"], name: "index_paper_assignments_on_paper_id", using: :btree
+  add_index "paper_assignments", ["teacher_id"], name: "index_paper_assignments_on_teacher_id", using: :btree
 
   create_table "paper_types", force: :cascade do |t|
     t.string   "name"
@@ -333,6 +345,9 @@ ActiveRecord::Schema.define(version: 20151202145846) do
   add_foreign_key "examinations", "courses"
   add_foreign_key "examinations", "syllabuses"
   add_foreign_key "examinations", "term_structure_entries"
+  add_foreign_key "paper_assignments", "batches"
+  add_foreign_key "paper_assignments", "papers"
+  add_foreign_key "paper_assignments", "teachers"
   add_foreign_key "papers", "paper_types"
   add_foreign_key "periods", "class_timings"
   add_foreign_key "programme_offerings", "papers"
