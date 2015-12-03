@@ -29,6 +29,7 @@ class PaperAssignmentsController < ApplicationController
     respond_to do |format|
       if @paper_assignment.save
         format.html { redirect_to @paper_assignment, notice: 'Paper assignment was successfully created.' }
+        format.js { render :update_programmes_table }
         format.json { render :show, status: :created, location: @paper_assignment }
       else
         format.html { render :new }
@@ -57,6 +58,7 @@ class PaperAssignmentsController < ApplicationController
     @paper_assignment.destroy
     respond_to do |format|
       format.html { redirect_to paper_assignments_url, notice: 'Paper assignment was successfully destroyed.' }
+      format.js { render nothing: true }
       format.json { head :no_content }
     end
   end

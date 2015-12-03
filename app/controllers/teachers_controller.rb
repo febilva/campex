@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: [:show, :edit, :update, :destroy]
+  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :assign_papers]
 
   # GET /teachers
   # GET /teachers.json
@@ -65,6 +65,11 @@ class TeachersController < ApplicationController
     end
   end
 
+  def assign_papers
+    @paper_assignment = PaperAssignment.new 
+    @paper_assignments = PaperAssignment.where(teacher: @teacher)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_teacher
@@ -79,5 +84,9 @@ class TeachersController < ApplicationController
           :state_id, :district_id, :taluk, :post_office, :pincode, :comm_address_line1, :comm_address_line2, 
           :comm_country_id, :comm_state_id, :comm_district_id, :comm_taluk, :comm_post_office, :comm_pincode, 
           :dp])
+    end
+
+    def paper_assignment_params
+      params.require(:paper_assignment).permit(:batch_id, :paper_id)
     end
 end

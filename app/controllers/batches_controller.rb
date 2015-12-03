@@ -1,6 +1,6 @@
 class BatchesController < ApplicationController
-  before_action :set_course, except: [:show, :edit, :update, :destroy]
-  before_action :set_batch, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, except: [:show, :edit, :update, :destroy, :paper_list]
+  before_action :set_batch, only: [:show, :edit, :update, :destroy, :paper_list]
 
   # GET /batches
   # GET /batches.json
@@ -60,6 +60,13 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to course_batches_url(@batch.course), notice: 'Batch was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def paper_list
+    @papers = @batch.course.papers
+    respond_to do |format|
+      format.js
     end
   end
 

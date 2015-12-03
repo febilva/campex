@@ -1,0 +1,32 @@
+<%= form_for(@paper_assignment, remote: true) do |f| %>
+    <%= f.hidden_field :teacher_id, value: @teacher.id %>
+    <%= f.select :batch_id, options_from_collection_for_select(Batch.all, :id, :code),  {include_blank: true }, "data-fetch-batch-papers" => "paper_assignment_paper_id" %>
+    <%=  f.select :paper_id, [], {}, { class: "ui dropdown" }  %>
+    <%= f.submit "Assign Paper", class: "ui submit button" %>
+<% end %>
+
+<h3>Programmes Tought</h3>
+
+<table id="programmes_table" class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Batch</th>
+      <th>Paper Name</th>
+      <th>Paper Code</th>
+      <th class="center aligned">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @paper_assignments.each do |paper_assignment| %>
+      <tr>
+        <td><%= paper_assignment.batch.code %></td>
+        <td><%= paper_assignment.paper.name %></td>
+        <td><%= paper_assignment.paper.code %></td>
+        <td class="center aligned">
+          <%= link_to 'Remove', paper_assignment, remote: true, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

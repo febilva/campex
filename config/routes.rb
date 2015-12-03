@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   resources :paper_assignments
-  resources :teachers
+  resources :teachers do
+    member do
+      get 'assign_papers'
+    end
+  end
   resources :designations
   resources :timetables
   resources :class_timings, shallow: true do
@@ -41,6 +45,9 @@ Rails.application.routes.draw do
         resources :papers
       end
       resources :batches do
+        member do
+          get 'paper_list'
+        end
         resources :term_dates
       end
     end
