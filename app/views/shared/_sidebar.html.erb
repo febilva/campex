@@ -15,7 +15,7 @@
             </a>
             <div class="content">
               <div class="ui form">
-                <% if policy(:user).send("students:index?") %>
+                <% if policy(:user).send("student_attendance_registers:index?") %>
                   <div class="item">
                     <%= link_to "Student Register", nil, class: "title" %>
                   </div>
