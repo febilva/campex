@@ -1,10 +1,10 @@
 <%= form_tag allot_periods_timetable_path do %>
   <section id="timetable">
     <div class="container">
-      <% 6.times do |wday| %>
+      <% 1.upto(6) do |wday| %>
         <div class="ui stackable <%= (@timetable.periods.count + 1).to_words %> column grid">
           <div class="column first-sub">
-            <div class="day"><a><%= "#{Date::DAYNAMES[-6 + wday][0..2]}" %></a></div> 
+            <div class="day"><a><%= "#{Date::DAYNAMES[wday][0..2]}" %></a></div> 
           </div>
 
           <% @timetable.periods.each_with_index do |period, count| %>
