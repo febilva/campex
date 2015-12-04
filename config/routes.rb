@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :teachers do
     member do
       get 'assign_papers'
+      get '/batches/:batch_id/period_list' => 'teachers#period_list'
     end
   end
   resources :designations

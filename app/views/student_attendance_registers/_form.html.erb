@@ -1,4 +1,6 @@
 <%= form_for(@student_attendance_register) do |f| %>
+  <%= hidden_field_tag :teacher_id, current_user.profile.id %>
+  <%= f.hidden_field :marked_date, value: @date %>
   <% if @student_attendance_register.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@student_attendance_register.errors.count, "error") %> prohibited this student_attendance_register from being saved:</h2>
@@ -13,17 +15,17 @@
 
   <div class="field">
     <%= f.label :date %><br>
-    <%= f.date_select :marked_date %>
+    <%= date_select "marked_date", "disabled", default: @date, disabled: true %>
   </div>
   <div class="field">
     <%= f.label :batch_id %><br>
-    <%= f.text_field :batch_id %>
+    <%= f.select :batch_id, options_from_collection_for_select(@batches, :id, :code), { include_blank: true }, "data-fetch-teacher-periods" => "student_attendance_register_period_id" %>
   </div>
   <div class="field">
     <%= f.label :period_id %><br>
-    <%= f.text_field :period_id %>
+    <%= f.select :period_id, [] %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Mark Atttendance" %>
   </div>
 <% end %>

@@ -14,6 +14,13 @@ class StudentAttendanceRegistersController < ApplicationController
 
   # GET /student_attendance_registers/new
   def new
+    @date = Date.today
+
+    batches = Timetable.joins(:timetable_entries)
+    .where(timetable_entries: { teacher_id: current_user.profile.id, wday: @date.wday })
+    .select(:batch_id).uniq.pluck(:batch_id)
+    @batches = Batch.where(id: batches)
+
     @student_attendance_register = StudentAttendanceRegister.new
   end
 
@@ -25,6 +32,7 @@ class StudentAttendanceRegistersController < ApplicationController
   # POST /student_attendance_registers.json
   def create
     @student_attendance_register = StudentAttendanceRegister.new(student_attendance_register_params)
+    @student_attendance_register.user = current_user
 
     respond_to do |format|
       if @student_attendance_register.save

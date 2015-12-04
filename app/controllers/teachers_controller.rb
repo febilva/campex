@@ -1,5 +1,5 @@
 class TeachersController < ApplicationController
-  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :assign_papers]
+  before_action :set_teacher, only: [:show, :edit, :update, :destroy, :assign_papers, :period_list]
 
   # GET /teachers
   # GET /teachers.json
@@ -27,7 +27,7 @@ class TeachersController < ApplicationController
     @teacher = Teacher.new(teacher_params)
     @teacher.user.username = @teacher.employee_no
     @teacher.user.password = "password123"
-    # @student.user.roles << Role.where(name: 'Student').first
+    @teacher.user.roles << Role.where(name: 'Teacher').first
 
     respond_to do |format|
       if @teacher.save
@@ -68,6 +68,22 @@ class TeachersController < ApplicationController
   def assign_papers
     @paper_assignment = PaperAssignment.new 
     @paper_assignments = PaperAssignment.where(teacher: @teacher)
+  end
+
+  def period_list
+    batch_id = params[:batch_id]
+    date = params[:date].to_date
+
+    timetable_entries = TimetableEntry.joins(:timetable)
+    .where('? BETWEEN start_date AND end_date', date)
+    .where(timetables: {batch_id: batch_id}, timetable_entries: { teacher_id: @teacher.id, wday: date.wday })
+    .select(:period_id).pluck(:period_id)
+
+    marked_periods = StudentAttendanceRegister.where(batch_id: batch_id, user_id: current_user.id, 
+      period_id: timetable_entries, marked_date: date)
+      .select(:period_id).pluck(:period_id)
+
+    @periods = Period.where(id: timetable_entries - marked_periods)
   end
 
   private
