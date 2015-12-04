@@ -7,6 +7,24 @@
           <i class="dashboard icon"></i>
         </div>
 
+        <% if policy(:user).attendance_menu? %>
+          <div class="item">
+            <a class="title">
+              Attendance
+              <i class="table icon"></i>
+            </a>
+            <div class="content">
+              <div class="ui form">
+                <% if policy(:user).send("students:index?") %>
+                  <div class="item">
+                    <%= link_to "Student Register", nil, class: "title" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
         <% if policy(:user).examinations_menu? %>
           <div class="item">
             <a class="title">
