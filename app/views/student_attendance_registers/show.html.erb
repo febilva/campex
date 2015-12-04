@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Batch:</strong>
+  <%= @student_attendance_register.batch %>
+</p>
+
+<p>
+  <strong>Teacher:</strong>
+  <%= @student_attendance_register.teacher %>
+</p>
+
+<p>
+  <strong>Period:</strong>
+  <%= @student_attendance_register.period %>
+</p>
+
+<p>
+  <strong>Marked date:</strong>
+  <%= @student_attendance_register.marked_date %>
+</p>
+
+<%= link_to 'Edit', edit_student_attendance_register_path(@student_attendance_register) %> |
+<%= link_to 'Back', student_attendance_registers_path %>

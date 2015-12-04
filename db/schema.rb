@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203064119) do
+ActiveRecord::Schema.define(version: 20151204020122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -207,6 +207,19 @@ ActiveRecord::Schema.define(version: 20151203064119) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "student_attendance_registers", force: :cascade do |t|
+    t.integer  "batch_id"
+    t.integer  "user_id"
+    t.integer  "period_id"
+    t.date     "marked_date"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "student_attendance_registers", ["batch_id"], name: "index_student_attendance_registers_on_batch_id", using: :btree
+  add_index "student_attendance_registers", ["period_id"], name: "index_student_attendance_registers_on_period_id", using: :btree
+  add_index "student_attendance_registers", ["user_id"], name: "index_student_attendance_registers_on_user_id", using: :btree
+
   create_table "students", force: :cascade do |t|
     t.integer  "batch_id"
     t.string   "admission_no"
@@ -374,6 +387,9 @@ ActiveRecord::Schema.define(version: 20151203064119) do
   add_foreign_key "registered_exam_papers", "papers"
   add_foreign_key "roles_users", "roles"
   add_foreign_key "roles_users", "users"
+  add_foreign_key "student_attendance_registers", "batches"
+  add_foreign_key "student_attendance_registers", "periods"
+  add_foreign_key "student_attendance_registers", "users"
   add_foreign_key "students", "batches"
   add_foreign_key "syllabuses", "courses"
   add_foreign_key "teachers", "departments"

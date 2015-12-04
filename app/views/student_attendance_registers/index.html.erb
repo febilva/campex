@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Marked Attendances</h1>
+
+<table class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Marked date</th>
+      <th>Batch</th>
+      <th>Period</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @student_attendance_registers.each do |student_attendance_register| %>
+      <tr>
+        <td><%= student_attendance_register.marked_date %></td>
+        <td><%= student_attendance_register.batch %></td>
+        <td><%= student_attendance_register.period %></td>
+        <td class="center aligned">
+          <%= link_to 'Show', student_attendance_register %> | 
+          <%= link_to 'Edit', edit_student_attendance_register_path(student_attendance_register) %> | 
+          <%= link_to 'Destroy', student_attendance_register, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Mark Attendance', new_student_attendance_register_path %>

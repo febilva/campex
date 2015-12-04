@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  batch_id: 
+  teacher_id: 
+  period_id: 
+  marked_date: 2015-12-04
+
+two:
+  batch_id: 
+  teacher_id: 
+  period_id: 
+  marked_date: 2015-12-04
