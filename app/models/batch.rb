@@ -9,6 +9,15 @@ class Batch < ActiveRecord::Base
     .try(:term_structure_entry)
   end
 
+  def syllabus
+    Syllabus.where('course_id = ? AND ? >= EXTRACT(YEAR from created_at)', 
+      self.course.id, self.start_date.year).last
+  end  
+
+  def papers
+    self.syllabus.papers
+  end
+
   def to_s
     self.code
   end

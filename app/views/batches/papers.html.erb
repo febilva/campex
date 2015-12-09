@@ -1,0 +1,25 @@
+<h1> <%= "#{@syllabus.name} Syllabus" %> </h1>
+
+<table class="ui single line celled striped blue table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Study mode</th>
+      <th>Optional</th>
+      <th>Examination Required</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @papers.each do |paper| %>
+      <tr>
+        <td><%= paper.name %></td>
+        <td><%= paper.code %></td>
+        <td><%= paper.study_mode %></td>
+        <td><%= paper.optional? %></td>
+        <td><%= paper.exam_required? %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

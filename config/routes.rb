@@ -57,6 +57,7 @@ Rails.application.routes.draw do
       resources :batches do
         member do
           get 'paper_list'
+          get 'papers'
         end
         resources :term_dates
       end

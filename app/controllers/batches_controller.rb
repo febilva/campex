@@ -1,6 +1,6 @@
 class BatchesController < ApplicationController
-  before_action :set_course, except: [:show, :edit, :update, :destroy, :paper_list]
-  before_action :set_batch, only: [:show, :edit, :update, :destroy, :paper_list]
+  before_action :set_course, except: [:show, :edit, :update, :destroy, :paper_list, :papers]
+  before_action :set_batch, only: [:show, :edit, :update, :destroy, :paper_list, :papers]
 
   # GET /batches
   # GET /batches.json
@@ -68,6 +68,11 @@ class BatchesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def papers
+    @syllabus = @batch.syllabus
+    @papers = @batch.papers
   end
 
   private
