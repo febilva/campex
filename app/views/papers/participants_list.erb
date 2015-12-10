@@ -14,6 +14,12 @@
 
   <div id="participants-list" class="sortable-list">
     <p><%= @paper.name %></p>
-    <ul id="participant-list" class="sortable-list"></ul>
+    <ul id="participant-list" class="sortable-list">
+      <% @participants.each do |participant| %>
+        <li id="<%= participant.id %>" data-roll-no="<%= participant.roll_no %>">
+          <%= "#{participant.name} ( #{participant.roll_no} )" %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>

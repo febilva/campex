@@ -76,7 +76,10 @@ class PapersController < ApplicationController
   def participants_list
     @batch = Batch.find(params[:id])
     @paper = Paper.find(params[:paper_id])
-    @students = @batch.students
+    @participants = OptionalPaperEnrollment.where(batch: @batch, paper: @paper)
+      .select(:student_id).pluck(:student_id)
+    @students = @batch.students.where.not(id: @participants)
+    @participants = @participants.map{ |student_id| Student.find(student_id) }
   end
 
   def add_participant
