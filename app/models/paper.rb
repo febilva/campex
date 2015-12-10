@@ -5,6 +5,8 @@ class Paper < ActiveRecord::Base
   has_many :syllabuses, through: :programme_offerings
   has_many :paper_assignments
   has_many :teachers, through: :paper_assignments
+  has_many :optional_paper_enrollments
+
 
   def exam_required?
     self.exam_required ? "Yes" : "No"
