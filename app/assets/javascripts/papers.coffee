@@ -28,3 +28,28 @@ $(document).on "ready page:load", ->
     update: (event, ui) ->
       sort $(this)
     connectWith: '.sortable-list').disableSelection()
+
+  $('#available-list').on "sortreceive", ( event, ui ) ->
+    batch_id = $('#batch').val()
+    paper_id = $('#paper').val()
+    rm_participant_url = '/batches/' + batch_id + '/papers/' + paper_id + '/remove_participant'
+
+    $.ajax rm_participant_url,
+    url: this.href,
+    type: 'DELETE',
+    dataType: 'script',
+    data: {
+      student_id: ui.item.attr("id")
+    }
+
+  $('#participants-list').on "sortreceive", ( event, ui ) ->
+    batch_id = $('#batch').val()
+    paper_id = $('#paper').val()
+    add_participant_url = '/batches/' + batch_id + '/papers/' + paper_id + '/add_participant'
+
+    $.ajax add_participant_url,
+    type: 'POST',
+    dataType: 'script',
+    data: {
+      student_id: ui.item.attr("id")
+    }

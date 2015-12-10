@@ -1,4 +1,6 @@
 <div id="participant_lists">
+  <%= hidden_field_tag "batch", @batch.id %>
+  <%= hidden_field_tag "paper", @paper.id %>
   <div>
     <p>Available students</p>
     <ul id="available-list" class="sortable-list">

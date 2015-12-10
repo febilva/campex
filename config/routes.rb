@@ -59,6 +59,8 @@ Rails.application.routes.draw do
           get 'paper_list'
           get 'papers'
           get 'papers/:paper_id' => 'papers#participants_list', as: :paper
+          post 'papers/:paper_id/add_participant' => 'papers#add_participant'
+          delete 'papers/:paper_id/remove_participant' => 'papers#remove_participant'
         end
         resources :term_dates
       end

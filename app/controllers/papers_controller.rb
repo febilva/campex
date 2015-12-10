@@ -1,5 +1,6 @@
 class PapersController < ApplicationController
-  before_action :set_syllabus, except: [:show, :edit, :update, :destroy, :teacher_list, :participants_list]
+  before_action :set_syllabus, except: [:show, :edit, :update, :destroy, :teacher_list,
+   :participants_list, :add_participant, :remove_participant]
   before_action :set_paper, only: [:show, :edit, :update, :destroy, :teacher_list]
 
   # GET /papers
@@ -76,6 +77,26 @@ class PapersController < ApplicationController
     @batch = Batch.find(params[:id])
     @paper = Paper.find(params[:paper_id])
     @students = @batch.students
+  end
+
+  def add_participant
+    @batch = Batch.find(params[:id])
+    @paper = Paper.find(params[:paper_id])
+    @student = Student.find(params[:student_id])
+
+    OptionalPaperEnrollment.new(batch: @batch, paper: @paper, student: @student).save
+
+    render :nothing => true
+  end
+
+  def remove_participant
+    @batch = Batch.find(params[:id])
+    @paper = Paper.find(params[:paper_id])
+    @student = Student.find(params[:student_id])
+
+    OptionalPaperEnrollment.where(batch: @batch, paper: @paper, student: @student).destroy_all
+
+    render :nothing => true
   end
 
   private
