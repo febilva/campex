@@ -1,0 +1,17 @@
+<div id="participant_lists">
+  <div>
+    <p>Available students</p>
+    <ul id="available-list" class="sortable-list">
+      <% @students.each do |student| %>
+        <li id="<%= student.id %>" data-roll-no="<%= student.roll_no %>">
+          <%= "#{student.name} ( #{student.roll_no} )" %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div id="participants-list" class="sortable-list">
+    <p><%= @paper.name %></p>
+    <ul id="participant-list" class="sortable-list"></ul>
+  </div>
+</div>

@@ -12,3 +12,19 @@ $(document).on "ready page:load", ->
         }
       else
         $(target_element).empty()
+
+  sort = (element) ->
+    sortableList = element
+    listitems = $('li', sortableList)
+    listitems.sort (a, b) ->
+      ta = $(a).data("roll-no").toString()
+      tb = $(b).data("roll-no").toString()
+      ta.localeCompare tb
+    sortableList.append listitems
+
+  $('#available-list, #participants-list').sortable(
+    create: (event, ui) ->
+      sort $(this)
+    update: (event, ui) ->
+      sort $(this)
+    connectWith: '.sortable-list').disableSelection()

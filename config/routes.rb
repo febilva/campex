@@ -58,6 +58,7 @@ Rails.application.routes.draw do
         member do
           get 'paper_list'
           get 'papers'
+          get 'papers/:paper_id' => 'papers#participants_list', as: :paper
         end
         resources :term_dates
       end

@@ -1,5 +1,5 @@
 class PapersController < ApplicationController
-  before_action :set_syllabus, except: [:show, :edit, :update, :destroy, :teacher_list]
+  before_action :set_syllabus, except: [:show, :edit, :update, :destroy, :teacher_list, :participants_list]
   before_action :set_paper, only: [:show, :edit, :update, :destroy, :teacher_list]
 
   # GET /papers
@@ -70,6 +70,12 @@ class PapersController < ApplicationController
 
   def teacher_list
     @teachers = @paper.teachers
+  end
+
+  def participants_list
+    @batch = Batch.find(params[:id])
+    @paper = Paper.find(params[:paper_id])
+    @students = @batch.students
   end
 
   private

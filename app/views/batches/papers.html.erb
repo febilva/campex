@@ -17,7 +17,10 @@
         <td><%= paper.name %></td>
         <td><%= paper.code %></td>
         <td><%= paper.study_mode %></td>
-        <td><%= paper.optional? %></td>
+        <td>
+          <%= paper.optional? %>
+          <%= link_to "( Participants List )", paper_batch_path(@batch, paper) if paper.optional %>
+        </td>
         <td><%= paper.exam_required? %></td>
       </tr>
     <% end %>
