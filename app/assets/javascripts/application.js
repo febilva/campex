@@ -14,5 +14,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require semantic-ui
+//= require jquery-ui/sortable
 //= require jspdf
 //= require_tree .
