@@ -23,7 +23,6 @@
         <td><%= batch.start_date %></td>
         <td><%= batch.end_date %></td>
         <td class="center aligned">
-          <%= link_to "Papers", papers_batch_path(batch) %> |
           <%= link_to 'Term Calendar', batch_term_dates_path(batch) %> | 
           <%= link_to 'Edit', edit_batch_path(batch) %> | 
           <%= link_to 'Remove', batch, method: :delete, data: { confirm: 'Are you sure?' } %>
