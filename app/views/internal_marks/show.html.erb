@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Student:</strong>
+  <%= @internal_mark.student %>
+</p>
+
+<p>
+  <strong>Term structure entry:</strong>
+  <%= @internal_mark.term_structure_entry %>
+</p>
+
+<p>
+  <strong>Paper:</strong>
+  <%= @internal_mark.paper %>
+</p>
+
+<p>
+  <strong>Mark:</strong>
+  <%= @internal_mark.mark %>
+</p>
+
+<p>
+  <strong>Created by:</strong>
+  <%= @internal_mark.created_by %>
+</p>
+
+<%= link_to 'Edit', edit_internal_mark_path(@internal_mark) %> |
+<%= link_to 'Back', internal_marks_path %>

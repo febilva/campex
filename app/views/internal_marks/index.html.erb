@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Internal Marks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Term structure entry</th>
+      <th>Paper</th>
+      <th>Mark</th>
+      <th>Created by</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @internal_marks.each do |internal_mark| %>
+      <tr>
+        <td><%= internal_mark.student %></td>
+        <td><%= internal_mark.term_structure_entry %></td>
+        <td><%= internal_mark.paper %></td>
+        <td><%= internal_mark.mark %></td>
+        <td><%= internal_mark.created_by %></td>
+        <td><%= link_to 'Show', internal_mark %></td>
+        <td><%= link_to 'Edit', edit_internal_mark_path(internal_mark) %></td>
+        <td><%= link_to 'Destroy', internal_mark, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Internal mark', new_internal_mark_path %>

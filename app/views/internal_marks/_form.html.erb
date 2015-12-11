@@ -1,0 +1,40 @@
+<div class="table18">
+  <%= form_tag({action: :create}) do %>
+    <%= hidden_field_tag "term_id", @term.id %>
+    <table class="ui celled striped table">
+      <thead>
+        <tr>
+          <th>SL.No</th>
+          <th>Name</th>
+          <% @papers.each do |paper| %>
+            <th><%= paper.code %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% @students.each_with_index do |student, i| %>
+          <%= hidden_field_tag "internal_marks[#{i}][student_id]", student.id %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= student %></td>
+            <% @papers.each_with_index do |paper, j| %>
+              <td>
+                <% if(!paper.optional || OptionalPaperEnrollment.where(student: student, paper: paper).present?) %>
+                  <% @internal_mark = InternalMark.where(student: student, term_structure_entry: @term, paper: paper).select(:mark).first.try(:mark) %>
+                  <% if @internal_mark.nil? %>
+                    <%= hidden_field_tag "internal_marks[#{i}][marks][#{j}][paper_id]", paper.id %>
+                    <%= number_field_tag "internal_marks[#{i}][marks][#{j}][mark]", "", class: "mark", step: 0.1 %>
+                  <% else %>
+                    <%= @internal_mark %>
+                  <% end %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= submit_tag "Save Marks" %>
+  <% end %>
+</div>

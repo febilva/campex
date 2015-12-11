@@ -55,6 +55,7 @@ Rails.application.routes.draw do
         end
       end
       resources :batches do
+        resources :internal_marks
         member do
           get 'paper_list'
           get 'papers'

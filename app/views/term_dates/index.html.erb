@@ -9,6 +9,7 @@
       <th>Code</th>
       <th>Start Date</th>
       <th>End Date</th>
+      <th class="center aligned">Actions</th>
     </tr>
   </thead>
 
@@ -23,6 +24,10 @@
         <td><%= term_structure_entry.code %></td>
         <td><%= @term_date.try(:start_date) || "Not Specified" %></td>
         <td><%= @term_date.try(:end_date) || "Not Specified" %></td>
+        <td class="center aligned">
+          <%= link_to "Papers", papers_batch_path(@batch) %> |
+          <%= link_to 'Internal Marks', new_batch_internal_mark_path(@batch, :term_id => term_structure_entry.id)  %>
+        </td>
       </tr>
     <% end %>
   </tbody>
