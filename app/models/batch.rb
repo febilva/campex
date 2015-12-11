@@ -14,8 +14,9 @@ class Batch < ActiveRecord::Base
       self.course.id, self.start_date.year).last
   end  
 
-  def papers
-    self.syllabus.papers
+  def papers(term = self.current_term)
+    self.syllabus.programme_offerings.where(term_structure_entry: 1)
+    .select(:paper_id).pluck(:paper_id).map{ |paper_id| Paper.find(paper_id) }
   end
 
   def to_s
