@@ -17,6 +17,7 @@
         <td><%= link_to department.name, department_courses_path(department)  %></td>
         <td><%= department.code %></td>
         <td class="center aligned">
+          <%= link_to 'Add Common Paper', new_common_paper_department_path(department) %> |
           <%= link_to 'Edit', edit_department_path(department) %> | 
           <%= link_to 'Remove', department, method: :delete, data: { confirm: 'Are you sure?' } %>
         </td>

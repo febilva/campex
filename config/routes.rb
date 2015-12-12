@@ -40,6 +40,10 @@ Rails.application.routes.draw do
   resources :term_structures
   resources :course_types
   resources :departments, shallow: true do
+    member do
+      get 'new_common_paper'
+      post 'create_common_paper'
+    end
     resources :courses do
       member do
         get 'syllabus_list'

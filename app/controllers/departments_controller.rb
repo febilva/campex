@@ -1,5 +1,5 @@
 class DepartmentsController < ApplicationController
-  before_action :set_department, only: [:show, :edit, :update, :destroy]
+  before_action :set_department, only: [:show, :edit, :update, :destroy, :new_common_paper]
 
   # GET /departments
   # GET /departments.json
@@ -61,6 +61,15 @@ class DepartmentsController < ApplicationController
     end
   end
 
+  def new_common_paper
+    @paper = Paper.new
+  end
+
+  def create_common_paper
+    @paper = Paper.new(paper_params)
+    redirect_to departments_url if @paper.save
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_department
@@ -70,5 +79,9 @@ class DepartmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def department_params
       params.require(:department).permit(:name, :code)
+    end
+
+    def paper_params
+      params.require(:paper).permit(:paper_type_id, :offered_by_id, :name, :code, :study_mode, :optional, :exam_required)
     end
 end
