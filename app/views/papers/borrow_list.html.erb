@@ -1,0 +1,23 @@
+<%= form_for @programme_offering, url: { action: :borrow } do |f| %>
+  <%= f.hidden_field :syllabus_id, value: @syllabus.id %>
+  <%= f.hidden_field :term_structure_entry_id, value: params[:term_id] %>
+  <% if @programme_offering.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@programme_offering.errors.count, "error") %> prohibited this paper from being saved:</h2>
+
+      <ul>
+      <% @programme_offering.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :paper_id %><br>
+    <%= f.select :paper_id, options_for_select(@papers), {}, { class: "ui dropdown" } %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

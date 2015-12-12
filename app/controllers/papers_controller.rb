@@ -1,6 +1,6 @@
 class PapersController < ApplicationController
-  before_action :set_syllabus, except: [:show, :edit, :update, :destroy, :teacher_list,
-   :participants_list, :add_participant, :remove_participant]
+  before_action :set_syllabus, except: [:show, :edit, :update, :destroy, :teacher_list, 
+    :participants_list, :add_participant, :remove_participant]
   before_action :set_paper, only: [:show, :edit, :update, :destroy, :teacher_list]
 
   # GET /papers
@@ -69,6 +69,17 @@ class PapersController < ApplicationController
     end
   end
 
+  def borrow_list
+    @programme_offering = ProgrammeOffering.new
+    @papers = Paper.all.each.map{ |paper| ["#{paper.name} - #{paper.code} - #{paper.offered_by}", paper.id] }
+  end
+
+  def borrow
+    @programme_offering = ProgrammeOffering.new(programme_offering_params)
+    redirect_to syllabus_papers_url(@programme_offering.syllabus, 
+      term_id: @programme_offering.term_structure_entry.id) if @programme_offering.save
+  end
+
   def teacher_list
     @teachers = @paper.teachers
   end
@@ -115,5 +126,9 @@ class PapersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def paper_params
       params.require(:paper).permit(:syllabus_id, :term_structure_entry_id, :paper_type_id, :offered_by_id, :name, :code, :study_mode, :optional, :exam_required)
+    end
+
+    def programme_offering_params
+      params.require(:programme_offering).permit(:syllabus_id, :term_structure_entry_id, :paper_id)
     end
 end

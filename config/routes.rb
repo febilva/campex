@@ -49,6 +49,10 @@ Rails.application.routes.draw do
 
       resources :syllabuses do
         resources :papers do
+          collection do
+            get 'borrow_list'
+            post 'borrow'
+          end
           member do
             get 'teacher_list'
           end

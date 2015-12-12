@@ -40,4 +40,5 @@
 
 <br>
 
-<%= link_to 'New Paper', new_syllabus_paper_path(@syllabus, term_id: params[:term_id]) %>
+<%= link_to 'New Paper', new_syllabus_paper_path(@syllabus, term_id: params[:term_id]) %> |
+<%= link_to 'Borrow Paper', borrow_list_syllabus_papers_path(@syllabus, term_id: params[:term_id]) %>
