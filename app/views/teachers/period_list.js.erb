@@ -1,3 +1,5 @@
 $('<%= params[:target_element] %>')
   .html('<%= "#{options_from_collection_for_select @periods, :id, :name}"
     .gsub("\n", "").html_safe %>')
+$('<%= params[:target_element] %>')
+  .prepend('<option value="" selected="selected">Select a period</option>')
