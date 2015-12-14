@@ -1,6 +1,6 @@
 class BatchesController < ApplicationController
-  before_action :set_course, except: [:show, :edit, :update, :destroy, :paper_list, :papers]
-  before_action :set_batch, only: [:show, :edit, :update, :destroy, :paper_list, :papers]
+  before_action :set_course, except: [:show, :edit, :update, :destroy, :paper_list, :papers, :students_list]
+  before_action :set_batch, only: [:show, :edit, :update, :destroy, :paper_list, :papers, :students_list]
 
   # GET /batches
   # GET /batches.json
@@ -73,6 +73,12 @@ class BatchesController < ApplicationController
   def papers
     @syllabus = @batch.syllabus
     @papers = @batch.papers
+  end
+
+  def students_list
+    @paper = @batch.current_timetable.timetable_entries.where(teacher_id: current_user.profile.id,
+      period_id: params[:period_id], wday: params[:date].to_date.wday).first.try(:paper)
+    @students = @paper.optional ? @paper.optional_paper_enrollments.where(batch_id: @batch.id).select(:student_id).pluck(:student_id).map{ |student_id| Student.find(student_id) } : @batch.students
   end
 
   private

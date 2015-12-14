@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       resources :batches do
         resources :internal_marks
         member do
+          get 'students_list'
           get 'paper_list'
           get 'papers'
           get 'papers/:paper_id' => 'papers#participants_list', as: :paper

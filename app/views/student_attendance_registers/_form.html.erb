@@ -23,8 +23,9 @@
   </div>
   <div class="field">
     <%= f.label :period_id %><br>
-    <%= f.select :period_id, [] %>
+    <%= f.select :period_id, [], {}, "data-fetch-period-students" => "students" %>
   </div>
+  <div id="students" class="students"></div>
   <div class="actions">
     <%= f.submit "Mark Atttendance" %>
   </div>

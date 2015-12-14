@@ -1,0 +1,34 @@
+var html = "";
+<% @students.each do |student| %>
+  html += '<div class="ui stackable three column grid">' +
+    '<div class="column">' +
+      '<div class="stud-name">' +
+        '<button class="ui olive status button">Present</button>' +
+        '<div class="ui absence checkbox">' +
+          '<input type="checkbox" name="student_id[]" value="<%= student.id %>">' +
+          '<label><%= "#{student.name} (#{student.roll_no})" %></label>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    '<div class="column"><input name="absence_reason_<%= student.id %>" class="ui input" placeholder="Reason"></div>' +
+
+    '<div class="column">' +
+      '<div class="ui selection dropdown">' +
+        '<input name="leave_type_<%= student.id %>" type="hidden">' +
+        '<i class="dropdown icon"></i>' +
+        '<div class="default text">Leave Type</div>' +
+        '<div class="menu">' +
+          '<div class="item" data-value="reported">Reportted Leave</div>' +
+          '<div class="item" data-value="unreported">Unreported Leave</div>' +
+          '<div class="item" data-value="medical">Medical Leave</div>' +
+          '<div class="item" data-value="duty">Duty Leave</div>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+  '</div>';
+<% end %>
+
+$('<%= params[:target_element] %>')
+  .html(html)
+$(document).trigger('page:load');

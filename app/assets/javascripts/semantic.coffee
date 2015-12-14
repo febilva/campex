@@ -7,3 +7,4 @@ $(document).on "ready page:load", ->
 
   $('.ui.checkbox').checkbox()
   $('.ui.accordion').accordion()
+  $('.ui.selection.dropdown').dropdown()
