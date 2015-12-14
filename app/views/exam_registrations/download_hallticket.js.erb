@@ -25,6 +25,10 @@ doc.setFontSize(13);
 var examination_name = '<%= @exam_registration.examination.name %>';
 doc.text(50, 28, examination_name);
 
+doc.setFontSize(20);
+doc.setFontType("bold");
+doc.text(160, 10, '<%= @exam_registration.register_no %>');
+
 /* -------------------------- Candidate Info Table Begins --------------------------------- */
 
 var table_base_x = 20;
