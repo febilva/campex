@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= label_tag :course_id %><br>
-    <%= select_tag :course_id, options_from_collection_for_select(Course.all, :id, :name, @student.batch.try(:course).try(:id)),  include_blank: true, "data-fetch-course-batches" => "student_batch_id" %>
+    <%= select_tag :course_id, options_from_collection_for_select(Course.all, :id, :full_name, @student.batch.try(:course).try(:id)),  include_blank: true, "data-fetch-course-batches" => "student_batch_id" %>
   </div>
   <div class="field">
     <%= f.label :batch_id %><br>
