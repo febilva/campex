@@ -9,6 +9,10 @@ class Batch < ActiveRecord::Base
     .try(:term_structure_entry)
   end
 
+  def current_timetable
+    Timetable.where('batch_id = ? AND ? BETWEEN start_date AND end_date', self.id, Date.current).first
+  end
+
   def syllabus
     Syllabus.where('course_id = ? AND ? >= EXTRACT(YEAR from created_at)', 
       self.course.id, self.start_date.year).last
