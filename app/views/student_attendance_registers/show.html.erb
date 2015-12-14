@@ -1,24 +1,16 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Batch:</strong>
-  <%= @student_attendance_register.batch %>
-</p>
+<%= @student_attendance_register.batch %> - 
+<%= @student_attendance_register.period %>
+( <%= @student_attendance_register.marked_date %> )
+<%= @student_attendance_register.user.name %>
 
-<p>
-  <strong>Teacher:</strong>
-  <%= @student_attendance_register.user.name %>
-</p>
+<div>
+  <u><b>Absentees</b><br></u>
 
-<p>
-  <strong>Period:</strong>
-  <%= @student_attendance_register.period %>
-</p>
+  <% @student_attendance_register.absences.each do |absence| %>
+    <b><%= "#{absence.absentee.name} (#{absence.absentee.roll_no})" %></b><br>
+  <% end %>
+</div>
 
-<p>
-  <strong>Marked date:</strong>
-  <%= @student_attendance_register.marked_date %>
-</p>
-
-<%= link_to 'Edit', edit_student_attendance_register_path(@student_attendance_register) %> |
 <%= link_to 'Back', student_attendance_registers_path %>
