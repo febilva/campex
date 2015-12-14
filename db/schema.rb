@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151211043457) do
+ActiveRecord::Schema.define(version: 20151214152335) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "absences", force: :cascade do |t|
+    t.integer  "student_attendance_register_id"
+    t.integer  "absentee_id"
+    t.string   "absentee_type"
+    t.string   "leave_type"
+    t.string   "reason"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+  end
+
+  add_index "absences", ["absentee_type", "absentee_id"], name: "index_absences_on_absentee_type_and_absentee_id", using: :btree
+  add_index "absences", ["student_attendance_register_id"], name: "index_absences_on_student_attendance_register_id", using: :btree
 
   create_table "batches", force: :cascade do |t|
     t.integer  "course_id"
@@ -389,6 +402,7 @@ ActiveRecord::Schema.define(version: 20151211043457) do
   add_index "users", ["state_id"], name: "index_users_on_state_id", using: :btree
   add_index "users", ["username"], name: "index_users_on_username", unique: true, using: :btree
 
+  add_foreign_key "absences", "student_attendance_registers"
   add_foreign_key "batches", "courses"
   add_foreign_key "batches_examinations", "batches"
   add_foreign_key "batches_examinations", "examinations"

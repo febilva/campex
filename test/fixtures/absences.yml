@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  student_attendance_register_id: 
+  absentee_id: 
+  absentee_type: Absentee
+  leave_type: MyString
+  reason: MyString
+
+two:
+  student_attendance_register_id: 
+  absentee_id: 
+  absentee_type: Absentee
+  leave_type: MyString
+  reason: MyString

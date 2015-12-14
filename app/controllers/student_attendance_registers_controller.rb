@@ -36,6 +36,11 @@ class StudentAttendanceRegistersController < ApplicationController
 
     respond_to do |format|
       if @student_attendance_register.save
+        params[:student_id].each do |student_id|
+          Absence.new(student_attendance_register: @student_attendance_register,
+           absentee: Student.find(student_id), leave_type: params["leave_type_#{student_id}"],
+            reason: params["absence_reason_#{student_id}"]).save
+        end
         format.html { redirect_to @student_attendance_register, notice: 'Student attendance register was successfully created.' }
         format.json { render :show, status: :created, location: @student_attendance_register }
       else
