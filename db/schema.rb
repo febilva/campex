@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214152335) do
+ActiveRecord::Schema.define(version: 20151215025255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,21 @@ ActiveRecord::Schema.define(version: 20151214152335) do
 
   add_index "absences", ["absentee_type", "absentee_id"], name: "index_absences_on_absentee_type_and_absentee_id", using: :btree
   add_index "absences", ["student_attendance_register_id"], name: "index_absences_on_student_attendance_register_id", using: :btree
+
+  create_table "authorization_requests", force: :cascade do |t|
+    t.string   "request_id"
+    t.integer  "request_user_id"
+    t.string   "request_type"
+    t.string   "request_params"
+    t.string   "request_remarks"
+    t.integer  "approval_user_id"
+    t.string   "approval_date"
+    t.string   "approval_remarks"
+    t.string   "pending_remarks"
+    t.string   "status"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "batches", force: :cascade do |t|
     t.integer  "course_id"

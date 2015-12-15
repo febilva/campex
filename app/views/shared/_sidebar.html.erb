@@ -61,6 +61,30 @@
           <% end %>
         <% end %>
 
+        <% if policy(:user).authorization_requests_menu? %>
+          <div class="item">
+            <a class="title">
+              Authorization Requests
+              <i class="table icon"></i>
+            </a>
+            <div class="content">
+              <div class="ui form">
+                <% if policy(:user).send("authorization_requests:index?") %>
+                  <div class="item">
+                    <%= link_to "Filed Requests", authorization_requests_path, class: "title" %>
+                  </div>
+                <% end %>
+
+                <% if policy(:user).send("authorization_requests:new?") %>
+                  <div class="item">
+                    <%= link_to "New Request", new_authorization_request_path, class: "title" %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+
         <% if policy(:user).settings_menu? %>
           <div class="item">
             <a class="title">

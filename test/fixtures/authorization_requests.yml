@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  request_user: 1
+  request_type: MyString
+  request_params: MyString
+  request_remarks: MyString
+  approval_user: 1
+  approval_date: MyString
+  approval_remarks: MyString
+  status: MyString
+
+two:
+  request_user: 1
+  request_type: MyString
+  request_params: MyString
+  request_remarks: MyString
+  approval_user: 1
+  approval_date: MyString
+  approval_remarks: MyString
+  status: MyString

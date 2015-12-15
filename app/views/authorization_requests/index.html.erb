@@ -1,0 +1,32 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Authorization Requests</h1>
+
+<table class="ui single line celled striped blue table">  <thead>
+    <tr>
+      <th>Request ID</th>
+      <th>Request type</th>
+      <th>Status</th>
+      <th class="center aligned">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @authorization_requests.each do |authorization_request| %>
+      <tr>
+        <td><%= authorization_request.request_id %></td>
+        <td><%= authorization_request.request_type %></td>
+        <td><%= authorization_request.status %></td>
+        <td class="center aligned">
+          <%= link_to 'Show', authorization_request %> | 
+          <%= link_to 'Edit', edit_authorization_request_path(authorization_request) %> | 
+          <%= link_to 'Destroy', authorization_request, method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Authorization request', new_authorization_request_path %>

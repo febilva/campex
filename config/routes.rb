@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :authorization_requests
   resources :student_attendance_registers
   resources :paper_assignments
   resources :teachers do

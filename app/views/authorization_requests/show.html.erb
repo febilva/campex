@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Request user:</strong>
+  <%= @authorization_request.request_user %>
+</p>
+
+<p>
+  <strong>Request type:</strong>
+  <%= @authorization_request.request_type %>
+</p>
+
+<p>
+  <strong>Request params:</strong>
+  <%= @authorization_request.request_params %>
+</p>
+
+<p>
+  <strong>Request remarks:</strong>
+  <%= @authorization_request.request_remarks %>
+</p>
+
+<p>
+  <strong>Approval user:</strong>
+  <%= @authorization_request.approval_user %>
+</p>
+
+<p>
+  <strong>Approval date:</strong>
+  <%= @authorization_request.approval_date %>
+</p>
+
+<p>
+  <strong>Approval remarks:</strong>
+  <%= @authorization_request.approval_remarks %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @authorization_request.status %>
+</p>
+
+<%= link_to 'Edit', edit_authorization_request_path(@authorization_request) %> |
+<%= link_to 'Back', authorization_requests_path %>

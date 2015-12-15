@@ -1,0 +1,25 @@
+<%= form_for(@authorization_request) do |f| %>
+  <% if @authorization_request.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@authorization_request.errors.count, "error") %> prohibited this authorization_request from being saved:</h2>
+
+      <ul>
+      <% @authorization_request.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :request_type %><br>
+    <%= f.text_field :request_type %>
+  </div>
+  <div class="field">
+    <%= f.label :request_remarks %><br>
+    <%= f.text_field :request_remarks %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
