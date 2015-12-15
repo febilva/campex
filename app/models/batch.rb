@@ -19,7 +19,7 @@ class Batch < ActiveRecord::Base
   end  
 
   def papers(term = self.current_term)
-    self.syllabus.programme_offerings.where(term_structure_entry: 1)
+    self.syllabus.programme_offerings.where(term_structure_entry: term)
     .select(:paper_id).pluck(:paper_id).map{ |paper_id| Paper.find(paper_id) }
   end
 
