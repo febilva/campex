@@ -11,7 +11,7 @@ unless User.where(profile_type: "Admin").count > 0
   #Teacher Role
   Role.create(name: 'Teacher', activities: ["attendance_menu", "student_attendance_registers:index", 
     "student_attendance_registers:new", "student_attendance_registers:create", 
-    "student_attendance_registers:show", "teachers:period_list"])
+    "student_attendance_registers:show", "teachers:period_list", "batches:students_list"])
 
   #Admin user
   @admin_user = User.new(username: 'admin', first_name: 'mentor', last_name: 'performance', 
