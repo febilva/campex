@@ -55,7 +55,7 @@ doc.line(table_base_x, table_base_y + 10, table_max_x, table_base_y + 10); // ho
 doc.text(table_base_x + 2, table_base_y + 9, 'Register No');
 doc.setFontType("bold");
 doc.text(table_base_x + 35, table_base_y + 9, 
-  '<%= "M#{@exam_registration.student.batch}#{@exam_registration.student.roll_no}" %>');
+  '<%= @exam_registration.register_no %>');
 
 doc.setFontType("normal");
 doc.line(table_base_x, table_base_y + 15, table_max_x, table_base_y + 15); // horizontal line
