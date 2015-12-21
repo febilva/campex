@@ -30,10 +30,11 @@ Rails.application.routes.draw do
       get 'assign_users'
     end
   end
-  resources :examinations do
+  resources :examinations, shallow: true do
     member do
       get 'nominal_roll'
     end
+    resources :marks
   end
   resources :paper_types
   resources :term_structure_entries

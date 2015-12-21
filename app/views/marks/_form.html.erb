@@ -1,0 +1,41 @@
+<div class="table18">
+  <%= form_tag({controller: :marks, action: :create}) do %>
+    <table class="ui celled striped table">
+      <thead>
+        <tr>
+          <th>SL.No</th>
+          <th>Register No.</th>
+          <% @examination.papers.each do |paper| %>
+            <th><%= paper.code %></th>
+          <% end %>
+        </tr>
+      </thead>
+      <tbody>
+        <% mark_count = 0 %>
+        <% @registrations = @examination.registrations.select("exam_registrations.register_no, 
+          array_agg(registered_exam_papers.id) as registered_paper_ids, array_agg(registered_exam_papers.paper_id) as registered_papers").joins(:registered_exam_papers).group(:student_id, :register_no).order(:register_no).each_with_index do |registration, i| %>
+          <tr>
+            <td><%= i + 1 %></td>
+            <td><%= registration.register_no %></td>
+            <% @examination.papers.each do |paper| %>
+              <td>
+                <% if registration.registered_papers.include? paper.id %>
+                  <% @mark = Mark.where(registered_exam_paper_id: registration.registered_paper_ids[registration.registered_papers.find_index(paper.id)]).select(:mark).first.try(:mark) %>
+                  <% if @mark.nil? %>
+                    <%= hidden_field_tag "marks[#{mark_count}][registered_exam_paper_id]", registration.registered_paper_ids[registration.registered_papers.find_index(paper.id)] %>
+                    <%= number_field_tag "marks[#{mark_count}][mark]", "", class: "mark", step: 0.1 %>
+                    <% mark_count = mark_count + 1 %>
+                  <% else %>
+                    <%= @mark %>
+                  <% end %>
+                <% end %>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= submit_tag "Save Marks" %>
+  <% end %>
+</div>

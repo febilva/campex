@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  registered_exam_paper_id: 
+  mark: 1.5
+  entered_by: 1
+
+two:
+  registered_exam_paper_id: 
+  mark: 1.5
+  entered_by: 1

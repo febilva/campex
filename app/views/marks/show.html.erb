@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Registered exam paper:</strong>
+  <%= @mark.registered_exam_paper %>
+</p>
+
+<p>
+  <strong>Mark:</strong>
+  <%= @mark.mark %>
+</p>
+
+<p>
+  <strong>Entered by:</strong>
+  <%= @mark.entered_by %>
+</p>
+
+<%= link_to 'Edit', edit_mark_path(@mark) %> |
+<%= link_to 'Back', marks_path %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151214152335) do
+ActiveRecord::Schema.define(version: 20151220124008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -144,6 +144,16 @@ ActiveRecord::Schema.define(version: 20151214152335) do
   add_index "internal_marks", ["paper_id"], name: "index_internal_marks_on_paper_id", using: :btree
   add_index "internal_marks", ["student_id"], name: "index_internal_marks_on_student_id", using: :btree
   add_index "internal_marks", ["term_structure_entry_id"], name: "index_internal_marks_on_term_structure_entry_id", using: :btree
+
+  create_table "marks", force: :cascade do |t|
+    t.integer  "registered_exam_paper_id"
+    t.float    "mark"
+    t.integer  "entered_by_id"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "marks", ["registered_exam_paper_id"], name: "index_marks_on_registered_exam_paper_id", using: :btree
 
   create_table "optional_paper_enrollments", force: :cascade do |t|
     t.integer  "batch_id"
@@ -418,6 +428,7 @@ ActiveRecord::Schema.define(version: 20151214152335) do
   add_foreign_key "internal_marks", "papers"
   add_foreign_key "internal_marks", "students"
   add_foreign_key "internal_marks", "term_structure_entries"
+  add_foreign_key "marks", "registered_exam_papers"
   add_foreign_key "optional_paper_enrollments", "batches"
   add_foreign_key "optional_paper_enrollments", "papers"
   add_foreign_key "optional_paper_enrollments", "students"

@@ -1,0 +1,31 @@
+<div class="examination-report">
+  <div class="container">
+    <div class="university">
+      <h3><%= @examination.name %></h3>
+      <h3><span>Valuation Marks</span></h3>
+    </div>
+
+  <div class="table-team">
+    <table class="ui celled striped table">
+      <thead>
+        <tr>
+          <th>Code</th>
+          <th>Name of Course</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @examination.papers.each do |paper| %>
+          <tr>
+            <td class="collapsing"><%= paper[:code] %></td>
+            <td><%= paper[:name] %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+ </div>
+</div>
+
+<%= render 'form' %>
+
+<%= link_to 'Back', examination_path(@examination) %>
