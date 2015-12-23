@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :examinations, shallow: true do
     member do
       get 'nominal_roll'
+      get 'results_pdf'
     end
     resources :marks
   end

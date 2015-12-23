@@ -1,5 +1,5 @@
 class ExaminationsController < ApplicationController
-  before_action :set_examination, only: [:show, :edit, :update, :destroy, :nominal_roll]
+  before_action :set_examination, only: [:show, :edit, :update, :destroy, :nominal_roll, :results_pdf]
   layout false, only: [:nominal_roll]
 
   # GET /examinations
@@ -63,6 +63,9 @@ class ExaminationsController < ApplicationController
   end
 
   def nominal_roll
+  end
+
+  def results_pdf
   end
 
   private
