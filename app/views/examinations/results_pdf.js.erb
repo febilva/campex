@@ -101,6 +101,16 @@ doc.setProperties({
     <% @internal_mark = InternalMark.where(student: registration.student, 
       term_structure_entry: @examination.term_structure_entry, 
       paper: paper_registration.paper).first.try(:mark).try(:round) %>
+    <%
+      if @mark.nil? or @internal_mark.nil?
+        @pass = "A"
+      else
+        @total_mark = @mark + @internal_mark
+        @total_max = paper_registration.paper.max_internal_mark + paper_registration.paper.max_external_mark
+        pass_percent = paper_registration.paper.pass_percent
+        @pass = @total_mark >= (@total_max * (pass_percent / 100.0)) ? "P" : "RA"
+      end
+    %>
     doc.text(mt_x_min+2, mt_y_min+24+(10 * <%= i + 1 %>), '<%= i + 1 %>');
     doc.text(mt_x_min+15, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.code %>');
     doc.text(mt_x_min+40, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.name %>');
@@ -109,9 +119,9 @@ doc.setProperties({
     doc.text(mt_x_min+118, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @internal_mark %>');
     doc.text(mt_x_min+135, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : @mark %>');
     doc.text(mt_x_min+151, mt_y_min+24+(10 * <%= i + 1 %>),
-     '<%= @mark.nil? ? "___" : @mark + @internal_mark %>');
-    doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '100');
-    doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), 'P');
+     '<%= @mark.nil? ? "___" : @total_mark %>');
+    doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @total_max %>');
+    doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @pass %>');
   <% end %>
 
   var st_x_min=mt_x_min;
