@@ -1,7 +1,7 @@
 var total_registrations = <%= @examination.registrations.count %>;
 var images = [];
 
-var getImageFromUrl = function(url, position, callback) {
+var getImageFromUrl = function(url, student_id, callback) {
   var img = new Image();
 
   img.crossOrigin = "Anonymous";
@@ -11,8 +11,8 @@ var getImageFromUrl = function(url, position, callback) {
   };
 
   img.onload = function() {
-    images.splice(position, 0, img);
-    if(total_registrations == images.length)
+    images[student_id] = img;
+    if(total_registrations == Object.keys(images).length)
       callback();
   };
 
@@ -32,7 +32,7 @@ var generatePdf = function() {
         creator: 'Campex'
     });
 
-    <% @examination.registrations.each_with_index do |registration, j| %>
+    <% @examination.registrations.each do |registration| %>
       doc.addImage(imgData, 'JPEG', 5, 7, 30, 32);
       doc.setFont("times");
       doc.setFontType("bold");
@@ -47,7 +47,7 @@ var generatePdf = function() {
       doc.setFontType("normal");
 
       doc.rect(177, 7, 28, 34); // photo
-      doc.addImage(images[<%= j %>], 177, 7, 28, 34);
+      doc.addImage(images["<%= registration.student.id %>"], 177, 7, 28, 34);
 
       var mt_x_min=5;
       var mt_x_max=200;
@@ -187,6 +187,6 @@ var generatePdf = function() {
     doc.output('dataurlnewwindow');
 }
 
-<% @examination.registrations.each_with_index do |registration, i| %>
-  getImageFromUrl("<%= registration.student.dp.passport.url %>", <%= i %>, generatePdf);
+<% @examination.registrations.each do |registration| %>
+  getImageFromUrl("<%= registration.student.dp.passport.url %>", "<%= registration.student.id %>", generatePdf);
 <% end %>
