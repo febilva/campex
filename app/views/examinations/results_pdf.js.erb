@@ -60,27 +60,39 @@ var generatePdf = function() {
       doc.setFontSize(8);
 
       doc.text(mt_x_min+2, mt_y_min+4, 'NAME OF THE PROGRAMME:');
-      doc.text(mt_x_min+45, mt_y_min+4, '<%= @examination.course.full_name %>');
+      doc.setFontType("bold");
+      doc.text(mt_x_min+45, mt_y_min+4, '<%= @examination.course.full_name.upcase %>');
       doc.line(100, mt_y_min,100, mt_y_min+20); // vertical line
 
+      doc.setFontType("normal");
       doc.text(mt_x_min+98, mt_y_min+4, 'SEMESTER:');
+      doc.setFontType("bold");
       doc.text(mt_x_min+115, mt_y_min+4, '<%= @examination.term_structure_entry.code %>');
       doc.line(150, mt_y_min,150, mt_y_min+20); // vertical line
 
+      doc.setFontType("normal");
       doc.text(mt_x_min+147, mt_y_min+4, 'MONTH AND YEAR: ');
+      doc.setFontType("bold");
       doc.text(mt_x_min+175, mt_y_min+4, '<%= @examination.start_date.strftime("%B, %Y") %>');
       doc.line(mt_x_min, mt_y_min+10, mt_x_max+5, mt_y_min+10);  // horizontal line
 
+      doc.setFontType("normal");
       doc.text(mt_x_min+2, mt_y_min+14, 'NAME OF THE STUDENT');
+      doc.setFontType("bold");
       doc.text(mt_x_min+45, mt_y_min+14, '<%= registration.student.name %>');
 
+      doc.setFontType("normal");
       doc.text(mt_x_min+97, mt_y_min+14, 'DATE OF BIRTH:');
+      doc.setFontType("bold");
       doc.text(mt_x_min+125, mt_y_min+14, '<%= registration.student.dob %>');
 
+      doc.setFontType("normal");
       doc.text(mt_x_min+147, mt_y_min+14, 'REG. NUMBER:');
+      doc.setFontType("bold");
       doc.text(mt_x_min+175, mt_y_min+14, '<%= registration.register_no %>');
       doc.line(mt_x_min, mt_y_min+20, mt_x_max+5, mt_y_min+20); // horizontal line
 
+      doc.setFontType("normal");
       doc.text(mt_x_min+2, mt_y_min+24, 'SL. NO');
 
       doc.line(17, mt_y_min+20,17, mt_y_max+50); // vertical line
@@ -119,6 +131,7 @@ var generatePdf = function() {
       doc.text(mt_x_min+185, mt_y_min+26, 'RESULT');
       doc.line(mt_x_min, mt_y_min+30, mt_x_max+5, mt_y_min+30); // horizontal line
 
+      doc.setFontType("bold");
       <% registration.registered_exam_papers.reverse.each_with_index do |paper_registration, i| %>
         <% @mark = Mark.where(registered_exam_paper: paper_registration).first.try(:mark).try(:round) %>
         <% @internal_mark = InternalMark.where(student: registration.student, 
@@ -139,13 +152,14 @@ var generatePdf = function() {
         doc.text(mt_x_min+40, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.name %>');
         doc.text(mt_x_min+107, mt_y_min+24+(10 * <%= i + 1 %>), 
           '<%= paper_registration.paper.paper_type.code %>');
-        doc.text(mt_x_min+118, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @internal_mark %>');
-        doc.text(mt_x_min+135, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : @mark %>');
-        doc.text(mt_x_min+151, mt_y_min+24+(10 * <%= i + 1 %>),
+        doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @internal_mark %>');
+        doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : @mark %>');
+        doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>),
          '<%= @mark.nil? ? "___" : @total_mark %>');
-        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @total_max %>');
+        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @total_max.to_i %>');
         doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @pass %>');
       <% end %>
+      doc.setFontType("normal");
 
       var st_x_min=mt_x_min;
       var st_x_max=mt_x_max;
@@ -168,18 +182,15 @@ var generatePdf = function() {
       doc.setFontSize(12);
 
 
-      doc.addImage(signature_img, 'JPEG', st_x_max-58, ft_y_min, 60, 14);
-      doc.text(st_x_max-60, ft_y_min+20, 'Controller of the Examination');
+      doc.addImage(signature_img, 'JPEG', st_x_max-58, ft_y_min + 5, 60, 14);
+      doc.text(st_x_max-60, ft_y_min+25, 'Controller of the Examination');
       doc.setFontSize(9);
 
-      doc.text(st_x_max-60, ft_y_min+24, 'Date of');
-      doc.text(st_x_max-60, ft_y_min+28, 'Publication');
+      doc.text(st_x_max-60, ft_y_min+29, 'Date of Publication');
 
-      doc.text(st_x_max-30, ft_y_min+24, '24/12/2015');
+      doc.text(st_x_max-30, ft_y_min+29, '24/12/2015');
       doc.setFontSize(7);
 
-      doc.text(ft_x_min+65, st_y_min+st_y_max+35, 
-        'This Grade card is issued without any correction or overwriting');
       doc.addPage();
     <% end %>
 
