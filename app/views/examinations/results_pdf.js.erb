@@ -119,7 +119,7 @@ var generatePdf = function() {
       doc.text(mt_x_min+185, mt_y_min+26, 'RESULT');
       doc.line(mt_x_min, mt_y_min+30, mt_x_max+5, mt_y_min+30); // horizontal line
 
-      <% registration.registered_exam_papers.each_with_index do |paper_registration, i| %>
+      <% registration.registered_exam_papers.reverse.each_with_index do |paper_registration, i| %>
         <% @mark = Mark.where(registered_exam_paper: paper_registration).first.try(:mark).try(:round) %>
         <% @internal_mark = InternalMark.where(student: registration.student, 
           term_structure_entry: @examination.term_structure_entry, 
