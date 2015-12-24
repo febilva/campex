@@ -61,7 +61,7 @@ var generatePdf = function() {
 
       doc.text(mt_x_min+2, mt_y_min+4, 'NAME OF THE PROGRAMME:');
       doc.setFontType("bold");
-      doc.text(mt_x_min+45, mt_y_min+4, '<%= @examination.course.full_name.upcase %>');
+      doc.text(mt_x_min+45, mt_y_min+4, '<%= @examination.course.full_name.upcase.html_safe %>');
       doc.line(100, mt_y_min,100, mt_y_min+20); // vertical line
 
       doc.setFontType("normal");
