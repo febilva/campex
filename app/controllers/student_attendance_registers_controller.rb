@@ -4,7 +4,7 @@ class StudentAttendanceRegistersController < ApplicationController
   # GET /student_attendance_registers
   # GET /student_attendance_registers.json
   def index
-    @student_attendance_registers = StudentAttendanceRegister.all
+    @student_attendance_registers = StudentAttendanceRegister.where(user: current_user)
   end
 
   # GET /student_attendance_registers/1
