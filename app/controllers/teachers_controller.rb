@@ -74,14 +74,20 @@ class TeachersController < ApplicationController
     batch_id = params[:batch_id]
     date = params[:date].to_date
 
-    timetable_entries = TimetableEntry.joins(:timetable)
-    .where('? BETWEEN start_date AND end_date', date)
-    .where(timetables: {batch_id: batch_id}, timetable_entries: { teacher_id: @teacher.id, wday: date.wday })
-    .select(:period_id).pluck(:period_id)
+    timetable_entries = Batch.find(batch_id).current_timetable.class_timing.periods.where(is_break: false)
+    
+    # timetable_entries = TimetableEntry.joins(:timetable)
+    # .where('? BETWEEN start_date AND end_date', date)
+    # .where(timetables: {batch_id: batch_id}, timetable_entries: { teacher_id: @teacher.id, wday: date.wday })
+    # .select(:period_id).pluck(:period_id)
 
-    marked_periods = StudentAttendanceRegister.where(batch_id: batch_id, user_id: current_user.id, 
+    marked_periods = StudentAttendanceRegister.where(batch_id: batch_id, 
       period_id: timetable_entries, marked_date: date)
       .select(:period_id).pluck(:period_id)
+    
+    #marked_periods = StudentAttendanceRegister.where(batch_id: batch_id, user_id: current_user.id, 
+    #  period_id: timetable_entries, marked_date: date)
+    #  .select(:period_id).pluck(:period_id)
 
     @periods = Period.where(id: timetable_entries - marked_periods)
   end
