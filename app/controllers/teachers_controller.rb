@@ -83,7 +83,6 @@ class TeachersController < ApplicationController
 
     marked_periods = StudentAttendanceRegister.where(batch_id: batch_id, user: current_user,
      marked_date: date).select(:period_id).pluck(:period_id)
-     byebug
     
     #marked_periods = StudentAttendanceRegister.where(batch_id: batch_id, user_id: current_user.id, 
     #  period_id: timetable_entries, marked_date: date)
