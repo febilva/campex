@@ -2,6 +2,7 @@
   <section id="timetable">
     <div class="container">
       <% 1.upto(6) do |wday| %>
+	    <% break_count = 0 %>
         <div class="ui stackable <%= (@timetable.periods.count + 1).to_words %> column grid">
           <div class="column first-sub">
             <div class="day"><a><%= "#{Date::DAYNAMES[wday][0..2]}" %></a></div> 
@@ -9,6 +10,7 @@
 
           <% @timetable.periods.each_with_index do |period, count| %>
             <% if period.is_break %>
+			  <% break_count = break_count + 1 %>
               <div class="column">
                 <div class="ui inverted green secondary centre aligned segment time">
                   <div class="column">&nbsp;</div>
@@ -23,7 +25,7 @@
                 <div class="ui inverted teal secondary segment time">
                   <div class="ui <%= 'read-only' if @timetable_entry %> checkbox">
                     <input type="checkbox" name="timetable_entries[]" value="<%= "#{wday}_#{period.id}" %>">
-                    <label><%= "Period #{count + 1}" %></label>
+                    <label><%= "Period #{count + 1 - break_count}" %></label>
                   </div>
                   <div class="subject">
                     <%= @timetable_entry ? @timetable_entry.paper.name : "Not Assigned" %>
