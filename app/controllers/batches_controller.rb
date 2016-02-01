@@ -80,6 +80,7 @@ class BatchesController < ApplicationController
     # @paper = @batch.current_timetable.timetable_entries.where(teacher_id: current_user.profile.id,
     #  period_id: params[:period_id], wday: params[:date].to_date.wday).first.try(:paper)
     @students = @paper.optional ? @paper.optional_paper_enrollments.where(batch_id: @batch.id).select(:student_id).pluck(:student_id).map{ |student_id| Student.find(student_id) } : @batch.students
+    @students = @students.order(:roll_no)
   end
 
   private
