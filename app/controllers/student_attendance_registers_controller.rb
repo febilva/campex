@@ -15,10 +15,12 @@ class StudentAttendanceRegistersController < ApplicationController
   # GET /student_attendance_registers/new
   def new
     @date = Date.today
+    
+    batches = PaperAssignment.where(teacher: Teacher.last).pluck(:batch_id).uniq.sort
 
-    batches = Timetable.joins(:timetable_entries)
-    .where(timetable_entries: { teacher_id: current_user.profile.id, wday: @date.wday })
-    .select(:batch_id).uniq.pluck(:batch_id)
+    #batches = Timetable.joins(:timetable_entries)
+    #.where(timetable_entries: { teacher_id: current_user.profile.id, wday: @date.wday })
+    #.select(:batch_id).uniq.pluck(:batch_id)
     @batches = Batch.where(id: batches)
 
     @student_attendance_register = StudentAttendanceRegister.new
