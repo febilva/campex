@@ -81,8 +81,9 @@ class TeachersController < ApplicationController
     # .where(timetables: {batch_id: batch_id}, timetable_entries: { teacher_id: @teacher.id, wday: date.wday })
     # .select(:period_id).pluck(:period_id)
 
-    marked_periods = StudentAttendanceRegister.where(batch_id: batch_id, user: current_user,
-     marked_date: date).select(:period_id).pluck(:period_id)
+    marked_periods = StudentAttendanceRegister.joins(:paper)
+    .where(batch_id: batch_id, marked_date: date, papers: { optional: false })
+    .select(:period_id).pluck(:period_id)
     
     #marked_periods = StudentAttendanceRegister.where(batch_id: batch_id, user_id: current_user.id, 
     #  period_id: timetable_entries, marked_date: date)
