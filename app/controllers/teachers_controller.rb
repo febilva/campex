@@ -90,6 +90,7 @@ class TeachersController < ApplicationController
     #  .select(:period_id).pluck(:period_id)
 
     @periods = Period.where(id: timetable_entries - marked_periods)
+    @papers = Paper.where(id: PaperAssignment.where(teacher: current_user.profile, batch_id: batch_id).pluck(:paper_id))
   end
 
   private

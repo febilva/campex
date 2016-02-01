@@ -15,3 +15,4 @@ $(document).on "ready page:load", ->
         }
       else
         $(target_element).empty()
+        $('#student_attendance_register_paper_id').empty()

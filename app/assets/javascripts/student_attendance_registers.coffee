@@ -6,6 +6,7 @@ $(document).on "ready page:load", ->
       $('#marked_date_disabled_3i').val()
       batch_id = $('#student_attendance_register_batch_id').val()
       period_id = $('#student_attendance_register_period_id').val()
+      paper_id = $('#student_attendance_register_paper_id').val()
       target_element = '#' + $(this).data('fetch-period-students')
       if period_id
         $.ajax '/batches/' + batch_id + '/students_list',
@@ -14,6 +15,7 @@ $(document).on "ready page:load", ->
         data: {
           date: date
           period_id: period_id
+          paper_id: paper_id
           target_element: target_element
         }
       else

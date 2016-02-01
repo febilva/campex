@@ -16,7 +16,7 @@ class StudentAttendanceRegistersController < ApplicationController
   def new
     @date = Date.today
     
-    batches = PaperAssignment.where(teacher: Teacher.last).pluck(:batch_id).uniq.sort
+    batches = PaperAssignment.where(teacher: current_user.profile).pluck(:batch_id).uniq.sort
 
     #batches = Timetable.joins(:timetable_entries)
     #.where(timetable_entries: { teacher_id: current_user.profile.id, wday: @date.wday })

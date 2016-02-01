@@ -3,3 +3,9 @@ $('<%= params[:target_element] %>')
     .gsub("\n", "").html_safe %>')
 $('<%= params[:target_element] %>')
   .prepend('<option value="" selected="selected">Select a period</option>')
+
+$('#student_attendance_register_paper_id')
+  .html('<%= "#{options_from_collection_for_select @papers, :id, :name}"
+    .gsub("\n", "").html_safe %>')
+$('#student_attendance_register_paper_id')
+  .prepend('<option value="" selected="selected">Select a paper</option>')

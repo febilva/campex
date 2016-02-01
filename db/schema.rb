@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151223081052) do
+ActiveRecord::Schema.define(version: 20160201042922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -266,9 +266,11 @@ ActiveRecord::Schema.define(version: 20151223081052) do
     t.date     "marked_date"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "paper_id"
   end
 
   add_index "student_attendance_registers", ["batch_id"], name: "index_student_attendance_registers_on_batch_id", using: :btree
+  add_index "student_attendance_registers", ["paper_id"], name: "index_student_attendance_registers_on_paper_id", using: :btree
   add_index "student_attendance_registers", ["period_id"], name: "index_student_attendance_registers_on_period_id", using: :btree
   add_index "student_attendance_registers", ["user_id"], name: "index_student_attendance_registers_on_user_id", using: :btree
 
@@ -448,6 +450,7 @@ ActiveRecord::Schema.define(version: 20151223081052) do
   add_foreign_key "roles_users", "roles"
   add_foreign_key "roles_users", "users"
   add_foreign_key "student_attendance_registers", "batches"
+  add_foreign_key "student_attendance_registers", "papers"
   add_foreign_key "student_attendance_registers", "periods"
   add_foreign_key "student_attendance_registers", "users"
   add_foreign_key "students", "batches"

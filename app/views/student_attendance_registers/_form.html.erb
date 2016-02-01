@@ -22,6 +22,10 @@
     <%= f.select :batch_id, options_from_collection_for_select(@batches, :id, :code), { include_blank: true }, "data-fetch-teacher-periods" => "student_attendance_register_period_id" %>
   </div>
   <div class="field">
+    <%= f.label :paper_id %><br>
+    <%= f.select :paper_id, [], {} %>
+  </div>
+  <div class="field">
     <%= f.label :period_id %><br>
     <%= f.select :period_id, [], {}, "data-fetch-period-students" => "students" %>
   </div>
