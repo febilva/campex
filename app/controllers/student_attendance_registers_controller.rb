@@ -84,6 +84,6 @@ class StudentAttendanceRegistersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_attendance_register_params
-      params.require(:student_attendance_register).permit(:batch_id, :teacher_id, :period_id, :marked_date)
+      params.require(:student_attendance_register).permit(:batch_id, :teacher_id, :paper_id, :period_id, :marked_date)
     end
 end
