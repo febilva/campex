@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201042922) do
+ActiveRecord::Schema.define(version: 20160205063636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -199,6 +199,7 @@ ActiveRecord::Schema.define(version: 20160201042922) do
     t.float    "max_internal_mark"
     t.float    "max_external_mark"
     t.integer  "pass_percent"
+    t.integer  "credits"
   end
 
   add_index "papers", ["paper_type_id"], name: "index_papers_on_paper_type_id", using: :btree

@@ -1,6 +1,7 @@
 <%= form_for [@syllabus, @paper] do |f| %>
-  <%= f.hidden_field :term_structure_entry_id, value: params[:term_id] || @paper.term_structure_entry.try(:id) %>
-  <%= f.hidden_field :offered_by_id, value: @syllabus.course.department.id %>
+  <%#= f.hidden_field :term_structure_entry_id, value: params[:term_id] || @paper.term_structure_entry.try(:id) %>
+  <%# byebug %>
+  <%#= f.hidden_field :offered_by_id, value: @syllabus.course.department.id %>
   <% if @paper.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@paper.errors.count, "error") %> prohibited this paper from being saved:</h2>
@@ -23,19 +24,23 @@
   </div>
   <div class="field">
     <%= f.label :study_mode %><br>
-    <%= f.select :study_mode, ['Theory', 'Practical', 'Project', 'Viva'] %>
+    <%= f.select :study_mode, ['Theory', 'Practical', 'Project', 'Viva'], selected: @paper.study_mode %>
   </div>
   <div class="field">
     <%= f.label :paper_type_id %><br>
-    <%= f.select :paper_type_id, options_for_select_with_add_new(:paper_type), {}, { class: "ui dropdown" } %>
+    <%= f.select :paper_type_id, options_from_collection_for_select(PaperType.all, :id, :name, @paper.paper_type.id), {}, { class: "ui dropdown" } %>
   </div>
   <div class="field">
     <%= f.label :optional %><br>
-    <%= f.select :optional, options_for_select([['No', false], ['Yes', true]]), {}, { class: "ui dropdown" } %>
+    <%= f.select :optional, options_for_select([['No', false], ['Yes', true]], @paper.optional), {}, { class: "ui dropdown" } %>
   </div>
   <div class="field">
     <%= f.label :exam_required %><br>
-    <%= f.check_box :exam_required, {checked: true} %>
+    <%= f.check_box :exam_required, { checked: @paper.exam_required ? true : false } %>
+  </div>
+  <div class="field">
+    <%= f.label :credits %><br>
+    <%= f.number_field :credits, value: @paper.credits %>
   </div>
   <div class="actions">
     <%= f.submit %>
