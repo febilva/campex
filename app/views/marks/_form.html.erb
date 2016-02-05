@@ -23,7 +23,7 @@
                   <% @mark = Mark.where(registered_exam_paper_id: registration.registered_paper_ids[registration.registered_papers.find_index(paper.id)]).select(:mark).first.try(:mark) %>
                   <% if @mark.nil? %>
                     <%= hidden_field_tag "marks[#{mark_count}][registered_exam_paper_id]", registration.registered_paper_ids[registration.registered_papers.find_index(paper.id)] %>
-                    <%= number_field_tag "marks[#{mark_count}][mark]", "", class: "mark", step: 0.1 %>
+                    <%= number_field_tag "marks[#{mark_count}][mark]", "", class: "mark", step: 0.01 %>
                     <% mark_count = mark_count + 1 %>
                   <% else %>
                     <%= @mark %>
