@@ -1,6 +1,5 @@
 <%= form_for(@student_attendance_register) do |f| %>
   <%= hidden_field_tag :teacher_id, current_user.profile.id %>
-  <%= f.hidden_field :marked_date, value: @date %>
   <% if @student_attendance_register.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@student_attendance_register.errors.count, "error") %> prohibited this student_attendance_register from being saved:</h2>
@@ -15,7 +14,7 @@
 
   <div class="field">
     <%= f.label :date %><br>
-    <%= date_select "marked_date", "disabled", default: @date %>
+    <%= f.date_select "marked_date", default: @date %>
   </div>
   <div class="field">
     <%= f.label :batch_id %><br>
