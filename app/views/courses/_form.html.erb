@@ -27,6 +27,10 @@
     <%= f.label :term_structure_id %><br>
     <%= f.select :term_structure_id, options_from_collection_for_select(TermStructure.all, :id, :name), {}, { class: "ui dropdown" } %>
   </div>
+  <div class="field">
+    <%= f.label :credit_system %><br>
+    <%= f.check_box :credit_system %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
