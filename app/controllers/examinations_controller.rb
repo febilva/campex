@@ -1,5 +1,6 @@
 class ExaminationsController < ApplicationController
-  before_action :set_examination, only: [:show, :edit, :update, :destroy, :nominal_roll, :results_pdf]
+  before_action :set_examination, only: [:show, :edit, :update, :destroy, :nominal_roll, 
+    :results_pdf, :pg_results_pdf]
   layout false, only: [:nominal_roll]
 
   # GET /examinations
