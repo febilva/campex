@@ -150,6 +150,8 @@ var generatePdf = function() {
       doc.line(mt_x_min, mt_y_min+30, mt_x_max+5, mt_y_min+30); // horizontal line
 
       doc.setFontType("bold");
+      <% @credit_sum = 0 %>
+      <% @credit_point_sum = 0 %>
       <% registration.registered_exam_papers.reverse.each_with_index do |paper_registration, i| %>
         <% @credit_point = nil %>
         <% @mark = Mark.where(registered_exam_paper: paper_registration).first.try(:mark) %>
@@ -164,7 +166,9 @@ var generatePdf = function() {
         doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.credits %>');
         doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= to_grade(@internal_mark) %>');
         doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : to_grade(@mark) %>');
-        <% @credit_point = (@internal_mark + (3 * @mark)) unless @mark.nil? %>
+        <% @credit_point = @internal_mark + (3 * @mark) unless @internal_mark.nil? or @mark.nil? %>
+        <% @credit_point_sum = @credit_point_sum + @credit_point unless @internal_mark.nil? or @mark.nil? %>
+        <% @credit_sum = @credit_sum + paper_registration.paper.credits unless @internal_mark.nil? or @mark.nil? %>
         doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>),
          '<%= @credit_point.nil? ? "___" : to_grade(@credit_point / paper_registration.paper.credits) %>');
         doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), 
@@ -179,7 +183,7 @@ var generatePdf = function() {
 
       doc.setFontSize(7);
 
-      doc.text(st_x_min+20, st_y_min+3, 'P: PASS, RA: Re-appear, A:Absent');
+      doc.text(st_x_min+20, st_y_min+3, 'SGPA : <%= @credit_point_sum / @credit_sum unless @internal_mark.nil? or @mark.nil? %>');
 
 
       doc.rect(st_x_min, st_y_min+5, st_x_max, 35); // semester sheet table 
