@@ -1,3 +1,19 @@
+<%
+  def to_grade(mark)
+    if mark.between?(3.5, 4)
+      grade = 'A'
+    elsif mark.between?(2.5, 3.49)
+      grade = 'B'
+    elsif mark.between?(1.5, 2.49)
+      grade = 'C'
+    elsif mark.between?(0.5, 1.49)
+      grade = 'D'
+    else
+      grade = 'E'
+    end
+  end
+%>
+
 var total_registrations = <%= @examination.registrations.count %>;
 var images = [];
 
@@ -112,52 +128,47 @@ var generatePdf = function() {
 
       doc.setFontSize(6);
 
-      doc.text(mt_x_min+118, mt_y_min+24, 'INTERNAL');
-      doc.text(mt_x_min+117, mt_y_min+26, 'ASSESSMENT');
+      doc.text(mt_x_min+118, mt_y_min+24, 'CREDITS');
       doc.line(138, mt_y_min+20,138, mt_y_max+50); // vertical line
 
-      doc.text(mt_x_min+135, mt_y_min+24, 'EXTERNAL');
-      doc.text(mt_x_min+134, mt_y_min+26, 'EXAMINATION');
+      doc.text(mt_x_min+135, mt_y_min+24, 'INTERNAL');
+      doc.text(mt_x_min+136, mt_y_min+26, 'GRADE');
       doc.line(155, mt_y_min+20,155, mt_y_max+50); // vertical line
 
-      doc.text(mt_x_min+151, mt_y_min+26, 'AGGREGATE');
+      doc.text(mt_x_min+151, mt_y_min+24, 'EXTERNAL');
+      doc.text(mt_x_min+152, mt_y_min+26, 'GRADE');
       doc.line(170, mt_y_min+20,170, mt_y_max+50); // vertical line
 
-      doc.text(mt_x_min+170, mt_y_min+24, 'MAX');
-      doc.text(mt_x_min+169, mt_y_min+26, 'MARKS');
+      doc.text(mt_x_min+170, mt_y_min+24, 'TOTAL');
+      doc.text(mt_x_min+169, mt_y_min+26, 'GRADE');
       doc.line(185, mt_y_min+20,185, mt_y_max+50); // vertical line
 
-      doc.setFontSize(8);
-      doc.text(mt_x_min+185, mt_y_min+26, 'RESULT');
+      doc.text(mt_x_min+185, mt_y_min+24, 'CREDIT');
+      doc.text(mt_x_min+186, mt_y_min+26, 'POINT');
+      doc.line(185, mt_y_min+20,185, mt_y_max+50); // vertical line
+
       doc.line(mt_x_min, mt_y_min+30, mt_x_max+5, mt_y_min+30); // horizontal line
 
       doc.setFontType("bold");
       <% registration.registered_exam_papers.reverse.each_with_index do |paper_registration, i| %>
-        <% @mark = Mark.where(registered_exam_paper: paper_registration).first.try(:mark).try(:round) %>
+        <% @credit_point = nil %>
+        <% @mark = Mark.where(registered_exam_paper: paper_registration).first.try(:mark) %>
         <% @internal_mark = InternalMark.where(student: registration.student, 
           term_structure_entry: @examination.term_structure_entry, 
-          paper: paper_registration.paper).first.try(:mark).try(:round) %>
-        <%
-          if @mark.nil? or @internal_mark.nil?
-            @pass = "A"
-          else
-            @total_mark = @mark + @internal_mark
-            @total_max = paper_registration.paper.max_internal_mark + paper_registration.paper.max_external_mark
-            pass_percent = paper_registration.paper.pass_percent
-            @pass = @total_mark >= (@total_max * (pass_percent / 100.0)) ? "P" : "RA"
-          end
-        %>
+          paper: paper_registration.paper).first.try(:mark) %>
         doc.text(mt_x_min+2, mt_y_min+24+(10 * <%= i + 1 %>), '<%= i + 1 %>');
         doc.text(mt_x_min+15, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.code %>');
         doc.text(mt_x_min+40, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.name %>');
         doc.text(mt_x_min+107, mt_y_min+24+(10 * <%= i + 1 %>), 
           '<%= paper_registration.paper.paper_type.code %>');
-        doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @internal_mark %>');
-        doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : @mark %>');
-        doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>),
-         '<%= @mark.nil? ? "___" : @total_mark %>');
-        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @total_max.to_i %>');
-        doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @pass %>');
+        doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.credits %>');
+        doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= to_grade(@internal_mark) %>');
+        doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : to_grade(@mark) %>');
+        <% @credit_point = (@internal_mark + (3 * @mark)) unless @mark.nil? %>
+        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>),
+         '<%= @credit_point.nil? ? "___" : to_grade(@credit_point / paper_registration.paper.credits) %>');
+        doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), 
+          '<%= @credit_point.nil? ? "___" : @credit_point %>');
       <% end %>
       doc.setFontType("normal");
 
