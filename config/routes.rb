@@ -34,6 +34,7 @@ Rails.application.routes.draw do
     member do
       get 'nominal_roll'
       get 'results_pdf'
+      get 'pg_results_pdf'
     end
     resources :marks
   end
