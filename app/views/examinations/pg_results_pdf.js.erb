@@ -183,7 +183,7 @@ var generatePdf = function() {
 
       doc.setFontSize(7);
 
-      doc.text(st_x_min+20, st_y_min+3, 'SGPA : <%= @credit_point_sum / @credit_sum unless @internal_mark.nil? or @mark.nil? %>');
+      doc.text(st_x_min+20, st_y_min+3, 'SGPA : <%= (@credit_point_sum / @credit_sum).to_d.truncate(2).to_f unless @internal_mark.nil? or @mark.nil? %>');
 
 
       doc.rect(st_x_min, st_y_min+5, st_x_max, 35); // semester sheet table 
