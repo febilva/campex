@@ -166,7 +166,7 @@ var generatePdf = function() {
         doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.credits %>');
         doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= to_grade(@internal_mark) %>');
         doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : to_grade(@mark) %>');
-        <% @credit_point = @internal_mark + (3 * @mark) unless @internal_mark.nil? or @mark.nil? %>
+        <% @credit_point = (@internal_mark + (3 * @mark)).to_d.truncate(2).to_f unless @internal_mark.nil? or @mark.nil? %>
         <% @credit_point_sum = @credit_point_sum + @credit_point unless @internal_mark.nil? or @mark.nil? %>
         <% @credit_sum = @credit_sum + paper_registration.paper.credits unless @internal_mark.nil? or @mark.nil? %>
         doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>),
