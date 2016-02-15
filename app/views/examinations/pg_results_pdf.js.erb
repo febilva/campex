@@ -170,7 +170,7 @@ var generatePdf = function() {
         <% @credit_point_sum = @credit_point_sum + @credit_point unless @internal_mark.nil? or @mark.nil? %>
         <% @credit_sum = @credit_sum + paper_registration.paper.credits unless @internal_mark.nil? or @mark.nil? %>
         doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>),
-         '<%= @credit_point.nil? ? "___" : to_grade(@credit_point / paper_registration.paper.credits) %>');
+         '<%= @credit_point.nil? ? "___" : to_grade(@credit_point / 4) %>');
         doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), 
           '<%= @credit_point.nil? ? "___" : @credit_point %>');
       <% end %>
