@@ -56,11 +56,10 @@ var generatePdf = function() {
       doc.text(32, 15, 'MES MAMPAD COLLEGE(AUTONOMOUS)');
       doc.setFontSize(15);
       doc.text(42, 25, 'AFFILIATED TO UNIVERSITY OF CALICUT');
-      doc.setFontType("normal");
-      doc.setFontSize(12);
-      doc.setFont("helvetica");
-      doc.setFontSize(10);
-      doc.setFontType("normal");
+
+      doc.setFontSize(9);
+      doc.text(50, 40, 'POST GRADUATE COURSE UNDER CREDIT SEMESTER SYSTEM');
+      doc.text(90, 46, 'GRADE SHEET');
 
       doc.rect(177, 7, 28, 34); // photo
       doc.addImage(images["<%= registration.student.id %>"], 177, 7, 28, 34);
@@ -111,41 +110,37 @@ var generatePdf = function() {
       doc.setFontType("normal");
       doc.text(mt_x_min+2, mt_y_min+24, 'SL. NO');
 
-      doc.line(17, mt_y_min+20,17, mt_y_max+50); // vertical line
+      doc.line(17, mt_y_min+20,17, mt_y_max); // vertical line
 
       doc.text(mt_x_min+60, mt_y_min+24, 'COURSE');
       doc.line(17, mt_y_min+25,120, mt_y_min+25);
 
       doc.text(mt_x_min+15, mt_y_min+29, 'Code');
-      doc.line(38, mt_y_min+25,38, mt_y_max+50); // vertical line
+      doc.line(38, mt_y_min+25,38, mt_y_max); // vertical line
 
       doc.text(mt_x_min+60, mt_y_min+29, 'Name');
-      doc.line(110, mt_y_min+25,110, mt_y_max+50); // vertical line
-
-
-      doc.text(mt_x_min+107, mt_y_min+29, 'Type');
-      doc.line(120, mt_y_min+20,120, mt_y_max+50); // vertical line
+      doc.line(120, mt_y_min+20,120, mt_y_max); // vertical line
 
       doc.setFontSize(6);
 
       doc.text(mt_x_min+118, mt_y_min+24, 'CREDITS');
-      doc.line(138, mt_y_min+20,138, mt_y_max+50); // vertical line
+      doc.line(138, mt_y_min+20,138, mt_y_max); // vertical line
 
       doc.text(mt_x_min+135, mt_y_min+24, 'INTERNAL');
       doc.text(mt_x_min+136, mt_y_min+26, 'GRADE');
-      doc.line(155, mt_y_min+20,155, mt_y_max+50); // vertical line
+      doc.line(155, mt_y_min+20,155, mt_y_max); // vertical line
 
       doc.text(mt_x_min+151, mt_y_min+24, 'EXTERNAL');
       doc.text(mt_x_min+152, mt_y_min+26, 'GRADE');
-      doc.line(170, mt_y_min+20,170, mt_y_max+50); // vertical line
+      doc.line(170, mt_y_min+20,170, mt_y_max); // vertical line
 
       doc.text(mt_x_min+170, mt_y_min+24, 'TOTAL');
       doc.text(mt_x_min+169, mt_y_min+26, 'GRADE');
-      doc.line(185, mt_y_min+20,185, mt_y_max+50); // vertical line
+      doc.line(185, mt_y_min+20,185, mt_y_max); // vertical line
 
       doc.text(mt_x_min+185, mt_y_min+24, 'CREDIT');
       doc.text(mt_x_min+186, mt_y_min+26, 'POINT');
-      doc.line(185, mt_y_min+20,185, mt_y_max+50); // vertical line
+      doc.line(185, mt_y_min+20,185, mt_y_max); // vertical line
 
       doc.line(mt_x_min, mt_y_min+30, mt_x_max+5, mt_y_min+30); // horizontal line
 
@@ -161,8 +156,6 @@ var generatePdf = function() {
         doc.text(mt_x_min+2, mt_y_min+24+(10 * <%= i + 1 %>), '<%= i + 1 %>');
         doc.text(mt_x_min+15, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.code %>');
         doc.text(mt_x_min+40, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.name %>');
-        doc.text(mt_x_min+107, mt_y_min+24+(10 * <%= i + 1 %>), 
-          '<%= paper_registration.paper.paper_type.code %>');
         doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.credits %>');
         doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= to_grade(@internal_mark) %>');
         doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : to_grade(@mark) %>');
@@ -181,10 +174,29 @@ var generatePdf = function() {
       var st_y_min=mt_y_min+mt_y_max+1;
       var st_y_max=35;
 
-      doc.setFontSize(7);
+      doc.line(mt_x_min, mt_y_max, mt_x_max+5, mt_y_max); // horizontal line
 
-      doc.text(st_x_min+20, st_y_min+3, 'SGPA : <%= (@credit_point_sum / @credit_sum).to_d.truncate(2).to_f unless @internal_mark.nil? or @mark.nil? %>');
+      doc.setFontSize(12);
+      doc.setFontType("bold");
 
+      doc.text(mt_x_min+50, mt_y_max+10, 'SEMESTER GRADE POINT AVERAGE(SGPA) : <%= (@credit_point_sum / @credit_sum).to_d.truncate(2).to_f unless @internal_mark.nil? or @mark.nil? %>');
+      doc.text(mt_x_min+80, mt_y_max+16, 'SEMESTER GRADE : <%= to_grade(@credit_point_sum / @credit_sum) unless @internal_mark.nil? or @mark.nil? %>');
+
+      doc.line(mt_x_min, mt_y_max + 20, mt_x_max+5, mt_y_max + 20); // horizontal line
+
+      doc.setFontSize(9);
+      doc.setFontType("normal");
+      var info = " * Minimum total grade required in each course for pass : C";
+      doc.text(mt_x_min+3, mt_y_max+25, info);
+
+      var info = " * Minimum SGPA for semester clearance : 1.50";
+      doc.text(mt_x_min+3, mt_y_max+30, info);
+
+      var info = " * GRADE POINT AVERAGE : A(3.50 - 4.00), B(2.5 - 3.49), C(1.5 - 2.49), D(0.5 - 1.49), E(0.5 - 0.49)";
+      doc.text(mt_x_min+3, mt_y_max+35, info);
+
+      var info = " * ___ : Absent";
+      doc.text(mt_x_min+3, mt_y_max+40, info);
 
       doc.rect(st_x_min, st_y_min+5, st_x_max, 35); // semester sheet table 
       var ft_x_min=st_x_min;
