@@ -160,9 +160,11 @@ var generatePdf = function() {
 		  <% @internal_mark_grade = "" %>
 		  <% @internal_mark = 0 %>
 		  <% @internal_mark_weightage = 0 %>
+		  <% @subject_weightage = paper_registration.paper.credits %>
 		<% else %>
 		  <% @internal_mark_grade = to_grade(@internal_mark) %>
 		  <% @internal_mark_weightage = 1 %>
+		  <% @subject_weightage = paper_registration.paper.credits - 1 %>
 		<% end %>
 		
 		<% if @mark.nil? %>
@@ -171,11 +173,12 @@ var generatePdf = function() {
 		  <% @credit_grade = "___" %>
 		  <% @credit_point = "___" %>	  
 		<% else %>
-		  <% @credit_point = ((@internal_mark * @internal_mark_weightage) + (3 * @mark)) %>
+		  <% @credit_point = ((@internal_mark * @internal_mark_weightage) + 
+		      (@subject_weightage * @mark)) %>
 		  <% @credit_point = @credit_point.to_d.truncate(2).to_f %>
           <% @credit_point_sum = @credit_point_sum + @credit_point %>
           <% @credit_sum = @credit_sum + paper_registration.paper.credits %>
-		  <% @credit_grade = to_grade(@credit_point / (@internal_mark_weightage + 3)) %>
+		  <% @credit_grade = to_grade(@credit_point / paper_registration.paper.credits) %>
 		  <% @mark_grade = to_grade(@mark) %>
 		<% end %>
 		<% if @absent or @credit_grade > 'C' %>
