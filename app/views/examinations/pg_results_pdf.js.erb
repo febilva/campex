@@ -147,25 +147,52 @@ var generatePdf = function() {
       doc.setFontType("bold");
       <% @credit_sum = 0 %>
       <% @credit_point_sum = 0 %>
+	  <% @failed = false %>
+	  <% @absent = false %>
       <% registration.registered_exam_papers.reverse.each_with_index do |paper_registration, i| %>
+	  	<% @paper_fail = false %>
         <% @credit_point = nil %>
         <% @mark = Mark.where(registered_exam_paper: paper_registration).first.try(:mark) %>
         <% @internal_mark = InternalMark.where(student: registration.student, 
           term_structure_entry: @examination.term_structure_entry, 
           paper: paper_registration.paper).first.try(:mark) %>
+		<% if @internal_mark.nil? %>
+		  <% @internal_mark_grade = "" %>
+		  <% @internal_mark = 0 %>
+		  <% @internal_mark_weightage = 0 %>
+		<% else %>
+		  <% @internal_mark_grade = to_grade(@internal_mark) %>
+		  <% @internal_mark_weightage = 1 %>
+		<% end %>
+		
+		<% if @mark.nil? %>
+		  <% @absent = true %>
+		  <% @mark_grade = "___" %>
+		  <% @credit_grade = "___" %>
+		  <% @credit_point = "___" %>	  
+		<% else %>
+		  <% @credit_point = ((@internal_mark * @internal_mark_weightage) + (3 * @mark)) %>
+		  <% @credit_point = @credit_point.to_d.truncate(2).to_f %>
+          <% @credit_point_sum = @credit_point_sum + @credit_point %>
+          <% @credit_sum = @credit_sum + paper_registration.paper.credits %>
+		  <% @credit_grade = to_grade(@credit_point / (@internal_mark_weightage + 3)) %>
+		  <% @mark_grade = to_grade(@mark) %>
+		<% end %>
+		<% if @absent or @credit_grade > 'C' %>
+		  <% @paper_fail = true %>
+		  <% @failed = true %>
+		  
+		  <% @credit_point = "___" %>
+		<% end %>
+		  
         doc.text(mt_x_min+2, mt_y_min+24+(10 * <%= i + 1 %>), '<%= i + 1 %>');
         doc.text(mt_x_min+15, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.code %>');
         doc.text(mt_x_min+40, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.name %>');
         doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.credits %>');
-        doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= to_grade(@internal_mark) %>');
-        doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark.nil? ? "___" : to_grade(@mark) %>');
-        <% @credit_point = (@internal_mark + (3 * @mark)).to_d.truncate(2).to_f unless @internal_mark.nil? or @mark.nil? %>
-        <% @credit_point_sum = @credit_point_sum + @credit_point unless @internal_mark.nil? or @mark.nil? %>
-        <% @credit_sum = @credit_sum + paper_registration.paper.credits unless @internal_mark.nil? or @mark.nil? %>
-        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>),
-         '<%= @credit_point.nil? ? "___" : to_grade(@credit_point / 4) %>');
-        doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), 
-          '<%= @credit_point.nil? ? "___" : @credit_point %>');
+        doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @internal_mark_grade %>');
+        doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @mark_grade %>');
+        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @credit_grade %>');
+        doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @credit_point %>');
       <% end %>
       doc.setFontType("normal");
 
@@ -178,9 +205,17 @@ var generatePdf = function() {
 
       doc.setFontSize(12);
       doc.setFontType("bold");
-
-      doc.text(mt_x_min+50, mt_y_max+10, 'SEMESTER GRADE POINT AVERAGE(SGPA) : <%= (@credit_point_sum / @credit_sum).to_d.truncate(2).to_f unless @internal_mark.nil? or @mark.nil? %>');
-      doc.text(mt_x_min+80, mt_y_max+16, 'SEMESTER GRADE : <%= to_grade(@credit_point_sum / @credit_sum) unless @internal_mark.nil? or @mark.nil? %>');
+	  
+	  <% if @failed %>
+	  	<% @sgpa = "__" %>
+	  	<% @sgpa_grade = "__" %>
+	  <% else %>
+	  	<% @sgpa = (@credit_point_sum / @credit_sum).to_d.truncate(2).to_f %>
+	  	<% @sgpa_grade = to_grade(@sgpa) %>
+	  <% end %>
+	  
+      doc.text(mt_x_min+50, mt_y_max+10, 'SEMESTER GRADE POINT AVERAGE(SGPA) : <%= @sgpa %>');
+      doc.text(mt_x_min+80, mt_y_max+16, 'SEMESTER GRADE : <%= @sgpa_grade %>');
 
       doc.line(mt_x_min, mt_y_max + 20, mt_x_max+5, mt_y_max + 20); // horizontal line
 
