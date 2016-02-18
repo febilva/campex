@@ -1,5 +1,7 @@
 <%
   def to_grade(mark)
+	mark = mark.to_d.truncate(2).to_f
+	
     if mark.between?(3.5, 4)
       grade = 'A'
     elsif mark.between?(2.5, 3.49)
