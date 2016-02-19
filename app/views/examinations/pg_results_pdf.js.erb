@@ -200,7 +200,7 @@ var generatePdf = function() {
         doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.credits %>');
         doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= "#{@internal_mark_grade} (#{@internal_mark})" %>');
         doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>), '<%= "#{@mark_grade} (#{@mark})" %>');
-        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= "#{@credit_grade} (#{(@credit_point / paper_registration.paper.credits).to_d.truncate(2).to_f})" %>');
+        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @credit_grade %>');
         doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @credit_point %>');
       <% end %>
       doc.setFontType("normal");
