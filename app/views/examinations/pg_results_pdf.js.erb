@@ -177,7 +177,7 @@ var generatePdf = function() {
 		<% else %>
 		  <% @credit_point = ((@internal_mark * @internal_mark_weightage) + 
 		      (@subject_weightage * @mark)) %>
-		  <% @credit_point = @credit_point %>
+		  <% @credit_point = @credit_point.to_d.truncate(2).to_f %>
 		  <% @credit_point = (@credit_point / 4).to_d.truncate(2).to_f %>
 		  <% @credit_grade = to_grade(@credit_point) %>
 		  <% @credit_point = @credit_point * paper_registration.paper.credits %>
