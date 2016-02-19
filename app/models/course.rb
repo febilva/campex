@@ -7,7 +7,12 @@ class Course < ActiveRecord::Base
   has_many :term_structure_entries, through: :term_structure
 
   def full_name
-    "#{self.course_type} #{self.name.capitalize}"
+    #byebug
+    if self.course_type.code == "M.Com"
+      "#{self.course_type}"
+    else
+      "#{self.course_type} #{self.name.capitalize}"
+    end
   end
 
   def papers
