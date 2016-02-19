@@ -166,7 +166,7 @@ var generatePdf = function() {
 		<% else %>
 		  <% @internal_mark_grade = to_grade(@internal_mark) %>
 		  <% @internal_mark_weightage = 1 %>
-		  <% @subject_weightage = paper_registration.paper.credits - 1 %>
+		  <% @subject_weightage = 3 %>
 		<% end %>
 		
 		<% if @mark.nil? %>
@@ -180,7 +180,7 @@ var generatePdf = function() {
 		  <% @credit_point = @credit_point.to_d.truncate(2).to_f %>
           <% @credit_point_sum = @credit_point_sum + @credit_point %>
           <% @credit_sum = @credit_sum + paper_registration.paper.credits %>
-      <% @total_credit_point = @credit_point / paper_registration.paper.credits %>
+      <% @total_credit_point = @credit_point / 4 %>
 		  <% @credit_grade = to_grade(@total_credit_point) %>
 		  <% @mark_grade = to_grade(@mark) %>
 		<% end %>
