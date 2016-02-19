@@ -162,7 +162,7 @@ var generatePdf = function() {
 		  <% @internal_mark_grade = "" %>
 		  <% @internal_mark = 0 %>
 		  <% @internal_mark_weightage = 0 %>
-		  <% @subject_weightage = paper_registration.paper.credits %>
+		  <% @subject_weightage = 4 %>
 		<% else %>
 		  <% @internal_mark_grade = to_grade(@internal_mark) %>
 		  <% @internal_mark_weightage = 1 %>
@@ -177,11 +177,14 @@ var generatePdf = function() {
 		<% else %>
 		  <% @credit_point = ((@internal_mark * @internal_mark_weightage) + 
 		      (@subject_weightage * @mark)) %>
+		  <% @credit_point = @credit_point %>
+		  <% @credit_point = (@credit_point / 4).to_d.truncate(2).to_f %>
+		  <% @credit_grade = to_grade(@credit_point) %>
+		  <% @credit_point = @credit_point * paper_registration.paper.credits %>
 		  <% @credit_point = @credit_point.to_d.truncate(2).to_f %>
           <% @credit_point_sum = @credit_point_sum + @credit_point %>
           <% @credit_sum = @credit_sum + paper_registration.paper.credits %>
-      <% @total_credit_point = @credit_point / 4 %>
-		  <% @credit_grade = to_grade(@total_credit_point) %>
+		  
 		  <% @mark_grade = to_grade(@mark) %>
 		<% end %>
 		<% if @absent or @credit_grade > 'C' %>
@@ -197,7 +200,7 @@ var generatePdf = function() {
         doc.text(mt_x_min+121, mt_y_min+24+(10 * <%= i + 1 %>), '<%= paper_registration.paper.credits %>');
         doc.text(mt_x_min+139, mt_y_min+24+(10 * <%= i + 1 %>), '<%= "#{@internal_mark_grade} (#{@internal_mark})" %>');
         doc.text(mt_x_min+155, mt_y_min+24+(10 * <%= i + 1 %>), '<%= "#{@mark_grade} (#{@mark})" %>');
-        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= "#{@credit_grade} (#{@total_credit_point})" %>');
+        doc.text(mt_x_min+170, mt_y_min+24+(10 * <%= i + 1 %>), '<%= "#{@credit_grade} (#{(@credit_point / paper_registration.paper.credits).to_d.truncate(2).to_f})" %>');
         doc.text(mt_x_min+185, mt_y_min+24+(10 * <%= i + 1 %>), '<%= @credit_point %>');
       <% end %>
       doc.setFontType("normal");
