@@ -1,0 +1,20 @@
+<%= form_tag do %>
+  <%= hidden_field_tag :teacher_id, current_user.profile.id %>
+  <div class="field">
+    <%= label_tag :date %><br>
+    <%= date_select "from_date", default: @date %>
+  </div>
+  <div class="field">
+    <%= label_tag :date %><br>
+    <%= date_select "to_date", default: @date %>
+  </div>
+  <div class="field">
+    <%= label_tag :batch_id %><br>
+    <%= select_tag :batch_id, options_from_collection_for_select(@batches, :id, :code), prompt: "Select batch", "data-fetch-teacher-papers" => "paper_id" %>
+  </div>
+  <div class="field">
+    <%= label_tag :paper_id %><br>
+    <%= select_tag :paper_id, [], {} %>
+  </div>
+  <div id="students" class="students"></div>
+<% end %>

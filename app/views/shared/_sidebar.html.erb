@@ -20,6 +20,12 @@
                     <%= link_to "Student Register", student_attendance_registers_path, class: "title" %>
                   </div>
                 <% end %>
+				
+                <% if policy(:user).send("student_attendance_registers:paperwise_report?") %>
+                  <div class="item">
+                    <%= link_to "Paperwise Report", paperwise_report_student_attendance_registers_path, class: "title" %>
+                  </div>
+                <% end %>
               </div>
             </div>
           </div>

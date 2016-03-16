@@ -18,3 +18,19 @@ $(document).on "ready page:load", ->
       else
         $(target_element).empty()
         $('#student_attendance_register_paper_id').empty()
+		
+  $('select').on 'change', ->
+    if $(this).data('fetch-teacher-papers')
+      teacher_id = $('#teacher_id').val()
+      batch_id = $(this).find(':selected').val()
+      target_element = '#' + $(this).data('fetch-teacher-papers')
+      if batch_id
+        $.ajax '/teachers/' + teacher_id + '/batches/'+ batch_id + '/paper_list',
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          target_element: target_element
+        }
+      else
+        $(target_element).empty()
+        $('#paper_id').empty()

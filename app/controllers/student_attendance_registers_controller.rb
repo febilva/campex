@@ -75,6 +75,11 @@ class StudentAttendanceRegistersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def paperwise_report
+    batches = PaperAssignment.where(teacher: current_user.profile).pluck(:batch_id).uniq.sort
+    @batches = Batch.where(id: batches)
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

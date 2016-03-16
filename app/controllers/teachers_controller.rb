@@ -92,6 +92,11 @@ class TeachersController < ApplicationController
     @periods = Period.where(id: timetable_entries - marked_periods)
     @papers = Paper.where(id: PaperAssignment.where(teacher: current_user.profile, batch_id: batch_id).pluck(:paper_id))
   end
+  
+  def paper_list
+    batch_id = params[:batch_id]
+    @papers = Paper.where(id: PaperAssignment.where(teacher: current_user.profile, batch_id: batch_id).pluck(:paper_id))
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

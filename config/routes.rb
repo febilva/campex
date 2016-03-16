@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
-  resources :student_attendance_registers
+  resources :student_attendance_registers do
+    collection do
+      get 'paperwise_report'
+    end
+  end
   resources :paper_assignments
   resources :teachers do
     member do
       get 'assign_papers'
       get '/batches/:batch_id/period_list' => 'teachers#period_list'
+      get '/batches/:batch_id/paper_list' => 'teachers#paper_list'
     end
   end
   resources :designations
