@@ -28,7 +28,7 @@
   </div>
   <div class="field">
     <%= f.label :paper_type_id %><br>
-    <%= f.select :paper_type_id, options_from_collection_for_select(PaperType.all, :id, :name, @paper.paper_type.id), {}, { class: "ui dropdown" } %>
+    <%= f.select :paper_type_id, options_from_collection_for_select(PaperType.all, :id, :name, @paper.paper_type.try(:id)), {}, { class: "ui dropdown" } %>
   </div>
   <div class="field">
     <%= f.label :optional %><br>
