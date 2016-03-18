@@ -80,6 +80,23 @@ class StudentAttendanceRegistersController < ApplicationController
     batches = PaperAssignment.where(teacher: current_user.profile).pluck(:batch_id).uniq.sort
     @batches = Batch.where(id: batches)
   end
+  
+  def generate_report
+    @batch = Batch.find(params[:id])
+    @paper = Paper.find(params[:paper_id])
+    @from_date = params[:from_date].to_date
+    @to_date = params[:to_date].to_date
+    @marked_attendances = StudentAttendanceRegister.where(batch: @batch, paper: @paper,
+    marked_date: @from_date..@to_date)
+    @total_periods = @marked_attendances.count
+    @attendances = {}
+    @batch.students.order(:roll_no).each{ |s| @attendances[s.id] = @total_periods }
+    @marked_attendances.each do |attendance|
+      attendance.absences.each{ |absence| @attendances[absence.absentee_id] -= 1 }
+    end
+    @from_date = @from_date.strftime("%d/%m/%Y")
+    @to_date = @to_date.strftime("%d/%m/%Y")
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.

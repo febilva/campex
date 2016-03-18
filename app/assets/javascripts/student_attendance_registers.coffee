@@ -21,6 +21,27 @@ $(document).on "ready page:load", ->
       else
         $(target_element).empty()
 
+    if $(this).data('fetch-attendance-report')
+      batch_id = $('#batch_id').val()
+      paper_id = $(this).find(':selected').val()
+      from_date = $('#date_from_1i').val() + "-" + 
+      $('#date_from_2i').val() + "-" + $('#date_from_3i').val()
+      to_date = $('#date_to_1i').val() + "-" + 
+      $('#date_to_2i').val() + "-" + $('#date_to_3i').val()
+      target_element = '#' + $(this).data('fetch-attendance-report')
+	  
+      if batch_id
+        $.ajax '/batches/' + batch_id + '/papers/'+ paper_id + '/attendance_report',
+        type: 'GET',
+        dataType: 'script',
+        data: {
+          from_date: from_date
+          to_date: to_date
+          target_element: target_element
+        }
+      else
+        $(target_element).empty()
+        $('#report').empty()
 
   $('.ui.absence.checkbox').click ->
     elm = $(this).parents('.stud-name').find('.status');

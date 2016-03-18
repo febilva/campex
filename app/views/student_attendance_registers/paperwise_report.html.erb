@@ -2,11 +2,11 @@
   <%= hidden_field_tag :teacher_id, current_user.profile.id %>
   <div class="field">
     <%= label_tag :date %><br>
-    <%= date_select "from_date", default: @date %>
+    <%= date_select "date", "from", default: 1.month.ago.beginning_of_month %>
   </div>
   <div class="field">
     <%= label_tag :date %><br>
-    <%= date_select "to_date", default: @date %>
+    <%= date_select "date", "to", default: Date.today %>
   </div>
   <div class="field">
     <%= label_tag :batch_id %><br>
@@ -14,7 +14,7 @@
   </div>
   <div class="field">
     <%= label_tag :paper_id %><br>
-    <%= select_tag :paper_id, [], {} %>
+    <%= select_tag :paper_id, [], {"data-fetch-attendance-report" => "report"} %>
   </div>
-  <div id="students" class="students"></div>
+  <div id="report" class="report"></div>
 <% end %>
