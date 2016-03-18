@@ -71,7 +71,7 @@ doc.text(temp_text_base_x, temp_text_base_y, 'Percentage');
   doc.text(table_base_x + 35, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= @student.name %>');
   doc.text(table_base_x + 100, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= @student.admission_no %>');
   doc.text(table_base_x + 140, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= total_attendance %>');
-  doc.text(table_base_x + 170, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= (total_attendance.to_f / @total_periods) * 100 %>');
+  doc.text(table_base_x + 170, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= ((total_attendance.to_f / @total_periods) * 100).round %>');
 <% end %>
 
 
