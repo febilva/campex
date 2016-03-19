@@ -1,0 +1,79 @@
+var doc = new jsPDF();
+
+doc.setProperties({
+    title: 'ATTENDANCE REPORT',
+    subject: 'Attendance',     
+    author: 'Mentor Performance Rating',
+    keywords: 'mes, mampad, college, class, attendance, mentor, campex',
+    creator: 'Campex'
+});
+
+doc.setFont("times");
+doc.setFontType("bold");
+
+doc.setFontSize(12);
+doc.text(64, 15, 'MES MAMPAD COLLEGE (Autonomous)');
+
+doc.setFontSize(8);
+doc.text(60, 22, 'CONSOLIDATED ATTENDANCE REPORT FROM <%= @from_date %> - <%= @to_date %>');
+
+var table_base_x = 10;
+var table_base_y = 30;
+var table_width = 190;
+var table_height = 250;
+var table_max_x = table_base_x + table_width;
+var table_max_y = table_base_y + table_height;
+var temp_base_x, temp_base_y, temp_text_base_x, temp_text_base_y;
+
+doc.setLineWidth(0.1);
+doc.rect(table_base_x, table_base_y, table_width, table_height); // rectangle enclosing table
+
+doc.line(table_base_x, table_base_y + 10, table_max_x, table_base_y + 10); // horizontal line
+doc.text(table_base_x + 5, table_base_y + 5, 
+	'<%= "Class: #{@batch.course.full_name}( #{@batch.current_term} )" %>');
+doc.text(table_max_x - 35, table_base_y + 5, 
+	'<%= "Total Working Days: #{@working_days}" %>');
+
+doc.line(table_base_x, table_base_y + 20, table_max_x, table_base_y + 20); // horizontal line
+
+temp_base_x = table_base_x + 15;
+temp_base_y = table_base_y + 10;
+temp_text_base_x = table_base_x + 2;
+temp_text_base_y = temp_base_y + 5;
+doc.line(temp_base_x, temp_base_y, temp_base_x, table_max_y); // vertical line
+doc.text(temp_text_base_x, temp_text_base_y, 'Roll No.');
+
+temp_text_base_x = temp_base_x + 40;
+temp_base_x += 80;
+doc.line(temp_base_x, temp_base_y, temp_base_x, table_max_y); // vertical line
+doc.text(temp_text_base_x, temp_text_base_y, 'Name');
+
+temp_text_base_x = temp_base_x  + 10;
+temp_base_x += 30;
+doc.line(temp_base_x, temp_base_y, temp_base_x, table_max_y); // vertical line
+doc.text(temp_text_base_x, temp_text_base_y, 'Admn. No');
+
+temp_text_base_x = temp_base_x  + 5;
+temp_base_x += 30;
+doc.line(temp_base_x, temp_base_y, temp_base_x, table_max_y); // vertical line
+doc.text(temp_text_base_x, temp_text_base_y, 'Total Attendance');
+
+temp_text_base_x = temp_base_x  + 10;
+doc.text(temp_text_base_x, temp_text_base_y, 'Percentage');
+
+//temp_text_base_y += 5;
+<% @attendances.each_with_index do |(student_id, total_attendance), i| %>
+  <% @student = Student.find(student_id) %>
+  //doc.line(table_base_x, temp_text_base_y + ((<%= i %> + 2) * 5), table_max_x, 
+    //temp_text_base_y + ((<%= i %> + 2) * 5)); // horizontal line
+
+  doc.text(table_base_x + 2, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= @student.roll_no %>');
+  doc.text(table_base_x + 35, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= @student.name %>');
+  doc.text(table_base_x + 100, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= @student.admission_no %>');
+  doc.text(table_base_x + 140, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= total_attendance %>');
+  doc.text(table_base_x + 170, temp_text_base_y + ((<%= i %> + 2) * 5) - 1, '<%= ((total_attendance.to_f / @working_days) * 100).round %>');
+<% end %>
+
+
+doc.save("attendance_report.pdf");
+doc.output('dataurlnewwindow');     //opens the data uri in new window

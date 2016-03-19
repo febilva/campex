@@ -1,5 +1,5 @@
 class BatchesController < ApplicationController
-  before_action :set_course, except: [:show, :edit, :update, :destroy, :paper_list, :papers, :students_list]
+  before_action :set_course, except: [:show, :edit, :update, :destroy, :paper_list, :papers, :students_list, :attendance_report]
   before_action :set_batch, only: [:show, :edit, :update, :destroy, :paper_list, :papers, :students_list]
 
   # GET /batches
@@ -88,6 +88,9 @@ class BatchesController < ApplicationController
     else
       @students = @batch.students.order(:roll_no)
     end
+  end
+  
+  def attendance_report
   end
 
   private

@@ -98,6 +98,23 @@ class StudentAttendanceRegistersController < ApplicationController
     @to_date = @to_date.strftime("%d/%m/%Y")
   end
 
+  def generate_consolidated_report
+    @batch = Batch.find(params[:id])
+    @term = TermDate.where(term_structure_entry_id: params[:term_id]).first
+    @from_date = @term.start_date
+    @to_date = @term.end_date
+    @marked_attendances = StudentAttendanceRegister.where(batch: @batch, 
+    marked_date: @from_date..@to_date, period_id: [1, 6])
+    @working_days = @marked_attendances.count / 2.0
+    @attendances = {}
+    @batch.students.order(:roll_no).each{ |s| @attendances[s.id] = @working_days }
+    @marked_attendances.each do |attendance|
+      attendance.absences.each{ |absence| @attendances[absence.absentee_id] -= 0.5 }
+    end
+    @from_date = @from_date.strftime("%d/%m/%Y")
+    @to_date = @to_date.strftime("%d/%m/%Y")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_student_attendance_register
